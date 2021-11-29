@@ -103,7 +103,7 @@ namespace
     }
 } // namespace
 
-std::string base64::encode(std::span<std::uint8_t const> const input)
+std::string base64pp::encode(std::span<std::uint8_t const> const input)
 {
     auto const size          = input.size();
     auto const full_tripples = size / 3;
@@ -145,7 +145,7 @@ std::string base64::encode(std::span<std::uint8_t const> const input)
     return output;
 }
 
-std::optional<std::vector<std::uint8_t>> base64::decode(
+std::optional<std::vector<std::uint8_t>> base64pp::decode(
     std::string_view const encoded_str)
 {
     auto const size = encoded_str.size();
