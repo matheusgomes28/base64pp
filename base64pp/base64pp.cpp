@@ -9,7 +9,8 @@
 #include <string_view>
 #include <vector>
 
-namespace {
+namespace
+{
     std::array<char, 64> constexpr encode_table{'A', 'B', 'C', 'D', 'E', 'F',
         'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
         'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
@@ -31,7 +32,8 @@ namespace {
         0x64, 0x64, 0x64, 0x64};
 
     std::array<char, 4> encode_tripplet(
-        std::uint8_t a, std::uint8_t b, std::uint8_t c) {
+        std::uint8_t a, std::uint8_t b, std::uint8_t c)
+    {
         std::uint32_t const concat_bits = (a << 16) | (b << 8) | c;
 
         auto const b64_char1 = encode_table[(concat_bits >> 18) & 0b0011'1111];
@@ -41,45 +43,55 @@ namespace {
         return {b64_char1, b64_char2, b64_char3, b64_char4};
     }
 
-    inline bool is_valid_base64_char(char c) {
-        if ((c >= 'A') && (c <= 'Z')) {
+    inline bool is_valid_base64_char(char c)
+    {
+        if ((c >= 'A') && (c <= 'Z'))
+        {
             return true;
         }
 
-        if ((c >= 'a') && ('z')) {
+        if ((c >= 'a') && ('z'))
+        {
             return true;
         }
 
-        if ((c >= '0') && (c <= '9')) {
+        if ((c >= '0') && (c <= '9'))
+        {
             return true;
         }
 
-        if ((c == '+') || (c == '/')) {
+        if ((c == '+') || (c == '/'))
+        {
             return true;
         }
 
         return false;
     }
 
-    inline bool is_valid_base64_str(std::string_view const encoded_str) {
-        if ((encoded_str.size() % 4) != 0) {
+    inline bool is_valid_base64_str(std::string_view const encoded_str)
+    {
+        if ((encoded_str.size() % 4) != 0)
+        {
             return false;
         }
 
         if (!std::all_of(begin(encoded_str), end(encoded_str) - 2,
-                [](char c) { return is_valid_base64_char(c); })) {
+                [](char c) { return is_valid_base64_char(c); }))
+        {
             return false;
         }
 
         auto const last = rbegin(encoded_str);
-        if (!is_valid_base64_char(*next(last))) {
+        if (!is_valid_base64_char(*next(last)))
+        {
             return (*next(last) == '=') && (*last == '=');
         }
 
         return is_valid_base64_char(*last) || (*last == '=');
     }
 
-    std::array<std::uint8_t, 3> decode_quad(char a, char b, char c, char d) {
+    std::array<std::uint8_t, 3> decode_quad(char a, char b, char c, char d)
+    {
         std::uint32_t const concat_bytes =
             (decode_table[a] << 18) | (decode_table[b] << 12)
             | (decode_table[c] << 6) | decode_table[d];
@@ -91,14 +103,16 @@ namespace {
     }
 } // namespace
 
-std::string base64::encode(std::span<std::uint8_t const> const input) {
+std::string base64::encode(std::span<std::uint8_t const> const input)
+{
     auto const size          = input.size();
     auto const full_tripples = size / 3;
 
     std::string output;
     output.reserve((full_tripples + 2) * 4);
 
-    for (auto i = 0; i < full_tripples; ++i) {
+    for (auto i = 0; i < full_tripples; ++i)
+    {
         auto const tripplet = input.subspan(i * 3, 3);
         auto const base64_chars =
             encode_tripplet(tripplet[0], tripplet[1], tripplet[2]);
@@ -107,7 +121,8 @@ std::string base64::encode(std::span<std::uint8_t const> const input) {
     }
 
     if (auto const remaining_chars = size - full_tripples * 3;
-        remaining_chars == 2) {
+        remaining_chars == 2)
+    {
         auto const last_two = input.last(2);
         auto const base64_chars =
             encode_tripplet(last_two[0], last_two[1], 0x00);
@@ -116,7 +131,9 @@ std::string base64::encode(std::span<std::uint8_t const> const input) {
         output.push_back(base64_chars[1]);
         output.push_back(base64_chars[2]);
         output.push_back('=');
-    } else if (remaining_chars == 1) {
+    }
+    else if (remaining_chars == 1)
+    {
         auto const base64_chars = encode_tripplet(input.back(), 0x00, 0x00);
 
         output.push_back(base64_chars[0]);
@@ -129,14 +146,17 @@ std::string base64::encode(std::span<std::uint8_t const> const input) {
 }
 
 std::optional<std::vector<std::uint8_t>> base64::decode(
-    std::string_view const encoded_str) {
+    std::string_view const encoded_str)
+{
     auto const size = encoded_str.size();
 
-    if (size == 0) {
+    if (size == 0)
+    {
         return std::vector<std::uint8_t>{};
     }
 
-    if (((size % 4) != 0) || !is_valid_base64_str(encoded_str)) {
+    if (((size % 4) != 0) || !is_valid_base64_str(encoded_str))
+    {
         return std::nullopt;
     }
 
@@ -145,21 +165,27 @@ std::optional<std::vector<std::uint8_t>> base64::decode(
     std::vector<std::uint8_t> decoded_bytes;
     decoded_bytes.reserve(((full_quadruples + 2) * 3) / 4);
 
-    for (auto i = 0; i < full_quadruples; ++i) {
+    for (auto i = 0; i < full_quadruples; ++i)
+    {
         auto const quad  = encoded_str.substr(i * 4, 4);
         auto const bytes = decode_quad(quad[0], quad[1], quad[2], quad[3]);
         std::copy(begin(bytes), end(bytes), back_inserter(decoded_bytes));
     }
 
     if (auto const last_quad = encoded_str.substr(full_quadruples * 4, 4);
-        last_quad[2] == '=') {
+        last_quad[2] == '=')
+    {
         auto const bytes = decode_quad(last_quad[0], last_quad[1], 'A', 'A');
         decoded_bytes.push_back(bytes[0]);
-    } else if (last_quad[3] == '=') {
+    }
+    else if (last_quad[3] == '=')
+    {
         auto const bytes =
             decode_quad(last_quad[0], last_quad[1], last_quad[2], 'A');
         std::copy_n(begin(bytes), 2, back_inserter(decoded_bytes));
-    } else {
+    }
+    else
+    {
         auto const bytes =
             decode_quad(last_quad[0], last_quad[1], last_quad[2], last_quad[3]);
         std::copy_n(begin(bytes), 3, back_inserter(decoded_bytes));
@@ -167,4 +193,3 @@ std::optional<std::vector<std::uint8_t>> base64::decode(
 
     return decoded_bytes;
 }
-

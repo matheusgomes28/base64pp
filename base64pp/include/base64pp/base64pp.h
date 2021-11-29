@@ -5,7 +5,8 @@
 #include <string_view>
 #include <vector>
 
-namespace base64 {
+namespace base64
+{
     std::string encode(std::span<std::uint8_t const> const input);
 
     std::optional<std::vector<std::uint8_t>> decode(
