@@ -4,13 +4,21 @@
 # https://aka.ms/yaml
 
 pool:
-  vmImage: 'mattgomes28/wavytune:compx86_64v4'
+  vmImage: 'ubuntu-latest'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+stages:
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- stage: 'failfast'
+  displayName: 'Fail Fast Checks'
+  jobs:
+  - job: 'say hi'  
+    container: 'conanio/gcc10:1.42.1'
+    continueOnError: 'false'
+    steps:
+      - script: echo Hello, world!
+        displayName: 'Run a one-line script'
+
+      - script: |
+          echo Add other takss to build, test, and deploy your project.
+          echo see https://aka.ms/yaml
+        displayName: 'Run a multi-line script'
