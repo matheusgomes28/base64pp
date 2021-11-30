@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 pool:
-  vmImage: 'conanio/gcc10:1.42.1'
+  vmImage: 'ubuntu-latest'
 
 steps:
 - script: echo Hello, world!
