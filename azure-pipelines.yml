@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 pool:
-  vmImage: 'conanio/gcc10:latest'
+  vmImage: 'mattgomes28/wavytune:compx86_64v4'
 
 steps:
 - script: echo Hello, world!
