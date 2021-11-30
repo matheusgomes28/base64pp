@@ -6,13 +6,19 @@
 pool:
   vmImage: 'ubuntu-latest'
 
+resources:
+  containers:
+    - container: 'conan'
+      image: 'conanio/gcc10:1.42.1'
+      options: '--user 0:0'
+
 stages:
 
 - stage: 'failfast'
   displayName: 'Fail Fast Checks'
   jobs:
   - job: 'say hi'  
-    container: 'conanio/gcc10:1.42.1'
+    container: 'conan'
     continueOnError: 'false'
     steps:
       - script: echo Hello, world!
