@@ -17,7 +17,7 @@ stages:
 - stage: 'failfast'
   displayName: 'Fail Fast Checks'
   jobs:
-  - job: 'Build Project x86-64'  
+  - job: 'build_x86_64'  
     container: 'conan'
     continueOnError: 'false'
     steps:
