@@ -17,14 +17,12 @@ stages:
 - stage: 'failfast'
   displayName: 'Fail Fast Checks'
   jobs:
-  - job: 'say_hi'  
+  - job: 'Build Project x86-64'  
     container: 'conan'
     continueOnError: 'false'
     steps:
-      - script: echo Hello, world!
-        displayName: 'Run a one-line script'
+      - bash: scripts/helpers/conan-install.sh
+        displayName: 'Installing all Conan dependencies'
 
-      - script: |
-          echo Add other takss to build, test, and deploy your project.
-          echo see https://aka.ms/yaml
-        displayName: 'Run a multi-line script'
+      - bash: scripts/build_x86-64.sh
+        displayName: 'Compile Code & Tests'
