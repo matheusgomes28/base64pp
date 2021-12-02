@@ -14,8 +14,8 @@ resources:
 
 stages:
 
-- stage: 'failfast'
-  displayName: 'Fail Fast Checks'
+- stage: 'build'
+  displayName: 'Build Project'
   jobs:
   - job: 'build_x86_64'  
     container: 'conan'
@@ -23,6 +23,34 @@ stages:
     steps:
       - bash: scripts/helpers/conan-install.sh
         displayName: 'Installing all Conan dependencies'
+        workingDirectory: $(Build.SourcesDirectory)
 
-      - bash: scripts/build_x86-64.sh
+      - bash: |
+          echo "Working directory is $(pwd)"
+          scripts/build_x86-64.sh
         displayName: 'Compile Code & Tests'
+        workingDirectory: $(Build.SourcesDirectory)
+
+      - publish: $(Build.SourcesDirectory)
+        artifact: 'BuildFiles'
+
+- stage: 'tests'
+  displayName: 'Running Tests'
+  jobs:
+  - job:
+    steps:
+      - checkout: none
+      - task: DownloadPipelineArtifact@2
+        displayName: 'Download Built Files'
+        inputs:
+          source: current
+          artifact: 'BuildFiles'
+          path: $(Build.SourcesDirectory)
+
+      - bash: |
+          cd 'build'
+          echo "Build Directory: $(pwd)"
+          ctest --verbose
+        displayName: 'Running All Tests'
+        workingDirectory: $(Build.SourcesDirectory)
+

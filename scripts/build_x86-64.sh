@@ -12,17 +12,14 @@ PROJECT_DIR="$(cd "${THIS_DIR}/.." && pwd)"
 BUILD_DIR="${PROJECT_DIR}/build"
 
 
-# Install all dependencies
-${THIS_DIR}/conan-install.sh
-
 # configure the project
 cmake \
   -B "${BUILD_DIR}" \
   -DCMAKE_MODULE_PATH:FILEPATH="${BUILD_DIR}" \
-  ${PROJECT_DIR}
+  "${PROJECT_DIR}"
 
 
 cmake \
-  --build ${BUILD_DIR} \
+  --build "${BUILD_DIR}" \
   -j"$(nproc)"
   
