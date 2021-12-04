@@ -22,8 +22,6 @@ stages:
     container: 'conan'
     continueOnError: 'false'
     steps:
-      - checkout: self
-        path: $(Build.SourcesDirectory)
       - bash: scripts/helpers/conan-install.sh
         displayName: 'Installing all Conan dependencies'
         workingDirectory: $(Build.SourcesDirectory)
