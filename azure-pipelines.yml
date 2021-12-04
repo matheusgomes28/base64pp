@@ -39,6 +39,7 @@ stages:
   displayName: 'Running Tests'
   jobs:
   - job:
+    container: 'conan'
     steps:
       - checkout: none
       - task: DownloadPipelineArtifact@2
