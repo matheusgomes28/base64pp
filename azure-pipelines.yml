@@ -10,7 +10,7 @@ resources:
   containers:
     - container: 'conan'
       image: 'conanio/gcc10:1.42.1'
-      options: '--user 0:0'
+      options: '--user 0:0 --workdir /testing'
 
 stages:
 
