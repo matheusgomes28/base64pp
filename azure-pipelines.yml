@@ -2,6 +2,7 @@
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
+#
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -12,6 +13,10 @@ resources:
       image: 'conanio/gcc10:1.42.1'
       options: '--user 0:0 --workdir /testing'
 
+variables:
+  - name: 'RootDir'
+    value: '/base64azure/'
+
 stages:
 
 - stage: 'build'
@@ -21,17 +26,19 @@ stages:
     container: 'conan'
     continueOnError: 'false'
     steps:
+      - checkout: self
+        path: $(RootDir)
       - bash: scripts/helpers/conan-install.sh
         displayName: 'Installing all Conan dependencies'
-        workingDirectory: $(Build.SourcesDirectory)
+        workingDirectory: $(RootDir)
 
       - bash: |
           echo "Working directory is $(pwd)"
           scripts/build_x86-64.sh
         displayName: 'Compile Code & Tests'
-        workingDirectory: $(Build.SourcesDirectory)
+        workingDirectory: $(RootDir)
 
-      - publish: $(Build.SourcesDirectory)
+      - publish: $(RootDir)
         artifact: 'BuildFiles'
 
 - stage: 'tests'
@@ -45,12 +52,11 @@ stages:
         inputs:
           source: current
           artifact: 'BuildFiles'
-          path: $(Build.SourcesDirectory)
+          path: $(RootDir)
 
       - bash: |
           cd 'build'
           echo "Build Directory: $(pwd)"
           ctest --verbose
         displayName: 'Running All Tests'
-        workingDirectory: $(Build.SourcesDirectory)
-
+        workingDirectory: $(RootDir)
