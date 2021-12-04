@@ -13,10 +13,6 @@ resources:
       image: 'conanio/gcc10:1.42.1'
       options: '--user 0:0 --workdir /testing'
 
-variables:
-  - name: 'RootDir'
-    value: '/base64azure/'
-
 stages:
 
 - stage: 'build'
@@ -27,18 +23,18 @@ stages:
     continueOnError: 'false'
     steps:
       - checkout: self
-        path: $(RootDir)
+        path: $(Build.SourcesDirectory)
       - bash: scripts/helpers/conan-install.sh
         displayName: 'Installing all Conan dependencies'
-        workingDirectory: $(RootDir)
+        workingDirectory: $(Build.SourcesDirectory)
 
       - bash: |
           echo "Working directory is $(pwd)"
           scripts/build_x86-64.sh
         displayName: 'Compile Code & Tests'
-        workingDirectory: $(RootDir)
+        workingDirectory: $(Build.SourcesDirectory)
 
-      - publish: $(RootDir)
+      - publish: $(Build.SourcesDirectory)
         artifact: 'BuildFiles'
 
 - stage: 'tests'
@@ -52,11 +48,11 @@ stages:
         inputs:
           source: current
           artifact: 'BuildFiles'
-          path: $(RootDir)
+          path: $(Build.SourcesDirectory)
 
       - bash: |
           cd 'build'
           echo "Build Directory: $(pwd)"
           ctest --verbose
         displayName: 'Running All Tests'
-        workingDirectory: $(RootDir)
+        workingDirectory: $(Build.SourcesDirectory)
