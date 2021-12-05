@@ -34,10 +34,10 @@ stages:
         displayName: 'Compile Code & Tests'
         workingDirectory: $(Build.SourcesDirectory)
 
-      - task: PublishPipelineArtifacts@1
+      - task: PublishPipelineArtifact@1
         inputs:
-          - targetPath: "$(Build.SourcesDirectory)/artifacts"
-          - artifactName: 'BuildFiles'
+          targetPath: "$(Build.SourcesDirectory)/artifacts"
+          artifactName: 'BuildFiles'
 
 - stage: 'tests'
   displayName: 'Running Tests'
