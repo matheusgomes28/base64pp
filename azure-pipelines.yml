@@ -27,6 +27,7 @@ stages:
         workingDirectory: $(Build.SourcesDirectory)
 
       - bash: |
+          set -euo pipefail
           echo "Working directory is $(pwd)"
           scripts/build_x86-64.sh
           mkdir -p "$(Build.SourcesDirectory)/artifacts"
@@ -55,6 +56,7 @@ stages:
           path: "$(Build.SourcesDirectory)/artifacts"
 
       - bash: |
+          set -euo pipefail
           ls -lah "artifacts"
           tar -xzf "artifacts/build-x86_64.tar.gz" -C "build/"
           cd 'build'
