@@ -55,7 +55,7 @@ stages:
           path: "$(Build.SourcesDirectory)/artifacts"
 
       - bash: |
-          ls -lah
+          ls -lah "artifacts"
           tar -xzf "artifacts/build-x86-64.tar.gz" -C "build/"
           cd 'build'
           echo "Build Directory: $(pwd)"
