@@ -29,8 +29,9 @@ stages:
       - bash: |
           echo "Working directory is $(pwd)"
           scripts/build_x86-64.sh
-          mkdir "$(Build.SourcesDirectory)/artifacts"
-          tar -zcf "artifacts/build-x86_64.tar.gz" "build/" 
+          mkdir -p "$(Build.SourcesDirectory)/artifacts"
+          tar -zcf "$(Build.SourcesDirectory)/artifacts/build-x86_64.tar.gz" "build/" 
+          ls -lah "$(Build.SourcesDirectory)/artifacts"
         displayName: 'Compile Code & Tests'
         workingDirectory: $(Build.SourcesDirectory)
 
@@ -54,6 +55,7 @@ stages:
           path: "$(Build.SourcesDirectory)/artifacts"
 
       - bash: |
+          ls -lah
           tar -xzf "artifacts/build-x86-64.tar.gz" -C "build/"
           cd 'build'
           echo "Build Directory: $(pwd)"
