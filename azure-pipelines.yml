@@ -56,7 +56,6 @@ stages:
       - bash: |
           set -euo pipefail
           tar -xzf "artifacts/build-x86_64.tar.gz"
-          cd "build"
-          ctest --verbose
+          ctest --verbose --test-dir="build/"
         displayName: 'Running All Tests'
         workingDirectory: $(Build.SourcesDirectory)
