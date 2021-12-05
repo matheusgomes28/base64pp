@@ -57,9 +57,7 @@ stages:
 
       - bash: |
           set -euo pipefail
-          mkdir 'build'
-          tar -xzf "artifacts/build-x86_64.tar.gz" -C "build/"
-          cd 'build'
+          tar -xzf "artifacts/build-x86_64.tar.gz"
           echo "Build Directory: $(pwd)"
           ls -lah
           ctest --verbose
