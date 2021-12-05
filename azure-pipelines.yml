@@ -61,6 +61,7 @@ stages:
           tar -xzf "artifacts/build-x86_64.tar.gz" -C "build/"
           cd 'build'
           echo "Build Directory: $(pwd)"
+          ls -lah
           ctest --verbose
         displayName: 'Running All Tests'
         workingDirectory: $(Build.SourcesDirectory)
