@@ -59,6 +59,7 @@ stages:
           set -euo pipefail
           tar -xzf "artifacts/build-x86_64.tar.gz"
           echo "Build Directory: $(pwd)"
+          cd "build"
           ls -lah
           ctest --verbose
         displayName: 'Running All Tests'
