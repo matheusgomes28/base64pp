@@ -29,12 +29,15 @@ stages:
       - bash: |
           echo "Working directory is $(pwd)"
           scripts/build_x86-64.sh
-          tar -zcf "build-x86_64.tar.gz" "build/" 
+          mkdir "$(Build.SourcesDirectory)/artifacts"
+          tar -zcf "artifacts/build-x86_64.tar.gz" "build/" 
         displayName: 'Compile Code & Tests'
         workingDirectory: $(Build.SourcesDirectory)
 
-      - publish: $(Buid.SourcesDirectory)/build-x86-64.tar.gz
-        artifact: 'BuildFiles'
+      - task: PublishPipelineArtifacts@1
+        inputs:
+          - targetPath: "$(Build.SourcesDirectory)/artifacts"
+          - artifactName: 'BuildFiles'
 
 - stage: 'tests'
   displayName: 'Running Tests'
@@ -48,10 +51,10 @@ stages:
         inputs:
           source: current
           artifact: 'BuildFiles'
-          path: $(Build.SourcesDirectory)
+          path: "$(Build.SourcesDirectory)/artifacts"
 
       - bash: |
-          tar -xzf "build-x86-64.tar.gz"
+          tar -xzf "artifacts/build-x86-64.tar.gz" -C "build/"
           cd 'build'
           echo "Build Directory: $(pwd)"
           ctest --verbose
