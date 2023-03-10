@@ -15,6 +15,7 @@ BUILD_DIR="${PROJECT_DIR}/build"
 wget https://github.com/Kitware/CMake/releases/download/v3.25.3/cmake-3.25.3-linux-x86_64.sh
 bash cmake-3.25.3-linux-x86_64.sh --skip-license
 sudo cp bin/* /usr/bin/
+sudo cp -r share/cmake-3.25 /usr/share/cmake-3.25
 cmake --version
 
 # configure the project
