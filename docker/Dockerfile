@@ -25,14 +25,13 @@ RUN apt-get update \
     python3 \
     python3-pip \
     && mkdir "/conan" \
+    && pip3 install --upgrade --no-cache pip \
     && pip3 install --no-cache -q conan==2.0.1 \
     && chmod -R 777 "/conan" \
     && pip3 install --no-cache cmake==3.25.2 \
-    && update-alternatives --remove-all gcc \
-    && update-alternatives --remove-all g++ \
-    && update-alternatives --set gcc "/usr/bin/gcc-11" \
-    && update-alternatives --set g++ "/usr/bin/g++-11" \
-    && apt-get remove software-properties-common \
+    && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 10 \
+    && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 10 \
+    && apt-get remove -y software-properties-common \
     && apt-get clean \
-    && apt-get autoremove \
-    && apt-get autoremove --purge
+    && apt-get autoremove -y \
+    && apt-get autoremove --purge -y
