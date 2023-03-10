@@ -11,7 +11,7 @@ BUILD_DIR="${PROJECT_DIR}/build"
 
 
 conan profile detect --force
-sed -i 's/build_type=Release/build_type=Debug/g' /home/conan/.conan2/profiles/default
+sudo sed -i 's/build_type=Release/build_type=Debug/g' /home/vsts_azpcontainer/.conan2/profiles/default
 
 
 # Install all dependencies
