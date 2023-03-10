@@ -1,5 +1,10 @@
 include(CTest)
 
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Debug" CACHE STRING
+            "Default build type: Debug" FORCE)
+endif()
+
 find_package(GTest REQUIRED)
 
 add_executable(base64pp_tests base64pp_tests.cpp)
