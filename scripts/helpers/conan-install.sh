@@ -9,19 +9,13 @@ set -euo pipefail
 PROJECT_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 BUILD_DIR="${PROJECT_DIR}/build"
 
-# Get the profile and save to file
-PROFILE_FILE="${BUILD_DIR}/ubuntu_x86-64_gcc10"
-if [ -f "${PROFILE_FILE}" ]; then
-  rm "${PROFILE_FILE}"
-fi
 
-conan profile new "${PROFILE_FILE}"  --detect
-conan profile update settings.compiler.libcxx=libstdc++11 "${PROFILE_FILE}"
-conan profile update settings.build_type=Debug "${PROFILE_FILE}"
+conan profile detect --force
+sed -i 's/build_type=Release/build_type=Debug/g' /home/conan/.conan2/profiles/default
+
 
 # Install all dependencies
 conan install \
   --install-folder="${BUILD_DIR}" \
   --build=missing \
-  --profile="${PROFILE_FILE}" \
   "${PROJECT_DIR}"
