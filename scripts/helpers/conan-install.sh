@@ -16,6 +16,6 @@ sudo sed -i 's/build_type=Release/build_type=Debug/g' /home/vsts_azpcontainer/.c
 
 # Install all dependencies
 conan install \
-  --install-folder="${BUILD_DIR}" \
+  --output-folder="${BUILD_DIR}" \
   --build=missing \
   "${PROJECT_DIR}"
