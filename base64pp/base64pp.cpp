@@ -50,7 +50,7 @@ namespace
             return true;
         }
 
-        if ((c >= 'a') && ('z'))
+        if ((c >= 'a') && (c <= 'z'))
         {
             return true;
         }
