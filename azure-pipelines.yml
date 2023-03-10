@@ -10,7 +10,7 @@ pool:
 resources:
   containers:
     - container: 'conan'
-      image: 'conanio/gcc10:1.42.1'
+      image: 'conanio/gcc11-ubuntu16.04'
       options: '--user 0:0'
 
 stages:
