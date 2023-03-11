@@ -17,6 +17,12 @@ option(BUILD_DOCS "Build documentation" ON)
 
 if (BUILD_DOCS)
     find_package(Doxygen)
+
+
+    set(DOXYGEN_IN ${CMAKE_CURRENT_LIST_DIR}/Doxyfile.in)
+    set(DOXYGEN_OUT ${CMAKE_CURRENT_LIST_DIR}/Doxyfile)
+    configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
+
     if (DOXYGEN_FOUND)
         # note the option ALL which allows to build the docs together with the application
         add_custom_target(doxygen_build
