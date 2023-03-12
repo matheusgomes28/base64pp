@@ -45,6 +45,10 @@ stages:
   - job:
     container: 'ubuntu18.04-gcc11-conan2-doxygen1.9.6'
     steps:
+      - bash: scripts/helpers/conan-install.sh
+        displayName: 'Installing all Conan dependencies'
+        workingDirectory: $(Build.SourcesDirectory)
+
       - task: DownloadPipelineArtifact@2
         displayName: 'Download Built Files'
         inputs:
@@ -55,15 +59,15 @@ stages:
       - bash: |
           set -euo pipefail
           tar -xzf "artifacts/build-x86_64.tar.gz"
-          cd "build/" && cmake --build . --target=doxygen_build"
+          cd build && cmake --build . --target=doxygen_build
           mkdir -p "$(Build.SourcesDirectory)/artifacts"
-          tar -zcf "$(Build.SourcesDirectory)/artifacts/docs.tar.gz" "build/docs" 
+          tar -zcf "$(Build.SourcesDirectory)/artifacts/docs.tar.gz" "docs" 
         displayName: 'Building The Doxygen Target'
         workingDirectory: $(Build.SourcesDirectory)
       
       - task: PublishPipelineArtifact@1
         inputs:
-          targetPath: "$(Build.SourcesDirectory)/docs"
+          targetPath: "$(Build.SourcesDirectory)/artifacts"
           artifactName: 'DocsFiles'
 
 - stage: 'tests'
