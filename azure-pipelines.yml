@@ -45,6 +45,10 @@ stages:
   - job:
     container: 'ubuntu18.04-gcc11-conan2-doxygen1.9.6'
     steps:
+      - bash: scripts/helpers/conan-install.sh
+        displayName: 'Installing all Conan dependencies'
+        workingDirectory: $(Build.SourcesDirectory)
+
       - task: DownloadPipelineArtifact@2
         displayName: 'Download Built Files'
         inputs:
