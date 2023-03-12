@@ -16,6 +16,7 @@ BUILD_DIR="${PROJECT_DIR}/build"
 cmake \
   -B "${BUILD_DIR}" \
   -DCMAKE_MODULE_PATH:FILEPATH="${BUILD_DIR}" \
+  -DCMAKE_BUILD_TYPE="Debug" \
   "${PROJECT_DIR}"
 
 
