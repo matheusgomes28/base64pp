@@ -61,7 +61,7 @@ stages:
           tar -xzf "artifacts/build-x86_64.tar.gz"
           cd build && cmake --build . --target=doxygen_build
           mkdir -p "$(Build.SourcesDirectory)/artifacts"
-          tar -zcf "$(Build.SourcesDirectory)/artifacts/docs.tar.gz" "build/docs" 
+          tar -zcf "$(Build.SourcesDirectory)/artifacts/docs.tar.gz" "docs" 
         displayName: 'Building The Doxygen Target'
         workingDirectory: $(Build.SourcesDirectory)
       
