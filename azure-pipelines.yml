@@ -67,7 +67,7 @@ stages:
       
       - task: PublishPipelineArtifact@1
         inputs:
-          targetPath: "$(Build.SourcesDirectory)/docs"
+          targetPath: "$(Build.SourcesDirectory)/artifacts"
           artifactName: 'DocsFiles'
 
 - stage: 'tests'
