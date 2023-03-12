@@ -21,6 +21,9 @@ if (BUILD_DOCS)
 
     set(DOXYGEN_IN ${CMAKE_CURRENT_LIST_DIR}/Doxyfile.in)
     set(DOXYGEN_OUT ${CMAKE_CURRENT_LIST_DIR}/Doxyfile)
+    set(DOXYGEN_STYLESHEET_DIR "${CMAKE_CURRENT_LIST_DIR}/doxygen-awesome-css")
+    set(DOXYGEN_OUTPUT_DIR "${CMAKE_BINARY_DIR}/docs")
+    
     configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
 
     if (DOXYGEN_FOUND)
@@ -30,6 +33,26 @@ if (BUILD_DOCS)
             WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
             COMMENT "Generating API documentation with Doxygen"
             VERBATIM)
+
+        file(GLOB DOXYGEN_STYLESHEET_FILES ${CMAKE_CURRENT_LIST_DIR}/doxygen-awesome-css/*.css)
+        file(GLOB DOXYGEN_JAVASCRIPT_FILES ${CMAKE_CURRENT_LIST_DIR}/doxygen-awesome-css/*.js)
+        add_custom_target(copy_doxygen_css)
+        foreach(F ${DOXYGEN_STYLESHEET_FILES})
+            get_filename_component(F_NAME ${F} NAME)
+            add_custom_command(TARGET copy_doxygen_css
+                               POST_BUILD
+                               COMMAND ${CMAKE_COMMAND} -E copy_if_different ${F} ${DOXYGEN_OUTPUT_DIR}/html/${F_NAME})
+        endforeach()
+        add_dependencies(doxygen_build copy_doxygen_css)
+
+        add_custom_target(copy_doxygen_js)
+        foreach(F ${DOXYGEN_JAVASCRIPT_FILES})
+            get_filename_component(F_NAME ${F} NAME)
+            add_custom_command(TARGET copy_doxygen_js
+                               POST_BUILD
+                               COMMAND ${CMAKE_COMMAND} -E copy_if_different ${F} ${DOXYGEN_OUTPUT_DIR}/html/${F_NAME})
+        endforeach()
+        add_dependencies(doxygen_build copy_doxygen_js)
     else()
         message("Doxygen need to be installed to generate the doxygen documentation")
     endif()
