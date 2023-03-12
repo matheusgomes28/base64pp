@@ -9,8 +9,8 @@ pool:
 
 resources:
   containers:
-    - container: 'conan'
-      image: 'conanio/gcc11-ubuntu16.04'
+    - container: 'ubuntu18.04-gcc11-conan2'
+      image: 'mattgomes28/cpp-ubuntu-bionic:0.1'
       options: '--user 0:0'
 
 stages:
@@ -19,7 +19,7 @@ stages:
   displayName: 'Build Project'
   jobs:
   - job: 'build_x86_64'  
-    container: 'conan'
+    container: 'ubuntu18.04-gcc11-conan2'
     continueOnError: 'false'
     steps:
       - bash: scripts/helpers/conan-install.sh
@@ -43,7 +43,7 @@ stages:
   displayName: 'Running Tests'
   jobs:
   - job:
-    container: 'conan'
+    container: 'ubuntu18.04-gcc11-conan2'
     steps:
       - checkout: none
       - task: DownloadPipelineArtifact@2
