@@ -11,6 +11,7 @@ THIS_DIR=$(cd "$(dirname "$0")" && pwd)
 PROJECT_DIR="$(cd "${THIS_DIR}/.." && pwd)"
 BUILD_DIR="${PROJECT_DIR}/build"
 
+
 # configure the project
 cmake \
   -B "${BUILD_DIR}" \
