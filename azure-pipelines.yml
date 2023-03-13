@@ -45,6 +45,8 @@ stages:
   - job:
     container: 'ubuntu18.04-gcc11-conan2-doxygen1.9.6'
     steps:
+      - checkout: self
+        submodules: recursive
       - bash: scripts/helpers/conan-install.sh
         displayName: 'Installing all Conan dependencies'
         workingDirectory: $(Build.SourcesDirectory)
