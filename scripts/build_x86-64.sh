@@ -14,6 +14,5 @@ PROJECT_DIR="$(cd "${THIS_DIR}/.." && pwd)"
 # configure the project
 cmake --preset "unix-deb"
 
-
 cmake --build --preset "unix-deb" -j"$(nproc)"
   
