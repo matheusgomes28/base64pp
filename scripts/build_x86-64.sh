@@ -9,18 +9,11 @@ set -euo pipefail
 
 THIS_DIR=$(cd "$(dirname "$0")" && pwd)
 PROJECT_DIR="$(cd "${THIS_DIR}/.." && pwd)"
-BUILD_DIR="${PROJECT_DIR}/build"
 
 
 # configure the project
-cmake \
-  -B "${BUILD_DIR}" \
-  -DCMAKE_MODULE_PATH:FILEPATH="${BUILD_DIR}" \
-  -DCMAKE_BUILD_TYPE="Debug" \
-  "${PROJECT_DIR}"
+cmake --preset "unix-deb"
 
 
-cmake \
-  --build "${BUILD_DIR}" \
-  -j"$(nproc)"
+cmake --build --preset "unix-deb" -j"$(nproc)"
   
