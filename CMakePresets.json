@@ -1,0 +1,199 @@
+{
+    "version": 2,
+    "configurePresets": [
+        {
+            "name": "conan-rel",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_MODULE_PATH": "${sourceDir}/conan-rel"
+            }
+        },
+        {
+            "name": "conan-deb",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_MODULE_PATH": "${sourceDir}/conan-deb"
+            }
+        },
+        {
+            "name": "rel",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/rel"
+            }
+        },
+        {
+            "name": "deb",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/deb"
+            }
+        },
+        {
+            "name": "ninja-unix",
+            "hidden": true,
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS": "$env{CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic"
+            }
+        },
+        {
+            "name": "ninja-windows",
+            "hidden": true,
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS": "$env{CMAKE_CXX_FLAGS} /W4"
+            }
+        },
+        {
+            "name": "unix",
+            "hidden": true,
+            "generator": "Unix Makefiles",
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS": "$env{CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic"
+            }
+        },
+        {
+            "name": "vs2022",
+            "hidden": true,
+            "generator": "Visual Studio 17 2022",
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS": "$env{CMAKE_CXX_FLAGS} /W4"
+            }
+        },
+        {
+            "name": "vs2019",
+            "hidden": true,
+            "generator": "Visual Studio 16 2019",
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS": "$env{CMAKE_CXX_FLAGS} /W4"
+            }
+        },
+
+
+        {
+            "name": "ninja-unix-rel",
+            "displayName": "Ninja Unix Release",
+            "binaryDir": "${sourceDir}/build/ninja-unix-rel",
+            "inherits": ["ninja-unix", "rel", "conan-rel"]
+        },
+        {
+            "name": "ninja-unix-deb",
+            "displayName": "Ninja Unix Debug",
+            "binaryDir": "${sourceDir}/build/ninja-unix-deb",
+            "inherits": ["ninja-unix", "deb", "conan-deb"]
+        },
+        {
+            "name": "ninja-windows-rel",
+            "displayName": "Ninja Windows Release",
+            "binaryDir": "${sourceDir}/build/ninja-windows-rel",
+            "inherits": ["ninja-windows", "rel", "conan-rel"]
+        },
+        {
+            "name": "ninja-windows-deb",
+            "displayName": "Ninja Windows Debug",
+            "binaryDir": "${sourceDir}/build/ninja-deb",
+            "inherits": ["ninja-windows", "deb", "conan-deb"]
+        },
+        {
+            "name": "unix-rel",
+            "displayName": "Unix Make Release",
+            "binaryDir": "${sourceDir}/build/unix-rel",
+            "inherits": ["unix", "rel", "conan-rel"]
+        },
+        {
+            "name": "unix-deb",
+            "displayName": "Unix Make Debug",
+            "binaryDir": "${sourceDir}/build/unix-deb",
+            "inherits": ["unix", "deb", "conan-deb"]
+        },
+        {
+            "name": "vs2022-rel",
+            "displayName": "Visual Studio 2022 Release",
+            "binaryDir": "${sourceDir}/build/vs2022-rel",
+            "inherits": ["vs2022", "rel", "conan-rel"]
+        },
+        {
+            "name": "vs2022-deb",
+            "displayName": "Visual Studio 2022 Debug",
+            "binaryDir": "${sourceDir}/build/vs2022-deb",
+            "inherits": ["vs2022", "deb", "conan-deb"]
+        },
+        {
+            "name": "vs2019-rel",
+            "displayName": "Visual Studio 2019 Release",
+            "binaryDir": "${sourceDir}/build/vs2019-rel",
+            "inherits": ["vs2019", "rel", "conan-rel"]
+        },
+        {
+            "name": "vs2019-deb",
+            "displayName": "Visual Studio 2019 Debug",
+            "binaryDir": "${sourceDir}/build/vs2019-deb",
+            "inherits": ["vs2019", "deb", "conan-deb"]
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "vs2022-rel",
+            "displayName": "Visual Studio 2022 Release Build",
+            "configurePreset": "vs2022-rel",
+            "configuration": "Release"
+        },
+        {
+            "name": "vs2022-deb",
+            "displayName": "Visual Studio 2022 Debug Build",
+            "configurePreset": "vs2022-deb",
+            "configuration": "Debug"
+        },
+        {
+            "name": "vs2019-rel",
+            "displayName": "Visual Studio 2019 Release Build",
+            "configurePreset": "vs2019-rel",
+            "configuration": "Release"
+        },
+        {
+            "name": "vs2019-deb",
+            "displayName": "Visual Studio 2019 Debug Build",
+            "configurePreset": "vs2019-deb",
+            "configuration": "Debug"
+        },
+        {
+            "name": "unix-deb",
+            "displayName": "Unix Make Debug Build",
+            "configurePreset": "unix-deb",
+            "configuration": "Debug"
+        },
+        {
+            "name": "unix-rel",
+            "displayName": "Unix Make Release Build",
+            "configurePreset": "unix-rel",
+            "configuration": "Release"
+        },
+        {
+            "name": "ninja-unix-rel",
+            "displayName": "Ninja Unix Release Build",
+            "configurePreset": "ninja-unix-rel",
+            "configuration": "Release"
+        },
+        {
+            "name": "ninja-unix-deb",
+            "displayName": "Ninja Unix Debug Build",
+            "configurePreset": "ninja-unix-deb",
+            "configuration": "Debug"
+        },
+        {
+            "name": "ninja-windows-rel",
+            "displayName": "Ninja Windows Release Build",
+            "configurePreset": "ninja-windows-rel",
+            "configuration": "Release"
+        },
+        {
+            "name": "ninja-windows-deb",
+            "displayName": "Ninja Windows Debug Build",
+            "configurePreset": "ninja-windows-deb",
+            "configuration": "Debug"
+        }
+    ]
+}
