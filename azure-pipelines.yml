@@ -61,7 +61,7 @@ stages:
       - bash: |
           set -euo pipefail
           tar -xzf "artifacts/build-x86_64.tar.gz"
-          cd build && cmake --build . --target=doxygen_build
+          cd "build/unix-deb" && cmake --build . --target=doxygen_build
           mkdir -p "$(Build.SourcesDirectory)/artifacts"
           tar -zcf "$(Build.SourcesDirectory)/artifacts/docs.tar.gz" "docs" 
         displayName: 'Building The Doxygen Target'
@@ -89,6 +89,6 @@ stages:
       - bash: |
           set -euo pipefail
           tar -xzf "artifacts/build-x86_64.tar.gz"
-          cd "build/" && ctest --verbose --test-dir="build/"
+          cd "build/unix-deb" && ctest --verbose --test-dir="build/unix-deb"
         displayName: 'Running All Tests'
         workingDirectory: $(Build.SourcesDirectory)

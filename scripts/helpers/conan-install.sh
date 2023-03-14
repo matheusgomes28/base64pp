@@ -9,13 +9,19 @@ set -euo pipefail
 PROJECT_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 BUILD_DIR="${PROJECT_DIR}/build"
 
+BUILD_TYPE=${1-Debug}
 
 conan profile detect --force
-sed -i 's/build_type=Release/build_type=Debug/g' /home/vsts_azpcontainer/.conan2/profiles/default
+sed -i "s/build_type=Release/build_type=${BUILD_TYPE}/g" /home/vsts_azpcontainer/.conan2/profiles/default
 
+
+CONAN_DIR="conan-deb"
+if [ "${BUILD_TYPE}" = "release" ]; then
+  CONAN_DIR="conan-rel"
+fi
 
 # Install all dependencies
 conan install \
-  --output-folder="${BUILD_DIR}" \
+  --output-folder="${CONAN_DIR}" \
   --build=missing \
   "${PROJECT_DIR}"
