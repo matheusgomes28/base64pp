@@ -12,7 +12,7 @@ BUILD_DIR="${PROJECT_DIR}/build"
 BUILD_TYPE=${1-Debug}
 
 conan profile detect --force
-sed -i "s/build_type=Release/build_type=${BUILD_TYPE}/g" /home/vsts_azpcontainer/.conan2/profiles/default
+sed -i "s/build_type=Release/build_type=${BUILD_TYPE}/g" "$(conan profile path default)"
 
 
 CONAN_DIR="conan-deb"
