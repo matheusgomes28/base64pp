@@ -12,8 +12,7 @@ BUILD_DIR="${PROJECT_DIR}/build"
 BUILD_TYPE=${1-Debug}
 
 conan profile detect --force
-echo "!!!profile: $(conan profile show)"
-sed -i "s/build_type=Release/build_type=${BUILD_TYPE}/g" "$(conan profile show)"
+sed -i "s/build_type=Release/build_type=${BUILD_TYPE}/g" "$(conan profile path default)"
 
 
 CONAN_DIR="conan-deb"
