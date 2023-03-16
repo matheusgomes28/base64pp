@@ -15,9 +15,9 @@ conan profile detect --force
 sed -i "s/build_type=Release/build_type=${BUILD_TYPE}/g" "$(conan profile path default)"
 
 
-CONAN_DIR="conan-deb"
+CONAN_DIR="${PROJECT_DIR}/conan/deb"
 if [ "${BUILD_TYPE}" = "release" ]; then
-  CONAN_DIR="conan-rel"
+  CONAN_DIR="${PROJECT_DIR}/conan/rel"
 fi
 
 # Install all dependencies

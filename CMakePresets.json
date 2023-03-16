@@ -5,14 +5,14 @@
             "name": "conan-rel",
             "hidden": true,
             "cacheVariables": {
-                "CMAKE_MODULE_PATH": "${sourceDir}/conan-rel"
+                "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/conan/rel/conan_toolchain.cmake"
             }
         },
         {
             "name": "conan-deb",
             "hidden": true,
             "cacheVariables": {
-                "CMAKE_MODULE_PATH": "${sourceDir}/conan-deb"
+                "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/conan/deb/conan_toolchain.cmake"
             }
         },
         {
