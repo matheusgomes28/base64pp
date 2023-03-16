@@ -111,7 +111,7 @@ std::string base64pp::encode(std::span<std::uint8_t const> const input)
     std::string output;
     output.reserve((full_tripples + 2) * 4);
 
-    for (auto i = 0; i < full_tripples; ++i)
+    for (std::size_t i = 0; i < full_tripples; ++i)
     {
         auto const tripplet = input.subspan(i * 3, 3);
         auto const base64_chars =
