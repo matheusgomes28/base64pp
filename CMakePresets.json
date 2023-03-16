@@ -44,7 +44,7 @@
             "hidden": true,
             "generator": "Ninja",
             "cacheVariables": {
-                "CMAKE_CXX_FLAGS": "$env{CMAKE_CXX_FLAGS} /W4 /WX"
+                "CMAKE_CXX_FLAGS": "$env{CMAKE_CXX_FLAGS} /W4 /WX /EHsc"
             }
         },
         {
@@ -60,7 +60,7 @@
             "hidden": true,
             "generator": "Visual Studio 17 2022",
             "cacheVariables": {
-                "CMAKE_CXX_FLAGS": "$env{CMAKE_CXX_FLAGS} /W4 /WX"
+                "CMAKE_CXX_FLAGS": "$env{CMAKE_CXX_FLAGS} /W4 /WX /EHsc"
             }
         },
         {
@@ -68,7 +68,7 @@
             "hidden": true,
             "generator": "Visual Studio 16 2019",
             "cacheVariables": {
-                "CMAKE_CXX_FLAGS": "$env{CMAKE_CXX_FLAGS} /W4 /WX"
+                "CMAKE_CXX_FLAGS": "$env{CMAKE_CXX_FLAGS} /W4 /WX /EHsc"
             }
         },
 
