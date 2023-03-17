@@ -40,7 +40,8 @@ stages:
           artifactName: 'BuildFiles'
 
   - job: 'build_win_x64'  
-    vmImage: 'windows-2022'
+    pool:
+      vmImage: 'windows-2022'
     continueOnError: 'false'
     steps:
       - pwsh: .\scripts\helpers\conan-install.ps1
