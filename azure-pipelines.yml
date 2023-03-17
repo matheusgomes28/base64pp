@@ -39,6 +39,27 @@ stages:
           targetPath: "$(Build.SourcesDirectory)/artifacts"
           artifactName: 'BuildFiles'
 
+  - job: 'build_win_x64'  
+    vmImage: 'windows-2022'
+    continueOnError: 'false'
+    steps:
+      - pwsh: .\scripts\helpers\conan-install.ps1
+        displayName: 'Installing all Conan dependencies'
+        workingDirectory: $(Build.SourcesDirectory)
+
+      - pwsh: |
+          .\scripts\build_win_x64.sh
+          New-Item -ItemType Direcotry -Force -Path "$(Build.SourcesDirectory)/artifacts"
+          7z a -ttar "$(Build.SourcesDirectory)/artifacts/build_win_64.tar"  "build/"
+          7z a -tgzip "$(Build.SourcesDirectory)/artifacts/build_win_64.tar.gz" "$(Build.SourcesDirectory)/artifacts/build_win_64.tar"
+        displayName: 'Compile Code & Tests'
+        workingDirectory: $(Build.SourcesDirectory)
+
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: "$(Build.SourcesDirectory)/artifacts"
+          artifactName: 'BuildFiles'
+
 - stage: 'docs'
   displayName: 'Build Documentation'
   jobs:
