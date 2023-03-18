@@ -28,7 +28,7 @@ stages:
 
       - bash: |
           set -euo pipefail
-          scripts/build_x86-64.sh
+          scripts/build_x86-64.sh -DBUILD_DOCS="On"
           mkdir -p "$(Build.SourcesDirectory)/artifacts"
           tar -zcf "$(Build.SourcesDirectory)/artifacts/build-x86_64.tar.gz" "build/" 
         displayName: 'Compile Code & Tests'

@@ -13,7 +13,7 @@ add_subdirectory(base64pp)
 add_subdirectory(tests)
 
 
-option(BUILD_DOCS "Build documentation" ON)
+option(BUILD_DOCS "Build documentation" Off)
 
 if (BUILD_DOCS)
     find_package(Doxygen)
