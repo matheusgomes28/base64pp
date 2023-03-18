@@ -50,7 +50,7 @@ stages:
 
       - pwsh: |
           .\scripts\build_win_x64.ps1
-          New-Item -ItemType Direcotry -Force -Path "$(Build.SourcesDirectory)/artifacts"
+          New-Item -ItemType Directory -Force -Path "$(Build.SourcesDirectory)/artifacts"
           7z a -ttar "$(Build.SourcesDirectory)/artifacts/build_win_64.tar"  "build/"
           7z a -tgzip "$(Build.SourcesDirectory)/artifacts/build_win_64.tar.gz" "$(Build.SourcesDirectory)/artifacts/build_win_64.tar"
         displayName: 'Compile Code & Tests'
