@@ -55,6 +55,7 @@ stages:
           7z a -tgzip "$(Build.SourcesDirectory)/artifacts/build_win_64.tar.gz" "$(Build.SourcesDirectory)/artifacts/build_win_64.tar"
         displayName: 'Compile Code & Tests'
         workingDirectory: $(Build.SourcesDirectory)
+        failOnStderr: true
 
       - task: PublishPipelineArtifact@1
         inputs:
