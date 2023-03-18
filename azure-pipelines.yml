@@ -50,9 +50,12 @@ stages:
 
       - pwsh: |
           .\scripts\build_win_x64.ps1
+          if(!$?) { Exit $LASTEXITCODE }
           New-Item -ItemType Directory -Force -Path "$(Build.SourcesDirectory)/artifacts"
           7z a -ttar "$(Build.SourcesDirectory)/artifacts/build_win_64.tar"  "build/"
+          if(!$?) { Exit $LASTEXITCODE }
           7z a -tgzip "$(Build.SourcesDirectory)/artifacts/build_win_64.tar.gz" "$(Build.SourcesDirectory)/artifacts/build_win_64.tar"
+          if(!$?) { Exit $LASTEXITCODE }
         displayName: 'Compile Code & Tests'
         workingDirectory: $(Build.SourcesDirectory)
         failOnStderr: true
