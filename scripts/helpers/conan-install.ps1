@@ -46,3 +46,4 @@ conan install `
   --output-folder="${ConanOutputDir}" `
   --build=missing `
   "${ProjectDir}"
+if(!$?) { Exit $LASTEXITCODE }
