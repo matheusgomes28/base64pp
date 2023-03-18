@@ -28,7 +28,7 @@ if(!$?) { Exit $LASTEXITCODE }
 # debug with MTd runtime on MSVC
 $ConanProfile = Get-Content -Path "$(conan profile path default)"
 if(!$?) { Exit $LASTEXITCODE }
-$ConanProfile = $ConanProfile -Replace "build_type=Debug", "build_type=Release"
+$ConanProfile = $ConanProfile -Replace "build_type=Release", "build_type=Debug"
 $ConanProfile = $ConanProfile -Replace "compiler.runtime=dynamic", "compiler.runtime=static"
 Write-Output "---- New conan profile -----"
 Set-Content -Path $ConanProfileFile -Value $ConanProfile
