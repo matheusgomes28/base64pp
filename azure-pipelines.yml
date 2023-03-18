@@ -59,7 +59,7 @@ stages:
       - task: PublishPipelineArtifact@1
         inputs:
           targetPath: "$(Build.SourcesDirectory)/artifacts"
-          artifactName: 'BuildFiles'
+          artifactName: 'WinBuildFiles'
 
 - stage: 'docs'
   displayName: 'Build Documentation'
