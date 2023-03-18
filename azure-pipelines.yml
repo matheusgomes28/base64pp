@@ -44,7 +44,7 @@ stages:
       vmImage: 'windows-2022'
     continueOnError: 'false'
     steps:
-      - pwsh: .\scripts\helpers\conan-install.ps1
+      - pwsh: .\scripts\helpers\conan-install.ps1 -BuildType Debug
         displayName: 'Installing all Conan dependencies'
         workingDirectory: $(Build.SourcesDirectory)
 
