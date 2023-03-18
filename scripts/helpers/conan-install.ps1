@@ -35,14 +35,14 @@ Set-Content -Path $ConanProfileFile -Value $ConanProfile
 Write-Output $ConanProfile
 
 # Install all dependencies
-$ProjectDir = Split-Path -Parent "$PSScriptRoot"
+$ProjectDir = (Get-Item "$PSScriptRoot").parent.parent.FullName
 $ConanOutputDir = "${ProjectDir}/conan/deb"
 if ($BuildType -eq "Release")
 {
     $ConanOutputDir = "${ProjectDir}/conan/rel"
 }
 
-conan install \
-  --output-folder="${ConanOutputDir}" \
-  --build=missing \
+conan install `
+  --output-folder="${ConanOutputDir}" `
+  --build=missing `
   "${ProjectDir}"
