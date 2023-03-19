@@ -15,6 +15,18 @@ resources:
 
 stages:
 
+- stage: failfast
+  displayName: FailFast Checks
+  jobs:
+  - job: failfast
+    displayName: Failfast Scripts
+    container: 'ubuntu18.04-gcc11-conan2-doxygen1.9.6'
+    continueOnError: false
+    steps:
+    - bash: scripts/shellcheck.sh
+      displayName: Linting Shell
+      workingDirectory: $(Build.SourcesDirectory)
+
 - stage: 'build'
   displayName: 'Build Project'
   jobs:
