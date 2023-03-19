@@ -29,6 +29,9 @@ RUN apt-get update \
     wget \
     flex \
     bison \
+    shellcheck \
+    clang-format \
+    clang-tidy \
     && mkdir "/conan" \
     && pip3 install --upgrade --no-cache pip \
     && pip3 install --no-cache -q conan>=2 \
