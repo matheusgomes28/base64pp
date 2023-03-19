@@ -7,11 +7,9 @@ set -euo pipefail
     then the build command.
 '
 
-THIS_DIR=$(cd "$(dirname "$0")" && pwd)
-PROJECT_DIR="$(cd "${THIS_DIR}/.." && pwd)"
-
-
-# configure the project
+# we want to expand the variables here
+# to pass onto cmake
+# shellcheck disable=SC2068
 cmake --preset "unix-deb" $@
 
 cmake --build --preset "unix-deb" -j"$(nproc)"

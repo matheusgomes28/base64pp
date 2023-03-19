@@ -10,4 +10,4 @@ THIS_DIR=$(cd "$(dirname "$0")" && pwd)
 PROJECT_DIR="$(cd "${THIS_DIR}/.." && pwd)"
 
 SHELL_FILES="$(find "${PROJECT_DIR}" -name "*.sh")"
-echo ${SHELL_FILES} | xargs shellcheck
+echo "${SHELL_FILES}" | xargs shellcheck

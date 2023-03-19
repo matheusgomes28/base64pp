@@ -7,8 +7,6 @@ set -euo pipefail
     Conan profiles.
 '
 PROJECT_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
-BUILD_DIR="${PROJECT_DIR}/build"
-
 BUILD_TYPE=${1-Debug}
 
 conan profile detect --force
