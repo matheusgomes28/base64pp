@@ -14,7 +14,7 @@
 //! base64pp API namespace
 namespace base64pp
 {
-    
+
     //! @brief This function will encode a blob of data into a base64
     //! string.
     //! @param input - a span pointing to a binary blob to encode.
@@ -26,8 +26,7 @@ namespace base64pp
     //! @param encoded_str - the base64 encoded string
     //! @return an optional containing a valid blob of data, if
     //! decoding was successful. Otherwise, returns std::nullopt
-    std::optional<std::vector<std::uint8_t>> decode(
-        std::string_view const encoded_str);
+    std::optional<std::vector<std::uint8_t>> decode(std::string_view const encoded_str);
 } // namespace base64pp
 
 #endif // BASE64PP_H
