@@ -26,6 +26,9 @@ stages:
     - bash: scripts/shellcheck.sh
       displayName: Linting Shell
       workingDirectory: $(Build.SourcesDirectory)
+    - bash: scripts/cpp-lint.sh
+      displayName: Linting CPP files
+      workingDirectory: $(Build.SourcesDirectory)
 
 - stage: 'build'
   displayName: 'Build Project'
