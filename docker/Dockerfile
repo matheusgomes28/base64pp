@@ -17,6 +17,7 @@ LABEL maintainer="matheusgarcia28@gmail.com"
 RUN apt-get update \
     && apt-get install -y --no-install-recommends --no-install-suggests software-properties-common\
     && add-apt-repository ppa:ubuntu-toolchain-r/test \
+    && add-apt-repository ppa:savoury1/llvm-defaults-13 \
     && apt-get install -y --no-install-recommends --no-install-suggests \
     gcc-11 \
     g++-11 \
@@ -30,15 +31,17 @@ RUN apt-get update \
     flex \
     bison \
     shellcheck \
-    clang-format \
-    clang-tidy \
+    clang-format-13 \
+    clang-tidy-13 \
     && mkdir "/conan" \
-    && pip3 install --upgrade --no-cache pip \
-    && pip3 install --no-cache -q conan>=2 \
+    && pip3 install --upgrade --no-cache --ignore-installed pip \
+    && pip3 install --no-cache -q --ignore-installed conan>=2 \
     && chmod -R 777 "/conan" \
-    && pip3 install --no-cache cmake==3.25.2 \
+    && pip3 install --no-cache --ignore-installed cmake==3.25.2 \
     && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 10 \
     && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 10 \
+    && update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-13 10 \
+    && update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-13 10 \
     && cd ~ \
     && wget https://doxygen.nl/files/doxygen-1.9.6.src.tar.gz \
     && tar xzf doxygen-1.9.6.src.tar.gz \
