@@ -139,6 +139,7 @@ stages:
   jobs:
   - job:
     container: 'ubuntu18.04-gcc11-conan2-doxygen1.9.6'
+    displayName: Running Clang-Tidy
     steps:
       - checkout: self
       - task: DownloadPipelineArtifact@2
