@@ -4,6 +4,7 @@
 #include <gtest/gtest.h>
 #include <string>
 
+// NOLINTNEXTLINE
 TEST(Base64Encode, EncodesEmpty)
 {
     std::string const expected{};
@@ -11,6 +12,7 @@ TEST(Base64Encode, EncodesEmpty)
     ASSERT_EQ(expected, actual);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Encode, EncodesThreeBytesZeros)
 {
     std::array<std::uint8_t, 3> const input{0x00, 0x00, 0x00};
@@ -19,6 +21,7 @@ TEST(Base64Encode, EncodesThreeBytesZeros)
     ASSERT_EQ(expected, actual);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Encode, EncodesThreeBytesRandom)
 {
     std::array<std::uint8_t, 3> const input{0xFE, 0xE9, 0x72};
@@ -27,6 +30,7 @@ TEST(Base64Encode, EncodesThreeBytesRandom)
     ASSERT_EQ(expected, actual);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Encode, EncodesTwoBytes)
 {
     std::array<std::uint8_t, 2> const input{0x00, 0x00};
@@ -35,6 +39,7 @@ TEST(Base64Encode, EncodesTwoBytes)
     ASSERT_EQ(expected, actual);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Encode, EncodesOneByte)
 {
     std::array<std::uint8_t, 1> const input{0x00};
@@ -43,6 +48,7 @@ TEST(Base64Encode, EncodesOneByte)
     ASSERT_EQ(expected, actual);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Encode, EncodesFourBytes)
 {
     std::array<std::uint8_t, 4> const input{0x74, 0x68, 0x65, 0x20};
@@ -51,6 +57,7 @@ TEST(Base64Encode, EncodesFourBytes)
     ASSERT_EQ(expected, actual);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Encode, EncodesFiveBytes)
 {
     std::array<std::uint8_t, 5> const input{0x20, 0x62, 0x72, 0x6f, 0x77};
@@ -59,6 +66,7 @@ TEST(Base64Encode, EncodesFiveBytes)
     ASSERT_EQ(actual, expected);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Encode, EncodesSixBytes)
 {
     std::array<std::uint8_t, 6> const input{0x20, 0x6a, 0x75, 0x6d, 0x70, 0x73};
@@ -67,6 +75,7 @@ TEST(Base64Encode, EncodesSixBytes)
     ASSERT_EQ(actual, expected);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Encode, EncodesBrownFox)
 {
     std::array<std::uint8_t, 43> const input{0x74, 0x68, 0x65, 0x20, 0x71, 0x75, 0x69, 0x63, 0x6b, 0x20, 0x62, 0x72,
@@ -78,6 +87,7 @@ TEST(Base64Encode, EncodesBrownFox)
     ASSERT_EQ(actual, expected);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Encode, EncodesBrownFastFoxNullInMiddle)
 {
     std::array<std::uint8_t, 45> const input{0x74, 0x68, 0x65, 0x20, 0x71, 0x75, 0x69, 0x63, 0x6b, 0x21, 0x20, 0x62,
@@ -89,6 +99,7 @@ TEST(Base64Encode, EncodesBrownFastFoxNullInMiddle)
     ASSERT_EQ(actual, expected);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Decode, FailDecodeOneString)
 {
     std::string const input{"1"};
@@ -97,6 +108,7 @@ TEST(Base64Decode, FailDecodeOneString)
     ASSERT_EQ(actual, std::nullopt);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Decode, FailDecodeOneStringPadded)
 {
     std::string const input{"1==="};
@@ -105,6 +117,7 @@ TEST(Base64Decode, FailDecodeOneStringPadded)
     ASSERT_EQ(actual, std::nullopt);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Decode, FailDecodeTwoString)
 {
     std::string const input{"12"};
@@ -113,6 +126,7 @@ TEST(Base64Decode, FailDecodeTwoString)
     ASSERT_EQ(actual, std::nullopt);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Decode, FailDecodeThreeString)
 {
     std::string const input{"12a"};
@@ -121,6 +135,7 @@ TEST(Base64Decode, FailDecodeThreeString)
     ASSERT_EQ(actual, std::nullopt);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Decode, FailDecodeNonSize4)
 {
     std::string const input{"something"};
@@ -129,6 +144,7 @@ TEST(Base64Decode, FailDecodeNonSize4)
     ASSERT_EQ(actual, std::nullopt);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Decode, FailDecodeNonSize4Bigger)
 {
     std::string const input{"SomethingEntirelyDifferent"};
@@ -137,6 +153,7 @@ TEST(Base64Decode, FailDecodeNonSize4Bigger)
     ASSERT_EQ(actual, std::nullopt);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Decode, FailDecodeNonBase64Short)
 {
     std::string const input{"a aa"};
@@ -145,6 +162,7 @@ TEST(Base64Decode, FailDecodeNonBase64Short)
     ASSERT_EQ(actual, std::nullopt);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Decode, FailDecodeNonBase64Longer)
 {
     std::string const input{"aaa`"};
@@ -152,6 +170,7 @@ TEST(Base64Decode, FailDecodeNonBase64Longer)
 
     ASSERT_EQ(actual, std::nullopt);
 }
+// NOLINTNEXTLINE
 TEST(Base64Decode, DecodesEmptyString)
 {
     std::string const input{};
@@ -161,6 +180,7 @@ TEST(Base64Decode, DecodesEmptyString)
     ASSERT_EQ(expected, actual);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Decode, DecodesZeroArray)
 {
     std::string const input{"AAAA"};
@@ -170,6 +190,7 @@ TEST(Base64Decode, DecodesZeroArray)
     ASSERT_EQ(actual, expected);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Decode, DecodesZeroArrayTwice)
 {
     std::string const input{"AAAAAAAA"};
@@ -179,6 +200,7 @@ TEST(Base64Decode, DecodesZeroArrayTwice)
     ASSERT_EQ(actual, expected);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Decode, DecodesZeroArrayOneByte)
 {
     std::string const input{"AA=="};
@@ -188,6 +210,7 @@ TEST(Base64Decode, DecodesZeroArrayOneByte)
     ASSERT_EQ(actual, expected);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Decode, DecodesZeroArrayTwoBytes)
 {
     std::string const input{"AAA="};
@@ -197,6 +220,7 @@ TEST(Base64Decode, DecodesZeroArrayTwoBytes)
     ASSERT_EQ(actual, expected);
 }
 
+// NOLINTNEXTLINE
 TEST(Base64Decode, DecodesQuickFox)
 {
     std::string const input{"VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="};

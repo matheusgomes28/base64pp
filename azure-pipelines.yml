@@ -133,3 +133,27 @@ stages:
           cd "build/unix-deb" && ctest --verbose --test-dir="build/unix-deb"
         displayName: 'Running All Tests'
         workingDirectory: $(Build.SourcesDirectory)
+
+- stage: static_analysis
+  displayName: 'Static Analysis'
+  jobs:
+  - job:
+    container: 'ubuntu18.04-gcc11-conan2-doxygen1.9.6'
+    displayName: Running Clang-Tidy
+    steps:
+      - checkout: self
+      - task: DownloadPipelineArtifact@2
+        displayName: 'Download Built Files'
+        inputs:
+          source: current
+          artifact: 'BuildFiles'
+          path: "$(Build.SourcesDirectory)/artifacts"
+      - bash: scripts/helpers/conan-install.sh
+        displayName: 'Installing all Conan dependencies'
+        workingDirectory: $(Build.SourcesDirectory)
+      - bash: |
+          set -euo pipefail
+          tar -xzf "artifacts/build-x86_64.tar.gz"
+          ./scripts/static-analysis.sh
+        displayName: 'Running Clang Tidy'
+        workingDirectory: $(Build.SourcesDirectory)
