@@ -127,10 +127,6 @@ stages:
           artifact: 'BuildFiles'
           path: "$(Build.SourcesDirectory)/artifacts"
 
-      - bash: scripts/helpers/conan-install.sh
-        displayName: 'Installing all Conan dependencies'
-        workingDirectory: $(Build.SourcesDirectory)
-
       - bash: |
           set -euo pipefail
           tar -xzf "artifacts/build-x86_64.tar.gz"
@@ -151,7 +147,9 @@ stages:
           source: current
           artifact: 'BuildFiles'
           path: "$(Build.SourcesDirectory)/artifacts"
-
+      - bash: scripts/helpers/conan-install.sh
+        displayName: 'Installing all Conan dependencies'
+        workingDirectory: $(Build.SourcesDirectory)
       - bash: |
           set -euo pipefail
           tar -xzf "artifacts/build-x86_64.tar.gz"
