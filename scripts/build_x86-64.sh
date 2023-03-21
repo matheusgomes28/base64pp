@@ -10,7 +10,7 @@ set -euo pipefail
 # we want to expand the variables here
 # to pass onto cmake
 # shellcheck disable=SC2068
-cmake --preset "unix-deb" $@
+cmake --preset "unix-deb" -DCMAKE_EXPORT_COMPILE_COMMANDS=On $@
 
 cmake --build --preset "unix-deb" -j"$(nproc)"
   
