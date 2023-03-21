@@ -4,6 +4,15 @@
 # https://aka.ms/yaml
 #
 
+trigger:
+  branches:
+    include:
+    - main
+    - releases/*
+pr:
+  - main
+  - releases/*
+
 pool:
   vmImage: 'ubuntu-latest'
 
