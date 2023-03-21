@@ -9,7 +9,6 @@ trigger:
     include:
     - main
     - releases/*
-
 pr:
   - main
   - releases/*
