@@ -42,6 +42,7 @@ RUN apt-get update \
     && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 10 \
     && update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-13 10 \
     && update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-13 10 \
+    && update-alternatives --install /usr/bin/run-clang-tidy run-clang-tidy /usr/bin/run-clang-tidy-13 10 \
     && cd ~ \
     && wget https://doxygen.nl/files/doxygen-1.9.6.src.tar.gz \
     && tar xzf doxygen-1.9.6.src.tar.gz \

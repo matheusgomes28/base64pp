@@ -12,7 +12,7 @@ THIS_DIR=$(cd "$(dirname "$0")" && pwd)
 PROJECT_DIR="$(cd "${THIS_DIR}/.." && pwd)"
 BUILD_DIR="${PROJECT_DIR}/build/unix-deb"
 
-# TODO : Docker needs to change
-# and provide alternative to
-# "run-clang-tidy"
-run-clang-tidy-13 -p "${BUILD_DIR}"
+# provided with the clang suite. this
+# manages the calls to "clang-tidy" and
+# runs things in parallel.
+run-clang-tidy -p "${BUILD_DIR}"
