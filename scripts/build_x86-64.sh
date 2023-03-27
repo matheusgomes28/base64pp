@@ -17,7 +17,7 @@ fi
 # build unix-deb by default
 CMAKE_PRESET="${1}"
 
-# shellcheck disable=SC2068
+# shellcheck disable=SC2124
 CMAKE_EXTRA_ARGS=${@:2}
 
 # we want to expand the variables here
