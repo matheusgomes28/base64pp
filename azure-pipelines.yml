@@ -44,7 +44,8 @@ stages:
   dependsOn:
     - failfast
   jobs:
-  - job: 'build_x86_64_debug'  
+  - job: 'build_x86_64_debug'
+    displayName: Ubuntu Debug Build
     container: 'ubuntu18.04-gcc11-conan2-doxygen1.9.6'
     continueOnError: 'false'
     steps:
@@ -66,6 +67,7 @@ stages:
           artifactName: 'DebBuildFiles'
 
   - job: 'build_x86_64_release'
+    displayName: Ubuntu Release Build
     container: 'ubuntu18.04-gcc11-conan2-doxygen1.9.6'
     continueOnError: 'false'
     steps:
@@ -86,7 +88,8 @@ stages:
           targetPath: "$(Build.SourcesDirectory)/artifacts"
           artifactName: 'RelBuildFiles'
 
-  - job: 'build_win_x64'  
+  - job: 'build_win_x64'
+    displayName: Windows Debug Build
     pool:
       vmImage: 'windows-2022'
     continueOnError: 'false'
