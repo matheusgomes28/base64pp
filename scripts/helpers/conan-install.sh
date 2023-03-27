@@ -14,7 +14,7 @@ sed -i "s/build_type=Release/build_type=${BUILD_TYPE}/g" "$(conan profile path d
 
 
 CONAN_DIR="${PROJECT_DIR}/conan/deb"
-if [ "${BUILD_TYPE}" = "release" ]; then
+if [ "${BUILD_TYPE}" = "Release" ]; then
   CONAN_DIR="${PROJECT_DIR}/conan/rel"
 fi
 

@@ -44,19 +44,40 @@ stages:
   dependsOn:
     - failfast
   jobs:
-  - job: 'build_x86_64'  
+  - job: 'build_x86_64_debug'  
     container: 'ubuntu18.04-gcc11-conan2-doxygen1.9.6'
     continueOnError: 'false'
     steps:
-      - bash: scripts/helpers/conan-install.sh
+      - bash: scripts/helpers/conan-install.sh Debug
         displayName: 'Installing all Conan dependencies'
         workingDirectory: $(Build.SourcesDirectory)
 
       - bash: |
           set -euo pipefail
-          scripts/build_x86-64.sh -DBUILD_DOCS="On"
+          scripts/build_x86-64.sh unix-deb -DBUILD_DOCS="On"
           mkdir -p "$(Build.SourcesDirectory)/artifacts"
-          tar -zcf "$(Build.SourcesDirectory)/artifacts/build-x86_64.tar.gz" "build/" 
+          tar -zcf "$(Build.SourcesDirectory)/artifacts/build-x86_64-deb.tar.gz" "build/" 
+        displayName: 'Compile Code & Tests'
+        workingDirectory: $(Build.SourcesDirectory)
+
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: "$(Build.SourcesDirectory)/artifacts"
+          artifactName: 'BuildFiles'
+
+  - job: 'build_x86_64_release'
+    container: 'ubuntu18.04-gcc11-conan2-doxygen1.9.6'
+    continueOnError: 'false'
+    steps:
+      - bash: scripts/helpers/conan-install.sh Release
+        displayName: 'Installing all Conan dependencies'
+        workingDirectory: $(Build.SourcesDirectory)
+
+      - bash: |
+          set -euo pipefail
+          scripts/build_x86-64.sh unix-rel -DBUILD_DOCS="On"
+          mkdir -p "$(Build.SourcesDirectory)/artifacts"
+          tar -zcf "$(Build.SourcesDirectory)/artifacts/build-x86_64-rel.tar.gz" "build/" 
         displayName: 'Compile Code & Tests'
         workingDirectory: $(Build.SourcesDirectory)
 
@@ -114,7 +135,7 @@ stages:
 
       - bash: |
           set -euo pipefail
-          tar -xzf "artifacts/build-x86_64.tar.gz"
+          tar -xzf "artifacts/build-x86_64-deb.tar.gz"
           cd "build/unix-deb" && cmake --build . --target=doxygen_build
           mkdir -p "$(Build.SourcesDirectory)/artifacts"
           tar -zcf "$(Build.SourcesDirectory)/artifacts/docs.tar.gz" "docs" 
@@ -144,7 +165,7 @@ stages:
 
       - bash: |
           set -euo pipefail
-          tar -xzf "artifacts/build-x86_64.tar.gz"
+          tar -xzf "artifacts/build-x86_64-deb.tar.gz"
           cd "build/unix-deb" && ctest --verbose --test-dir="build/unix-deb"
         displayName: 'Running All Tests'
         workingDirectory: $(Build.SourcesDirectory)
@@ -170,7 +191,7 @@ stages:
         workingDirectory: $(Build.SourcesDirectory)
       - bash: |
           set -euo pipefail
-          tar -xzf "artifacts/build-x86_64.tar.gz"
+          tar -xzf "artifacts/build-x86_64-deb.tar.gz"
           ./scripts/static-analysis.sh
         displayName: 'Running Clang Tidy'
         workingDirectory: $(Build.SourcesDirectory)
