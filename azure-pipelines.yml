@@ -63,7 +63,7 @@ stages:
       - task: PublishPipelineArtifact@1
         inputs:
           targetPath: "$(Build.SourcesDirectory)/artifacts"
-          artifactName: 'BuildFiles'
+          artifactName: 'DebBuildFiles'
 
   - job: 'build_x86_64_release'
     container: 'ubuntu18.04-gcc11-conan2-doxygen1.9.6'
@@ -84,7 +84,7 @@ stages:
       - task: PublishPipelineArtifact@1
         inputs:
           targetPath: "$(Build.SourcesDirectory)/artifacts"
-          artifactName: 'BuildFiles'
+          artifactName: 'RelBuildFiles'
 
   - job: 'build_win_x64'  
     pool:
@@ -130,7 +130,7 @@ stages:
         displayName: 'Download Built Files'
         inputs:
           source: current
-          artifact: 'BuildFiles'
+          artifact: 'DebBuildFiles'
           path: "$(Build.SourcesDirectory)/artifacts"
 
       - bash: |
@@ -160,7 +160,7 @@ stages:
         displayName: 'Download Built Files'
         inputs:
           source: current
-          artifact: 'BuildFiles'
+          artifact: 'DebBuildFiles'
           path: "$(Build.SourcesDirectory)/artifacts"
 
       - bash: |
@@ -184,7 +184,7 @@ stages:
         displayName: 'Download Built Files'
         inputs:
           source: current
-          artifact: 'BuildFiles'
+          artifact: 'DebBuildFiles'
           path: "$(Build.SourcesDirectory)/artifacts"
       - bash: scripts/helpers/conan-install.sh
         displayName: 'Installing all Conan dependencies'
