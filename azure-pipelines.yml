@@ -225,4 +225,5 @@ stages:
           set -euo pipefail
           tar -xzf "artifacts/build-x86_64-deb.tar.gz"
           ./scripts/static-analysis.sh
+        displayName: Running Clang-Tidy script
         workingDirectory: $(Build.SourcesDirectory)
