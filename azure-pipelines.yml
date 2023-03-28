@@ -44,28 +44,52 @@ stages:
   dependsOn:
     - failfast
   jobs:
-  - job: 'build_x86_64'  
+  - job: 'build_x86_64_debug'
+    displayName: Ubuntu Debug Build
     container: 'ubuntu18.04-gcc11-conan2-doxygen1.9.6'
     continueOnError: 'false'
     steps:
-      - bash: scripts/helpers/conan-install.sh
+      - bash: scripts/helpers/conan-install.sh Debug
         displayName: 'Installing all Conan dependencies'
         workingDirectory: $(Build.SourcesDirectory)
 
       - bash: |
           set -euo pipefail
-          scripts/build_x86-64.sh -DBUILD_DOCS="On"
+          scripts/build_x86-64.sh unix-deb -DBUILD_DOCS="On"
           mkdir -p "$(Build.SourcesDirectory)/artifacts"
-          tar -zcf "$(Build.SourcesDirectory)/artifacts/build-x86_64.tar.gz" "build/" 
+          tar -zcf "$(Build.SourcesDirectory)/artifacts/build-x86_64-deb.tar.gz" "build/" 
         displayName: 'Compile Code & Tests'
         workingDirectory: $(Build.SourcesDirectory)
 
       - task: PublishPipelineArtifact@1
         inputs:
           targetPath: "$(Build.SourcesDirectory)/artifacts"
-          artifactName: 'BuildFiles'
+          artifactName: 'DebBuildFiles'
 
-  - job: 'build_win_x64'  
+  - job: 'build_x86_64_release'
+    displayName: Ubuntu Release Build
+    container: 'ubuntu18.04-gcc11-conan2-doxygen1.9.6'
+    continueOnError: 'false'
+    steps:
+      - bash: scripts/helpers/conan-install.sh Release
+        displayName: 'Installing all Conan dependencies'
+        workingDirectory: $(Build.SourcesDirectory)
+
+      - bash: |
+          set -euo pipefail
+          scripts/build_x86-64.sh unix-rel -DBUILD_DOCS="On"
+          mkdir -p "$(Build.SourcesDirectory)/artifacts"
+          tar -zcf "$(Build.SourcesDirectory)/artifacts/build-x86_64-rel.tar.gz" "build/" 
+        displayName: 'Compile Code & Tests'
+        workingDirectory: $(Build.SourcesDirectory)
+
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: "$(Build.SourcesDirectory)/artifacts"
+          artifactName: 'RelBuildFiles'
+
+  - job: 'build_win_x64'
+    displayName: Windows Debug Build
     pool:
       vmImage: 'windows-2022'
     continueOnError: 'false'
@@ -109,12 +133,12 @@ stages:
         displayName: 'Download Built Files'
         inputs:
           source: current
-          artifact: 'BuildFiles'
+          artifact: 'DebBuildFiles'
           path: "$(Build.SourcesDirectory)/artifacts"
 
       - bash: |
           set -euo pipefail
-          tar -xzf "artifacts/build-x86_64.tar.gz"
+          tar -xzf "artifacts/build-x86_64-deb.tar.gz"
           cd "build/unix-deb" && cmake --build . --target=doxygen_build
           mkdir -p "$(Build.SourcesDirectory)/artifacts"
           tar -zcf "$(Build.SourcesDirectory)/artifacts/docs.tar.gz" "docs" 
@@ -139,12 +163,12 @@ stages:
         displayName: 'Download Built Files'
         inputs:
           source: current
-          artifact: 'BuildFiles'
+          artifact: 'DebBuildFiles'
           path: "$(Build.SourcesDirectory)/artifacts"
 
       - bash: |
           set -euo pipefail
-          tar -xzf "artifacts/build-x86_64.tar.gz"
+          tar -xzf "artifacts/build-x86_64-deb.tar.gz"
           cd "build/unix-deb" && ctest --verbose --test-dir="build/unix-deb"
         displayName: 'Running All Tests'
         workingDirectory: $(Build.SourcesDirectory)
@@ -163,14 +187,14 @@ stages:
         displayName: 'Download Built Files'
         inputs:
           source: current
-          artifact: 'BuildFiles'
+          artifact: 'DebBuildFiles'
           path: "$(Build.SourcesDirectory)/artifacts"
       - bash: scripts/helpers/conan-install.sh
         displayName: 'Installing all Conan dependencies'
         workingDirectory: $(Build.SourcesDirectory)
       - bash: |
           set -euo pipefail
-          tar -xzf "artifacts/build-x86_64.tar.gz"
+          tar -xzf "artifacts/build-x86_64-deb.tar.gz"
           ./scripts/static-analysis.sh
         displayName: 'Running Clang Tidy'
         workingDirectory: $(Build.SourcesDirectory)
