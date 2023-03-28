@@ -142,13 +142,14 @@ stages:
           targetPath: "$(Build.SourcesDirectory)/artifacts"
           artifactName: 'WinRelBuildFiles'
 
-- stage: 'docs'
-  displayName: 'Build Documentation'
+- stage: docs
+  displayName: Build Documentation
   dependsOn:
     - build
   jobs:
   - job:
-    container: 'ubuntu18.04-gcc11-conan2-doxygen1.9.6'
+    container: ubuntu18.04-gcc11-conan2-doxygen1.9.6
+    displayName: Build Doxygen CMake
     steps:
       - checkout: self
         submodules: recursive
@@ -157,7 +158,7 @@ stages:
         workingDirectory: $(Build.SourcesDirectory)
 
       - task: DownloadPipelineArtifact@2
-        displayName: 'Download Built Files'
+        displayName: Download Built Files
         inputs:
           source: current
           artifact: 'DebBuildFiles'
@@ -177,51 +178,51 @@ stages:
           targetPath: "$(Build.SourcesDirectory)/artifacts"
           artifactName: 'DocsFiles'
 
-- stage: 'tests'
-  displayName: 'Running Tests'
+- stage: tests
+  displayName: Running Tests
   dependsOn:
     - build
   jobs:
   - job:
-    container: 'ubuntu18.04-gcc11-conan2-doxygen1.9.6'
+    container: ubuntu18.04-gcc11-conan2-doxygen1.9.6
+    displayName: Running CTest
     steps:
       - checkout: none
       - task: DownloadPipelineArtifact@2
-        displayName: 'Download Built Files'
+        displayName: Download Built Files
         inputs:
           source: current
-          artifact: 'DebBuildFiles'
+          artifact: DebBuildFiles
           path: "$(Build.SourcesDirectory)/artifacts"
 
       - bash: |
           set -euo pipefail
           tar -xzf "artifacts/build-x86_64-deb.tar.gz"
           cd "build/unix-deb" && ctest --verbose --test-dir="build/unix-deb"
-        displayName: 'Running All Tests'
+        displayName: Running All Tests
         workingDirectory: $(Build.SourcesDirectory)
 
 - stage: static_analysis
-  displayName: 'Static Analysis'
+  displayName: Static Analysis
   dependsOn:
     - build
   jobs:
   - job:
-    container: 'ubuntu18.04-gcc11-conan2-doxygen1.9.6'
+    container: ubuntu18.04-gcc11-conan2-doxygen1.9.6
     displayName: Running Clang-Tidy
     steps:
       - checkout: self
       - task: DownloadPipelineArtifact@2
-        displayName: 'Download Built Files'
+        displayName: Download Built Files
         inputs:
           source: current
-          artifact: 'DebBuildFiles'
-          path: "$(Build.SourcesDirectory)/artifacts"
+          artifact: DebBuildFiles
+          path: $(Build.SourcesDirectory)/artifacts
       - bash: scripts/helpers/conan-install.sh
-        displayName: 'Installing all Conan dependencies'
+        displayName: Installing all Conan dependencies
         workingDirectory: $(Build.SourcesDirectory)
       - bash: |
           set -euo pipefail
           tar -xzf "artifacts/build-x86_64-deb.tar.gz"
           ./scripts/static-analysis.sh
-        displayName: 'Running Clang Tidy'
         workingDirectory: $(Build.SourcesDirectory)
