@@ -99,7 +99,7 @@ stages:
         workingDirectory: $(Build.SourcesDirectory)
 
       - pwsh: |
-          .\scripts\build_win_x64.ps1
+          .\scripts\build_win_x64.ps1 -Preset "vs2022-deb"
           if(!$?) { Exit $LASTEXITCODE }
           New-Item -ItemType Directory -Force -Path "$(Build.SourcesDirectory)/artifacts"
           7z a -ttar "$(Build.SourcesDirectory)/artifacts/build_win_64_deb.tar"  "build/"
