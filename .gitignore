@@ -1,9 +1,12 @@
 .idea/*
 .vs/*
 build/*
+conan/*
 cmake-build*
 out/*
 
+compile_commands.json
 CMakeSettings.json
+CMakeUserPresets.json
 Doxyfile
 
