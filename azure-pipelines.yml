@@ -88,7 +88,7 @@ stages:
           targetPath: "$(Build.SourcesDirectory)/artifacts"
           artifactName: 'RelBuildFiles'
 
-  - job: 'build_win_x64'
+  - job: 'build_win_x64_debug'
     displayName: Windows Debug Build
     pool:
       vmImage: 'windows-2022'
@@ -99,12 +99,12 @@ stages:
         workingDirectory: $(Build.SourcesDirectory)
 
       - pwsh: |
-          .\scripts\build_win_x64.ps1
+          .\scripts\build_win_x64.ps1 -Preset "vs2022-deb"
           if(!$?) { Exit $LASTEXITCODE }
           New-Item -ItemType Directory -Force -Path "$(Build.SourcesDirectory)/artifacts"
-          7z a -ttar "$(Build.SourcesDirectory)/artifacts/build_win_64.tar"  "build/"
+          7z a -ttar "$(Build.SourcesDirectory)/artifacts/build_win_64_deb.tar"  "build/"
           if(!$?) { Exit $LASTEXITCODE }
-          7z a -tgzip "$(Build.SourcesDirectory)/artifacts/build_win_64.tar.gz" "$(Build.SourcesDirectory)/artifacts/build_win_64.tar"
+          7z a -tgzip "$(Build.SourcesDirectory)/artifacts/build_win_64_deb.tar.gz" "$(Build.SourcesDirectory)/artifacts/build_win_64_deb.tar"
           if(!$?) { Exit $LASTEXITCODE }
         displayName: 'Compile Code & Tests'
         workingDirectory: $(Build.SourcesDirectory)
@@ -113,7 +113,34 @@ stages:
       - task: PublishPipelineArtifact@1
         inputs:
           targetPath: "$(Build.SourcesDirectory)/artifacts"
-          artifactName: 'WinBuildFiles'
+          artifactName: 'WinDebBuildFiles'
+
+  - job: build_win_x64_release
+    displayName: Windows Release Build
+    pool:
+      vmImage: 'windows-2022'
+    continueOnError: 'false'
+    steps:
+      - pwsh: .\scripts\helpers\conan-install.ps1 -BuildType Release
+        displayName: 'Installing all Conan dependencies'
+        workingDirectory: $(Build.SourcesDirectory)
+
+      - pwsh: |
+          .\scripts\build_win_x64.ps1 -Preset "vs2022-rel"
+          if(!$?) { Exit $LASTEXITCODE }
+          New-Item -ItemType Directory -Force -Path "$(Build.SourcesDirectory)/artifacts"
+          7z a -ttar "$(Build.SourcesDirectory)/artifacts/build_win_64_rel.tar"  "build/"
+          if(!$?) { Exit $LASTEXITCODE }
+          7z a -tgzip "$(Build.SourcesDirectory)/artifacts/build_win_64_rel.tar.gz" "$(Build.SourcesDirectory)/artifacts/build_win_64_rel.tar"
+          if(!$?) { Exit $LASTEXITCODE }
+        displayName: 'Compile Code & Tests'
+        workingDirectory: $(Build.SourcesDirectory)
+        failOnStderr: true
+
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: "$(Build.SourcesDirectory)/artifacts"
+          artifactName: 'WinRelBuildFiles'
 
 - stage: 'docs'
   displayName: 'Build Documentation'
