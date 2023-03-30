@@ -12,7 +12,10 @@ parameters:
   type: string
 - name: cmakeExtraArgs
   type: string
+<<<<<<< HEAD
   default:
+=======
+>>>>>>> Adding templated ubuntu build.
 - name: containerName
   type: string
 
