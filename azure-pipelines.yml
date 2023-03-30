@@ -47,17 +47,19 @@ stages:
   jobs:
 
   - template: scripts/pipeline/ubuntu_build.yml
-    jobName: ubuntu_build_x86_64_debug
-    buildType: Debug
-    cmakePreset: unix-deb
-    cmakeExtraArgs: -DBUILD_DOCS="On"
-    containerName: ubuntu18.04-gcc11-conan2-doxygen1.9.6
+    parameters:
+      jobName: ubuntu_build_x86_64_debug
+      buildType: Debug
+      cmakePreset: unix-deb
+      cmakeExtraArgs: -DBUILD_DOCS="On"
+      containerName: ubuntu18.04-gcc11-conan2-doxygen1.9.6
 
   - template: scripts/pipeline/ubuntu_build.yml
-    jobName: ubuntu_build_x86_64_release
-    buildType: Release
-    cmakePreset: unix-rel
-    containerName: ubuntu18.04-gcc11-conan2-doxygen1.9.6
+    parameters:
+      jobName: ubuntu_build_x86_64_release
+      buildType: Release
+      cmakePreset: unix-rel
+      containerName: ubuntu18.04-gcc11-conan2-doxygen1.9.6
 
   - job: 'build_win_x64_debug'
     displayName: Windows Debug Build
