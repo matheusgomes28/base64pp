@@ -1,0 +1,42 @@
+# This is the template for a single Windows
+# build job. This template will publish the
+# build artifact with name
+# windows-x64-${{ parameters.buildType }}.tar.gz
+parameters:
+- name: jobName
+  type: string
+- name: buildType
+  type: string
+  default: Debug
+- name: cmakePreset
+  type: string
+- name: cmakeExtraArgs # TODO Do we need to support this?
+  type: string
+  default:
+
+jobs:
+- job: ${{ parameters.jobName }}
+  displayName: Windows ${{ parameters.buildType }} Build
+  continueOnError: false
+  pool:
+    vmImage: windows-2022
+  steps:
+    - pwsh: .\scripts\helpers\conan-install.ps1 -BuildType ${{ parameters.buildType }}
+      displayName: 'Installing Conan Dependencies'
+
+    - pwsh: |
+        .\scripts\build_win_x64.ps1 -Preset ${{ parameters.cmakePreset }}
+        if(!$?) { Exit $LASTEXITCODE }
+        New-Item -ItemType Directory -Force -Path "$(Build.SourcesDirectory)/artifacts"
+        7z a -ttar "$(Build.SourcesDirectory)/artifacts/windows-x64-${{ parameters.buildType }}.tar"  "build/"
+        if(!$?) { Exit $LASTEXITCODE }
+        7z a -tgzip "$(Build.SourcesDirectory)/artifacts/windows-x64-${{ parameters.buildType }}.tar.gz" "$(Build.SourcesDirectory)/artifacts/windows-x64-${{ parameters.buildType }}.tar"
+        if(!$?) { Exit $LASTEXITCODE }
+      displayName: 'Compile Code & Tests'
+      workingDirectory: $(Build.SourcesDirectory)
+      failOnStderr: true
+
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: "$(Build.SourcesDirectory)/artifacts"
+        artifactName: Windows${{ parameters.buildType }}Build
