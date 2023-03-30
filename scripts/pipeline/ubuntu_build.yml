@@ -28,7 +28,7 @@ jobs:
 
     - bash: |
         set -euo pipefail
-        scripts/build_x86-64.sh unix-deb ${{ parameters.cmakeExtraArgs }}
+        scripts/build_x86-64.sh ${{ parameters.cmakePreset }} ${{ parameters.cmakeExtraArgs }}
         mkdir -p "$(Build.SourcesDirectory)/artifacts"
         tar -zcf "$(Build.SourcesDirectory)/artifacts/ubuntu-x86-64-${{ parameters.buildType }}.tar.gz" "build/" 
       displayName: Compile Code & Tests
