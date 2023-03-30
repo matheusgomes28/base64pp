@@ -12,6 +12,7 @@ parameters:
   type: string
 - name: cmakeExtraArgs
   type: string
+  default:
 - name: containerName
   type: string
 
