@@ -1,0 +1,39 @@
+# This is the template for a single Ubuntu
+# build job. This template will publish the
+# build artifact with name
+# ubuntu-x86-64-${{ parameters.buildType }}.tar.gz
+parameters:
+- name: jobName
+  type: string
+- name: buildType
+  type: string
+  default: Debug
+- name: cmakePreset
+  type: string
+- name: cmakeExtraArgs
+  type: string
+  default:
+- name: containerName
+  type: string
+
+
+jobs:
+- job: ${{ parameters.jobName }}
+  displayName: Ubuntu ${{ parameters.buildType }} Build
+  continueOnError: false
+  container: ${{ parameters.containerName }}
+  steps:
+    - bash: scripts/helpers/conan-install.sh ${{ parameters.buildType }}
+      displayName: Installing Conan Dependencies
+
+    - bash: |
+        set -euo pipefail
+        scripts/build_x86-64.sh ${{ parameters.cmakePreset }} ${{ parameters.cmakeExtraArgs }}
+        mkdir -p "$(Build.SourcesDirectory)/artifacts"
+        tar -zcf "$(Build.SourcesDirectory)/artifacts/ubuntu-x86-64-${{ parameters.buildType }}.tar.gz" "build/" 
+      displayName: Compile Code & Tests
+
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: "$(Build.SourcesDirectory)/artifacts"
+        artifactName: Ubuntu${{ parameters.buildType }}Build
