@@ -134,7 +134,7 @@ stages:
         displayName: Download Built Files
         inputs:
           source: current
-          artifact: 'DebBuildFiles'
+          artifact: UbuntuDebugBuild
           path: "$(Build.SourcesDirectory)/artifacts"
 
       - bash: |
@@ -165,7 +165,7 @@ stages:
         displayName: Download Built Files
         inputs:
           source: current
-          artifact: DebBuildFiles
+          artifact: UbuntuDebugBuild
           path: "$(Build.SourcesDirectory)/artifacts"
 
       - bash: |
@@ -189,7 +189,7 @@ stages:
         displayName: Download Built Files
         inputs:
           source: current
-          artifact: DebBuildFiles
+          artifact: UbuntuDebugBuild
           path: $(Build.SourcesDirectory)/artifacts
       - bash: scripts/helpers/conan-install.sh
         displayName: Installing all Conan dependencies
