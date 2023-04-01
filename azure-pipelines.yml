@@ -92,11 +92,11 @@ stages:
         inputs:
           source: current
           artifact: UbuntuDebugBuild
-          path: "$(Build.SourcesDirectory)/artifacts"
+          path: "$(Build.SourcesDirectory)/download_artifacts"
 
       - bash: |
           set -euo pipefail
-          tar -xzf "artifacts/ubuntu-x86-64-Debug.tar.gz"
+          tar -xzf "download_artifacts/ubuntu-x86-64-Debug.tar.gz"
           cd "build/unix-deb" && cmake --build . --target=doxygen_build
           mkdir -p "$(Build.SourcesDirectory)/artifacts"
           tar -zcf "$(Build.SourcesDirectory)/artifacts/docs.tar.gz" "docs" 
