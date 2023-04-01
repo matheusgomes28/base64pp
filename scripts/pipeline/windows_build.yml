@@ -28,9 +28,9 @@ jobs:
         .\scripts\build_win_x64.ps1 -Preset ${{ parameters.cmakePreset }}
         if(!$?) { Exit $LASTEXITCODE }
         New-Item -ItemType Directory -Force -Path "$(Build.SourcesDirectory)/artifacts"
-        7z a -ttar "$(Build.SourcesDirectory)/artifacts/windows-x64-${{ parameters.buildType }}.tar"  "build/"
+        7z a -ttar "windows-x64-${{ parameters.buildType }}.tar"  "build/"
         if(!$?) { Exit $LASTEXITCODE }
-        7z a -tgzip "$(Build.SourcesDirectory)/artifacts/windows-x64-${{ parameters.buildType }}.tar.gz" "$(Build.SourcesDirectory)/artifacts/windows-x64-${{ parameters.buildType }}.tar"
+        7z a -tgzip "$(Build.SourcesDirectory)/artifacts/windows-x64-${{ parameters.buildType }}.tar.gz" "windows-x64-${{ parameters.buildType }}.tar"
         if(!$?) { Exit $LASTEXITCODE }
       displayName: 'Compile Code & Tests'
       workingDirectory: $(Build.SourcesDirectory)
