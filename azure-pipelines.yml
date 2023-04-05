@@ -132,6 +132,13 @@ stages:
         displayName: Running All Tests
         workingDirectory: $(Build.SourcesDirectory)
 
+      - bash: |
+          set -euo pipefail
+          ./scripts/gather_cov.sh
+        displayName: Uploading Coverage
+        env:
+          CODECOV_TOKEN: $(CodeCovToken)
+
 - stage: static_analysis
   displayName: Static Analysis
   dependsOn:
