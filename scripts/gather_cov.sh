@@ -20,4 +20,4 @@ lcov --remove coverage.info "${SYSTEM_DIR}*" --output-file coverage.info
 lcov --remove coverage.info "${CONAN_DIR}*" --output-file coverage.info
 
 # Assumes we have a secret
-bash <(curl -s https://codecov.io/bash) -f coverage.info || $(echo "Codecov did not collect coverage reports" && exit 1)
+bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports" && exit 1
