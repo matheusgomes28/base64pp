@@ -107,7 +107,10 @@
             "name": "unix-deb",
             "displayName": "Unix Make Debug",
             "binaryDir": "${sourceDir}/build/unix-deb",
-            "inherits": ["unix", "deb", "conan-deb"]
+            "inherits": ["unix", "deb", "conan-deb"],
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS": "$env{CMAKE_CXX_FLAGS} -O0 --coverage"
+            }
         },
         {
             "name": "vs2022-rel",
