@@ -9,9 +9,6 @@ set -euo pipefail
     a low coverage report!
 '
 
-THIS_DIR=$(cd "$(dirname "$0")" && pwd)
-PROJECT_DIR="$(cd "${THIS_DIR}/.." && pwd)"
-
 SYSTEM_DIR="/usr/"
 CONAN_DIR="${HOME}/.conan2/"
 
