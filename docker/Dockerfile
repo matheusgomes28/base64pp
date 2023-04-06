@@ -40,10 +40,15 @@ RUN apt-get update \
     && pip3 install --no-cache --ignore-installed cmake==3.25.2 \
     && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 10 \
     && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 10 \
+    && update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-11 10 \
     && update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-13 10 \
     && update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-13 10 \
     && update-alternatives --install /usr/bin/run-clang-tidy run-clang-tidy /usr/bin/run-clang-tidy-13 10 \
     && cd ~ \
+    && wget https://github.com/linux-test-project/lcov/releases/download/v1.15/lcov-1.15.tar.gz \
+    && tar xzf lcov-1.15.tar.gz \
+    && cd lcov-1.15 && make install \
+    && cd ~ && rm -rf lcov-1.15 && rm lcov-1.15.tar.gz \
     && wget https://doxygen.nl/files/doxygen-1.9.6.src.tar.gz \
     && tar xzf doxygen-1.9.6.src.tar.gz \
     && cd doxygen-1.9.6 \
