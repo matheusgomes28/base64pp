@@ -138,6 +138,7 @@ stages:
         displayName: Uploading Coverage
         env:
           CODECOV_TOKEN: $(CodeCovToken)
+        workingDirectory: $(Build.SourcesDirectory)
 
 - stage: static_analysis
   displayName: Static Analysis
