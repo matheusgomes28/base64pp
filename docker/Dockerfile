@@ -56,7 +56,7 @@ RUN apt-get update \
     && cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr .. \
     && cmake --build . \
     && cmake --install . \
-    && cd ~ && rm -rf doxygen-1.9.6 \
+    && cd ~ && rm doxygen-1.9.6.src.tar.gz && rm -rf doxygen-1.9.6 \
     && apt-get remove -y software-properties-common wget bison flex \
     && apt-get clean \
     && apt-get autoremove -y \
