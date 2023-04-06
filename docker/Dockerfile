@@ -19,6 +19,7 @@ RUN apt-get update \
     && add-apt-repository ppa:ubuntu-toolchain-r/test \
     && add-apt-repository ppa:savoury1/llvm-defaults-13 \
     && apt-get install -y --no-install-recommends --no-install-suggests \
+    curl \
     gcc-11 \
     g++-11 \
     make \
