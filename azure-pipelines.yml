@@ -14,13 +14,13 @@ pr:
   - releases/*
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: ubuntu-latest
 
 resources:
   containers:
-    - container: 'ubuntu18.04-gcc11-conan2-doxygen1.9.6'
-      image: 'mattgomes28/cpp-ubuntu-bionic:0.8'
-      options: '--user 0:0'
+    - container: ubuntu18.04-gcc11-conan2-doxygen1.9.6
+      image: mattgomes28/cpp-ubuntu-bionic:0.9
+      options: --user 0:0
 
 stages:
 
