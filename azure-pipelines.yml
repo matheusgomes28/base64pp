@@ -19,7 +19,7 @@ pool:
 resources:
   containers:
     - container: 'ubuntu18.04-gcc11-conan2-doxygen1.9.6'
-      image: 'mattgomes28/cpp-ubuntu-bionic:0.7'
+      image: 'mattgomes28/cpp-ubuntu-bionic:0.8'
       options: '--user 0:0'
 
 stages:
