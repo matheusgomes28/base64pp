@@ -117,7 +117,6 @@ stages:
     container: ubuntu18.04-gcc11-conan2-doxygen1.9.6
     displayName: Running CTest
     steps:
-      - checkout: none
       - task: DownloadPipelineArtifact@2
         displayName: Download Built Files
         inputs:
