@@ -18,9 +18,9 @@ pool:
 
 resources:
   containers:
-    - container: 'ubuntu18.04-gcc11-conan2-doxygen1.9.6'
-      image: 'mattgomes28/cpp-ubuntu-bionic:0.10'
-      options: '--user 0:0'
+    - container: ubuntu18.04-gcc11-conan2-doxygen1.9.6
+      image: mattgomes28/cpp-ubuntu-bionic:0.11
+      options: --user 0:0
 
 stages:
 
@@ -29,7 +29,7 @@ stages:
   jobs:
   - job: failfast
     displayName: Failfast Scripts
-    container: 'ubuntu18.04-gcc11-conan2-doxygen1.9.6'
+    container: ubuntu18.04-gcc11-conan2-doxygen1.9.6
     continueOnError: false
     steps:
     - bash: scripts/shellcheck.sh
@@ -84,7 +84,7 @@ stages:
       - checkout: self
         submodules: recursive
       - bash: scripts/helpers/conan-install.sh
-        displayName: 'Installing all Conan dependencies'
+        displayName: Installing all Conan dependencies
         workingDirectory: $(Build.SourcesDirectory)
 
       - task: DownloadPipelineArtifact@2
@@ -92,7 +92,7 @@ stages:
         inputs:
           source: current
           artifact: UbuntuDebugBuild
-          path: "$(Build.SourcesDirectory)/download_artifacts"
+          path: $(Build.SourcesDirectory)/download_artifacts
 
       - bash: |
           set -euo pipefail
@@ -100,12 +100,12 @@ stages:
           cd "build/unix-deb" && cmake --build . --target=doxygen_build
           mkdir -p "$(Build.SourcesDirectory)/artifacts"
           tar -zcf "$(Build.SourcesDirectory)/artifacts/docs.tar.gz" "docs" 
-        displayName: 'Building The Doxygen Target'
+        displayName: Building The Doxygen Target
         workingDirectory: $(Build.SourcesDirectory)
       
       - task: PublishPipelineArtifact@1
         inputs:
-          targetPath: "$(Build.SourcesDirectory)/artifacts"
+          targetPath: $(Build.SourcesDirectory)/artifacts
           artifactName: 'DocsFiles'
 
 - stage: tests
@@ -123,7 +123,7 @@ stages:
         inputs:
           source: current
           artifact: UbuntuDebugBuild
-          path: "$(Build.SourcesDirectory)/artifacts"
+          path: $(Build.SourcesDirectory)/artifacts
 
       - bash: |
           set -euo pipefail
