@@ -17,8 +17,10 @@ lcov --capture --directory . --output-file coverage.info \
 SYSTEM_DIR="/usr/"
 CONAN_DIR="${HOME}/.conan2/"
 
+# Remove the system & test dirs
 lcov --remove coverage.info "${SYSTEM_DIR}*" --output-file coverage.info
 lcov --remove coverage.info "${CONAN_DIR}*" --output-file coverage.info
+lcov --remove coverage.info "${PROJECT_DIR}/tests*" --output-file coverage.info
 
 # Generate HTML report into coverage/
 genhtml coverage.info --output-directory coverage > coverage_stats.txt
