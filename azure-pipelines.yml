@@ -117,7 +117,6 @@ stages:
     container: ubuntu18.04-gcc11-conan2-doxygen1.9.6
     displayName: Running CTest
     steps:
-      - checkout: none
       - task: DownloadPipelineArtifact@2
         displayName: Download Built Files
         inputs:
@@ -130,6 +129,25 @@ stages:
           tar -xzf "artifacts/ubuntu-x86-64-Debug.tar.gz"
           cd "build/unix-deb" && ctest --verbose --test-dir="build/unix-deb"
         displayName: Running All Tests
+        workingDirectory: $(Build.SourcesDirectory)
+
+      - bash: |
+          set -euo pipefail
+          ./scripts/gather_cov.sh
+        displayName: Generating Coverage Stats
+
+      - task: PublishPipelineArtifact@1
+        displayName: Upload Coverage Artifacts
+        inputs:
+          targetPath: $(Build.SourcesDirectory)/coverage
+          artifactName: Coverage
+
+      - bash: |
+          set -euo pipefail
+          bash <(curl -s https://codecov.io/bash) -f coverage.info
+        displayName: Upload To CodeCov
+        env:
+          CODECOV_TOKEN: $(CodeCovToken)
         workingDirectory: $(Build.SourcesDirectory)
 
 - stage: static_analysis
