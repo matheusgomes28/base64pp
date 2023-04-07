@@ -231,6 +231,21 @@ TEST(Base64Decode, DecodesQuickFox)
     ASSERT_EQ(actual, expected);
 }
 
+// NOLINTNEXTLINE
+TEST(Base64RoundTripTests, AllPossibleBytes)
+{
+    std::vector<std::uint8_t> all_possible_bytes;
+    for (std::size_t i = 0; i <= 255; ++i)
+    {
+        all_possible_bytes.push_back(static_cast<std::uint8_t>(i));
+    }
+
+    auto const encode_string = base64pp::encode({begin(all_possible_bytes), end(all_possible_bytes)});
+    auto const decoded_bytes = base64pp::decode(encode_string);
+    ASSERT_TRUE(decoded_bytes);
+    ASSERT_EQ(all_possible_bytes, *decoded_bytes);
+}
+
 int main(int argc, char** argv)
 {
     testing::InitGoogleTest(&argc, argv);
