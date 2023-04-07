@@ -1,3 +1,6 @@
+[![Build Status](https://dev.azure.com/Matheusgarcia28/Base64pp/_apis/build/status%2Fmatheusgomes28.base64pp?branchName=main)](https://dev.azure.com/Matheusgarcia28/Base64pp/_build/latest?definitionId=3&branchName=main) | [![codecov](https://codecov.io/github/matheusgomes28/base64pp/branch/main/graph/badge.svg?token=5Q5G5MNFLO)](https://codecov.io/github/matheusgomes28/base64pp)
+|---|----|
+
 # Base64pp - A Modern C++ Implementation Of Base64 Encoding
 
 This project was created for a post on my personal blog
