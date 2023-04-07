@@ -20,6 +20,7 @@ RUN apt-get update \
     && add-apt-repository ppa:savoury1/llvm-defaults-13 \
     && apt-get install -y --no-install-recommends --no-install-suggests \
     curl \
+    git \
     gcc-11 \
     g++-11 \
     make \
@@ -62,4 +63,5 @@ RUN apt-get update \
     && apt-get clean \
     && apt-get autoremove -y \
     && apt-get autoremove --purge -y \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /usr/lib/gcc/x86_64-linux-gnu/7*
