@@ -134,7 +134,18 @@ stages:
       - bash: |
           set -euo pipefail
           ./scripts/gather_cov.sh
-        displayName: Uploading Coverage
+        displayName: Generating Coverage Stats
+
+      - task: PublishPipelineArtifact@1
+        displayName: Upload Coverage Artifacts
+        inputs:
+          targetPath: $(Build.SourcesDirectory)/coverage
+          artifactName: Coverage
+
+      - bash: |
+          set -euo pipefail
+          bash <(curl -s https://codecov.io/bash) -f coverage.info
+        displayName: Upload To CodeCov
         env:
           CODECOV_TOKEN: $(CodeCovToken)
         workingDirectory: $(Build.SourcesDirectory)
