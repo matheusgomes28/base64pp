@@ -31,8 +31,9 @@ jobs:
         scripts/build_x86-64.sh ${{ parameters.cmakePreset }} ${{ parameters.cmakeExtraArgs }}
       displayName: Compile Code & Tests
 
-    - task: PublishPipelineArtifact@1
+    - task: PublishBuildArtifacts@1
+      displayName: Publishing Build Files
       inputs:
-        targetPath: "$(Build.SourcesDirectory)/build"
-        artifactName: Ubuntu${{ parameters.buildType }}Build
-        storeAsTar: true
+        PathToPublish: $(Build.SourcesDirectory)/build
+        ArtifactName: Ubuntu${{ parameters.buildType }}Build
+        StoreAsTar: true

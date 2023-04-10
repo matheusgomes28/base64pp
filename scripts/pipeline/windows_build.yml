@@ -30,7 +30,9 @@ jobs:
       workingDirectory: $(Build.SourcesDirectory)
       failOnStderr: true
 
-    - task: PublishPipelineArtifact@1
+    - task: PublishBuildArtifacts@1
+      displayName: Publish Build Files
       inputs:
-        targetPath: "$(Build.SourcesDirectory)/build"
-        artifactName: Windows${{ parameters.buildType }}Build
+        PathToPublish: "$(Build.SourcesDirectory)/build"
+        ArtifactName: Windows${{ parameters.buildType }}Build
+        StoreAsTar: true
