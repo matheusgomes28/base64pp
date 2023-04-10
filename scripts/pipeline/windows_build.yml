@@ -23,7 +23,6 @@ jobs:
   steps:
     - pwsh: .\scripts\helpers\conan-install.ps1 -BuildType ${{ parameters.buildType }}
       displayName: 'Installing Conan Dependencies'
-      failOnStderr: true
 
     - pwsh: |
         .\scripts\build_win_x64.ps1 -Preset ${{ parameters.cmakePreset }}
