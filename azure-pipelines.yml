@@ -92,7 +92,7 @@ stages:
         inputs:
           source: current
           artifact: UbuntuDebugBuild
-          targetPath: $(Build.SourcesDirectory)
+          targetPath: $(Build.SourcesDirectory)/build
 
       - bash: |
           set -euo pipefail
@@ -119,7 +119,7 @@ stages:
         inputs:
           source: current
           artifact: UbuntuDebugBuild
-          targetPath: $(Build.SourcesDirectory)
+          targetPath: $(Build.SourcesDirectory)/build
 
       - bash: |
           set -euo pipefail
@@ -161,7 +161,7 @@ stages:
         inputs:
           source: current
           artifact: UbuntuDebugBuild
-          targetPath: $(Build.SourcesDirectory)
+          targetPath: $(Build.SourcesDirectory)/build
       - bash: scripts/helpers/conan-install.sh
         displayName: Installing all Conan dependencies
         workingDirectory: $(Build.SourcesDirectory)
