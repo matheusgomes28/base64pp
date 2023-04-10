@@ -93,6 +93,7 @@ stages:
           source: current
           artifact: UbuntuDebugBuild
           targetPath: $(Build.SourcesDirectory)/build
+          extractTars: true
 
       - bash: |
           set -euo pipefail
@@ -120,6 +121,7 @@ stages:
           source: current
           artifact: UbuntuDebugBuild
           targetPath: $(Build.SourcesDirectory)/build
+          extractTars: true
 
       - bash: |
           set -euo pipefail
@@ -162,6 +164,7 @@ stages:
           source: current
           artifact: UbuntuDebugBuild
           targetPath: $(Build.SourcesDirectory)/build
+          extractTars: true
       - bash: scripts/helpers/conan-install.sh
         displayName: Installing all Conan dependencies
         workingDirectory: $(Build.SourcesDirectory)
