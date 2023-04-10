@@ -87,12 +87,11 @@ stages:
         displayName: Installing all Conan dependencies
         workingDirectory: $(Build.SourcesDirectory)
 
-      - task: DownloadPipelineArtifact@2
-        displayName: Download Built Files
+      - task: DownloadBuildArtifacts@1
+        displayName: Download Build Files
         inputs:
-          source: current
-          artifact: UbuntuDebugBuild
-          targetPath: $(Build.SourcesDirectory)/build
+          artifactName: UbuntuDebugBuild
+          downloadPath: $(Build.SourcesDirectory)/build
           extractTars: true
 
       - bash: |
@@ -116,8 +115,8 @@ stages:
     displayName: Running CTest
     steps:
       - task: DownloadBuildArtifacts@1
+        displayName: Download Build Files
         inputs:
-          displayName: Download Build Files
           artifactName: UbuntuDebugBuild
           downloadPath: $(Build.SourcesDirectory)/build
           extractTars: true
@@ -157,15 +156,18 @@ stages:
     displayName: Running Clang-Tidy
     steps:
       - checkout: self
+      
       - task: DownloadBuildArtifacts@1
+        displayName: Download Build Files
         inputs:
-          displayName: Download Build Files
           artifactName: UbuntuDebugBuild
           downloadPath: $(Build.SourcesDirectory)/build
           extractTars: true
+
       - bash: scripts/helpers/conan-install.sh
         displayName: Installing all Conan dependencies
         workingDirectory: $(Build.SourcesDirectory)
+
       - bash: |
           set -euo pipefail
           ./scripts/static-analysis.sh

@@ -35,4 +35,3 @@ jobs:
       inputs:
         PathToPublish: "$(Build.SourcesDirectory)/build"
         ArtifactName: Windows${{ parameters.buildType }}Build
-        StoreAsTar: true
