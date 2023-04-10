@@ -167,7 +167,6 @@ stages:
         workingDirectory: $(Build.SourcesDirectory)
       - bash: |
           set -euo pipefail
-          tar -xzf "artifacts/ubuntu-x86-64-Debug.tar.gz"
           ./scripts/static-analysis.sh
         displayName: Running Clang-Tidy script
         workingDirectory: $(Build.SourcesDirectory)
