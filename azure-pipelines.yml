@@ -87,12 +87,10 @@ stages:
         displayName: Installing all Conan dependencies
         workingDirectory: $(Build.SourcesDirectory)
 
-      - task: DownloadBuildArtifacts@1
-        displayName: Download Build Files
-        inputs:
+      - template: scripts/pipeline/download_build.yml
+        parameters:
           artifactName: UbuntuDebugBuild
-          downloadPath: $(Build.SourcesDirectory)/build
-          extractTars: true
+          destination: $(Build.SourcesDirectory)/build
 
       - bash: |
           set -euo pipefail
@@ -114,12 +112,10 @@ stages:
     container: ubuntu18.04-gcc11-conan2-doxygen1.9.6
     displayName: Running CTest
     steps:
-      - task: DownloadBuildArtifacts@1
-        displayName: Download Build Files
-        inputs:
+      - template: scripts/pipeline/download_build.yml
+        parameters:
           artifactName: UbuntuDebugBuild
-          downloadPath: $(Build.SourcesDirectory)/build
-          extractTars: true
+          destination: $(Build.SourcesDirectory)/build
 
       - bash: |
           set -euo pipefail
@@ -157,12 +153,10 @@ stages:
     steps:
       - checkout: self
       
-      - task: DownloadBuildArtifacts@1
-        displayName: Download Build Files
-        inputs:
+      - template: scripts/pipeline/download_build.yml
+        parameters:
           artifactName: UbuntuDebugBuild
-          downloadPath: $(Build.SourcesDirectory)/build
-          extractTars: true
+          destination: $(Build.SourcesDirectory)/build
 
       - bash: scripts/helpers/conan-install.sh
         displayName: Installing all Conan dependencies

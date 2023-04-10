@@ -1,0 +1,24 @@
+# This template downloads a build artifact
+# with permissions to the given destination.
+# It's here because we need DownloadBuildPipeline@1
+# but it downloads to a sub-directory with the
+# artifact name, so the extract is needed
+
+parameters:
+- name: artifactName
+  type: string
+- name: destination
+  type: string
+
+steps:
+  - task: DownloadBuildArtifacts@1
+    displayName: Download Build Files
+    inputs:
+      artifactName: ${{ parameters.artifactName }}
+      downloadPath: $(Build.SourcesDirectory)/artifacts
+
+  - task: ExtractFiles@1
+    displayName: Extracting Artifacts
+    inputs:
+      archiveFilePatterns: $(Build.SourcesDirectory)/artifacts/${{ parameters.artifactName }}/${{ parameters.artifactName }}.tar # string. Required. Archive file patterns. Default: **/*.zip.
+      destinationFolder: ${{ parameters.destination }}
