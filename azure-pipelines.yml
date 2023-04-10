@@ -115,12 +115,11 @@ stages:
     container: ubuntu18.04-gcc11-conan2-doxygen1.9.6
     displayName: Running CTest
     steps:
-      - task: DownloadPipelineArtifact@2
-        displayName: Download Built Files
+      - task: DownloadBuildArtifacts@1
         inputs:
-          source: current
-          artifact: UbuntuDebugBuild
-          targetPath: $(Build.SourcesDirectory)/build
+          displayName: Download Build Files
+          artifactName: UbuntuDebugBuild
+          downloadPath: $(Build.SourcesDirectory)/build
           extractTars: true
 
       - bash: |
@@ -158,12 +157,11 @@ stages:
     displayName: Running Clang-Tidy
     steps:
       - checkout: self
-      - task: DownloadPipelineArtifact@2
-        displayName: Download Built Files
+      - task: DownloadBuildArtifacts@1
         inputs:
-          source: current
-          artifact: UbuntuDebugBuild
-          targetPath: $(Build.SourcesDirectory)/build
+          displayName: Download Build Files
+          artifactName: UbuntuDebugBuild
+          downloadPath: $(Build.SourcesDirectory)/build
           extractTars: true
       - bash: scripts/helpers/conan-install.sh
         displayName: Installing all Conan dependencies
