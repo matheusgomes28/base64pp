@@ -92,20 +92,17 @@ stages:
         inputs:
           source: current
           artifact: UbuntuDebugBuild
-          path: $(Build.SourcesDirectory)/download_artifacts
+          targetPath: $(Build.SourcesDirectory)
 
       - bash: |
           set -euo pipefail
-          tar -xzf "download_artifacts/ubuntu-x86-64-Debug.tar.gz"
           cd "build/unix-deb" && cmake --build . --target=doxygen_build
-          mkdir -p "$(Build.SourcesDirectory)/artifacts"
-          tar -zcf "$(Build.SourcesDirectory)/artifacts/docs.tar.gz" "docs" 
         displayName: Building The Doxygen Target
         workingDirectory: $(Build.SourcesDirectory)
       
       - task: PublishPipelineArtifact@1
         inputs:
-          targetPath: $(Build.SourcesDirectory)/artifacts
+          targetPath: $(Build.SourcesDirectory)/build/unix-deb/docs
           artifactName: 'DocsFiles'
 
 - stage: tests
@@ -122,11 +119,10 @@ stages:
         inputs:
           source: current
           artifact: UbuntuDebugBuild
-          path: $(Build.SourcesDirectory)/artifacts
+          targetPath: $(Build.SourcesDirectory)
 
       - bash: |
           set -euo pipefail
-          tar -xzf "artifacts/ubuntu-x86-64-Debug.tar.gz"
           cd "build/unix-deb" && ctest --verbose --test-dir="build/unix-deb"
         displayName: Running All Tests
         workingDirectory: $(Build.SourcesDirectory)
@@ -165,7 +161,7 @@ stages:
         inputs:
           source: current
           artifact: UbuntuDebugBuild
-          path: $(Build.SourcesDirectory)/artifacts
+          targetPath: $(Build.SourcesDirectory)
       - bash: scripts/helpers/conan-install.sh
         displayName: Installing all Conan dependencies
         workingDirectory: $(Build.SourcesDirectory)
