@@ -35,3 +35,4 @@ jobs:
       inputs:
         targetPath: "$(Build.SourcesDirectory)/build"
         artifactName: Ubuntu${{ parameters.buildType }}Build
+        storeAsTar: true
