@@ -153,17 +153,13 @@ stages:
     steps:
       - checkout: self
       
-      - template: scripts/pipeline/download_build.yml
-        parameters:
-          artifactName: UbuntuDebugBuild
-          destination: $(Build.SourcesDirectory)/build
-
       - bash: scripts/helpers/conan-install.sh
         displayName: Installing all Conan dependencies
         workingDirectory: $(Build.SourcesDirectory)
 
       - bash: |
           set -euo pipefail
+          cmake --preset "unix-deb" -DCMAKE_EXPORT_COMPILE_COMMANDS=On
           ./scripts/static-analysis.sh
         displayName: Running Clang-Tidy script
         workingDirectory: $(Build.SourcesDirectory)
