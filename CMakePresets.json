@@ -32,19 +32,6 @@
             }
         },
         {
-            "name": "ninja-unix",
-            "hidden": true,
-            "generator": "Ninja"
-        },
-        {
-            "name": "ninja-windows",
-            "hidden": true,
-            "generator": "Ninja",
-            "cacheVariables": {
-                "CMAKE_CXX_FLAGS": "$env{CMAKE_CXX_FLAGS} /W4 /WX /EHsc"
-            }
-        },
-        {
             "name": "unix",
             "hidden": true,
             "generator": "Unix Makefiles",
@@ -78,36 +65,6 @@
             }
         },
 
-        {
-            "name": "ninja-unix-rel",
-            "displayName": "Ninja Unix Release",
-            "binaryDir": "${sourceDir}/build/ninja-unix-rel",
-            "inherits": ["ninja-unix", "rel", "conan-rel"],
-            "cacheVariables": {
-                "CMAKE_CXX_FLAGS": "$env{CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -pedantic -O3"
-            }
-        },
-        {
-            "name": "ninja-unix-deb",
-            "displayName": "Ninja Unix Debug",
-            "binaryDir": "${sourceDir}/build/ninja-unix-deb",
-            "inherits": ["ninja-unix", "deb", "conan-deb"],
-            "cacheVariables": {
-                "CMAKE_CXX_FLAGS": "$env{CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -pedantic -D_GLIBCXX_DEBUG --coverage"
-            }
-        },
-        {
-            "name": "ninja-windows-rel",
-            "displayName": "Ninja Windows Release",
-            "binaryDir": "${sourceDir}/build/ninja-windows-rel",
-            "inherits": ["ninja-windows", "rel", "conan-rel"]
-        },
-        {
-            "name": "ninja-windows-deb",
-            "displayName": "Ninja Windows Debug",
-            "binaryDir": "${sourceDir}/build/ninja-deb",
-            "inherits": ["ninja-windows", "deb", "conan-deb"]
-        },
         {
             "name": "unix-rel",
             "displayName": "Unix Make Release",
@@ -208,30 +165,6 @@
             "displayName": "Unix Make Release Build",
             "configurePreset": "unix-rel-shared",
             "configuration": "Release"
-        },
-        {
-            "name": "ninja-unix-rel",
-            "displayName": "Ninja Unix Release Build",
-            "configurePreset": "ninja-unix-rel",
-            "configuration": "Release"
-        },
-        {
-            "name": "ninja-unix-deb",
-            "displayName": "Ninja Unix Debug Build",
-            "configurePreset": "ninja-unix-deb",
-            "configuration": "Debug"
-        },
-        {
-            "name": "ninja-windows-rel",
-            "displayName": "Ninja Windows Release Build",
-            "configurePreset": "ninja-windows-rel",
-            "configuration": "Release"
-        },
-        {
-            "name": "ninja-windows-deb",
-            "displayName": "Ninja Windows Debug Build",
-            "configurePreset": "ninja-windows-deb",
-            "configuration": "Debug"
         }
     ]
 }
