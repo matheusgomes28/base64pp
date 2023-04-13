@@ -5,7 +5,6 @@
 #define BASE64PP_H
 
 #include "base64pp_export.h"
-
 #include <cstdint>
 #include <optional>
 #include <span>
