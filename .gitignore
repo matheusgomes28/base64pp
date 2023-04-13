@@ -5,8 +5,12 @@ conan/*
 cmake-build*
 out/*
 
-compile_commands.json
 CMakeSettings.json
 CMakeUserPresets.json
+
+# Generated files
 Doxyfile
+compile_commands.json
+base64pp/include/base64pp/base64pp_export.h
+
 

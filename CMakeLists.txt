@@ -7,13 +7,14 @@ enable_testing()
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+set(CMAKE_VISIBILITY_INLINES_HIDDEN On)
 
+option(BUILD_DOCS "Build documentation" Off)
+option(BUILD_SHARED "Build shared library" Off)
 
 add_subdirectory(base64pp)
 add_subdirectory(tests)
-
-
-option(BUILD_DOCS "Build documentation" Off)
 
 if (BUILD_DOCS)
     find_package(Doxygen)

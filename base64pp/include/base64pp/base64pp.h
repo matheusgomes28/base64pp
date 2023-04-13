@@ -4,6 +4,7 @@
 #ifndef BASE64PP_H
 #define BASE64PP_H
 
+#include "base64pp_export.h"
 #include <cstdint>
 #include <optional>
 #include <span>
@@ -19,14 +20,14 @@ namespace base64pp
     //! string.
     //! @param input - a span pointing to a binary blob to encode.
     //! @return a base64 string containing the encoded data.
-    std::string encode(std::span<std::uint8_t const> const input);
+    std::string BASE64PP_EXPORT encode(std::span<std::uint8_t const> const input);
 
     //! @brief Decodes a base64 encoded string, returning an optional
     //! blob. If the decoding fails, it returns std::nullopt
     //! @param encoded_str - the base64 encoded string
     //! @return an optional containing a valid blob of data, if
     //! decoding was successful. Otherwise, returns std::nullopt
-    std::optional<std::vector<std::uint8_t>> decode(std::string_view const encoded_str);
+    std::optional<std::vector<std::uint8_t>> BASE64PP_EXPORT decode(std::string_view const encoded_str);
 } // namespace base64pp
 
 #endif // BASE64PP_H
