@@ -56,14 +56,6 @@
                 "CMAKE_CXX_FLAGS": "$env{CMAKE_CXX_FLAGS} /W4 /WX /EHsc"
             }
         },
-        {
-            "name": "vs2019",
-            "hidden": true,
-            "generator": "Visual Studio 16 2019",
-            "cacheVariables": {
-                "CMAKE_CXX_FLAGS": "$env{CMAKE_CXX_FLAGS} /W4 /WX /EHsc"
-            }
-        },
 
         {
             "name": "unix-rel",
@@ -103,18 +95,6 @@
             "displayName": "Visual Studio 2022 Debug",
             "binaryDir": "${sourceDir}/build/vs2022-deb",
             "inherits": ["vs2022", "deb", "conan-deb"]
-        },
-        {
-            "name": "vs2019-rel",
-            "displayName": "Visual Studio 2019 Release",
-            "binaryDir": "${sourceDir}/build/vs2019-rel",
-            "inherits": ["vs2019", "rel", "conan-rel"]
-        },
-        {
-            "name": "vs2019-deb",
-            "displayName": "Visual Studio 2019 Debug",
-            "binaryDir": "${sourceDir}/build/vs2019-deb",
-            "inherits": ["vs2019", "deb", "conan-deb"]
         }
     ],
     "buildPresets": [
@@ -128,18 +108,6 @@
             "name": "vs2022-deb",
             "displayName": "Visual Studio 2022 Debug Build",
             "configurePreset": "vs2022-deb",
-            "configuration": "Debug"
-        },
-        {
-            "name": "vs2019-rel",
-            "displayName": "Visual Studio 2019 Release Build",
-            "configurePreset": "vs2019-rel",
-            "configuration": "Release"
-        },
-        {
-            "name": "vs2019-deb",
-            "displayName": "Visual Studio 2019 Debug Build",
-            "configurePreset": "vs2019-deb",
             "configuration": "Debug"
         },
         {
