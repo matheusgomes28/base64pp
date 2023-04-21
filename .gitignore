@@ -4,6 +4,7 @@ build/*
 conan/*
 cmake-build*
 out/*
+install/*
 
 CMakeSettings.json
 CMakeUserPresets.json
