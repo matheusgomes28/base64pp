@@ -19,16 +19,14 @@
             "name": "rel",
             "hidden": true,
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release",
-                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/rel"
+                "CMAKE_BUILD_TYPE": "Release"
             }
         },
         {
             "name": "deb",
             "hidden": true,
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/deb"
+                "CMAKE_BUILD_TYPE": "Debug"
             }
         },
         {
@@ -61,13 +59,19 @@
             "name": "unix-rel",
             "displayName": "Unix Make Release",
             "binaryDir": "${sourceDir}/build/unix-rel",
-            "inherits": ["unix", "rel", "conan-rel"]
+            "inherits": ["unix", "rel", "conan-rel"],
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/unix-rel/install"
+            }
         },
         {
             "name": "unix-rel-shared",
             "displayName": "Unix Make Release Shared",
             "binaryDir": "${sourceDir}/build/unix-rel-shared",
-            "inherits": ["unix-shared", "unix-rel"]
+            "inherits": ["unix-shared", "unix-rel"],
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/unix-rel-shared/install"
+            }
         },
         {
             "name": "unix-deb",
@@ -75,26 +79,36 @@
             "binaryDir": "${sourceDir}/build/unix-deb",
             "inherits": ["unix", "deb", "conan-deb"],
             "cacheVariables": {
-                "CMAKE_CXX_FLAGS": "-O0 --coverage"
+                "CMAKE_CXX_FLAGS": "-O0 --coverage",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/unix-deb/install"
             }
         },
         {
             "name": "unix-deb-shared",
             "displayName": "Unix Make Debug Shared",
             "binaryDir": "${sourceDir}/build/unix-deb-shared",
-            "inherits": ["unix-shared", "unix-deb"]
+            "inherits": ["unix-shared", "unix-deb"],
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/unix-deb-shared/install"
+            }
         },
         {
             "name": "vs2022-rel",
             "displayName": "Visual Studio 2022 Release",
             "binaryDir": "${sourceDir}/build/vs2022-rel",
-            "inherits": ["vs2022", "rel", "conan-rel"]
+            "inherits": ["vs2022", "rel", "conan-rel"],
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/vs2022-rel/install"
+            }
         },
         {
             "name": "vs2022-deb",
             "displayName": "Visual Studio 2022 Debug",
             "binaryDir": "${sourceDir}/build/vs2022-deb",
-            "inherits": ["vs2022", "deb", "conan-deb"]
+            "inherits": ["vs2022", "deb", "conan-deb"],
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/vs2022-deb/install"
+            }
         }
     ],
     "buildPresets": [
