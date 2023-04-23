@@ -18,6 +18,6 @@ fi
 
 THIS_DIR=$(cd "$(dirname "$0")" && pwd)
 PROJECT_DIR="$(cd "${THIS_DIR}/.." && pwd)"
-BUILD_DIR="${PROJECT_DIR}/${1}"
+BUILD_DIR="${PROJECT_DIR}/build/${1}"
 
 cmake install "${BUILD_DIR}" --install-prefix "${BUILD_DIR}/install"
