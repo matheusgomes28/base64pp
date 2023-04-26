@@ -6,5 +6,14 @@ param (
 $ProjectDir = Split-Path -Parent $PSScriptRoot
 $BuildDir = Join-Path $ProjectDir "build\$Preset"
 
-cmake --install "$BuildDir"
+# Hacky way to figure whether it's a
+# debug/release build as presets don't
+# support it just yet
+$Configuration = "Debug"
+if ($Preset -like "*rel*")
+{
+    $Configuration = "Release"
+}
+
+cmake --install "$BuildDir" --config $Configuration
 if(!$?) { Exit $LASTEXITCODE }

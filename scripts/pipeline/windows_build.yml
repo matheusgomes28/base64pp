@@ -31,7 +31,7 @@ jobs:
     
     - pwsh: |
         .\scripts\cmake-install.ps1 -Preset ${{ parameters.cmakePreset }}
-      displayName: Install Dependencies
+      displayName: Install Library
 
     - task: PublishBuildArtifacts@1
       displayName: Publish Build Files

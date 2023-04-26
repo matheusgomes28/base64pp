@@ -14,13 +14,13 @@ endif()
 
 target_include_directories(base64pp PUBLIC ${BASE64PP_INCLUDE_DIR})
 
-file(GLOB BASE64PP_PUBLIC_HEADERS ${BASE64PP_INCLUDE_DIR}/**/*.h)
-set_target_properties(base64pp
-  PROPERTIES PUBLIC_HEADER "${BASE64PP_PUBLIC_HEADERS}")
-
 include(GenerateExportHeader)
 set(BASE64PP_EXPORT_FILE "${CMAKE_CURRENT_LIST_DIR}/include/base64pp")
 generate_export_header(base64pp EXPORT_FILE_NAME "${BASE64PP_INCLUDE_DIR}/base64pp/base64pp_export.h")
+
+file(GLOB BASE64PP_PUBLIC_HEADERS ${BASE64PP_INCLUDE_DIR}/**/*.h)
+set_target_properties(base64pp
+  PROPERTIES PUBLIC_HEADER "${BASE64PP_PUBLIC_HEADERS}")
 
 include(GNUInstallDirs)
 install(TARGETS base64pp)
