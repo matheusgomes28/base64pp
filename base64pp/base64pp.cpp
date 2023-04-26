@@ -154,15 +154,10 @@ std::optional<std::vector<std::uint8_t>> base64pp::decode(std::string_view const
         auto const bytes = decode_quad(last_quad[0], last_quad[1], 'A', 'A');
         decoded_bytes.push_back(bytes[0]);
     }
-    else if ((last_quad.size() == 3) || (last_quad[3] == '='))
+    else
     {
         auto const bytes = decode_quad(last_quad[0], last_quad[1], last_quad[2], 'A');
         std::copy_n(begin(bytes), 2, back_inserter(decoded_bytes));
-    }
-    else
-    {
-        auto const bytes = decode_quad(last_quad[0], last_quad[1], last_quad[2], last_quad[3]);
-        std::copy_n(begin(bytes), 3, back_inserter(decoded_bytes));
     }
 
     return decoded_bytes;
