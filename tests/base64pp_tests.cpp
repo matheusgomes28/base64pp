@@ -118,25 +118,7 @@ TEST(Base64Decode, FailDecodeOneStringPadded)
 }
 
 // NOLINTNEXTLINE
-TEST(Base64Decode, FailDecodeTwoString)
-{
-    std::string const input{"12"};
-    auto const actual{base64pp::decode(input)};
-
-    ASSERT_EQ(actual, std::nullopt);
-}
-
-// NOLINTNEXTLINE
-TEST(Base64Decode, FailDecodeThreeString)
-{
-    std::string const input{"12a"};
-    auto const actual{base64pp::decode(input)};
-
-    ASSERT_EQ(actual, std::nullopt);
-}
-
-// NOLINTNEXTLINE
-TEST(Base64Decode, FailDecodeNonSize4)
+TEST(Base64Decode, FailDecodeOneCharRemaining)
 {
     std::string const input{"something"};
     auto const actual{base64pp::decode(input)};
@@ -149,8 +131,11 @@ TEST(Base64Decode, FailDecodeNonSize4Bigger)
 {
     std::string const input{"SomethingEntirelyDifferent"};
     auto const actual{base64pp::decode(input)};
+    std::vector<std::uint8_t> const expected{0x4A, 0x89, 0x9E, 0xB6, 0x18, 0xA7, 0x80, 0x49, 0xED, 0x8A, 0xB7, 0xA5,
+        0xC8, 0x38, 0x9F, 0x7D, 0xEA, 0xDE, 0x9E};
 
-    ASSERT_EQ(actual, std::nullopt);
+    ASSERT_TRUE(actual);
+    ASSERT_EQ(*actual, expected);
 }
 
 // NOLINTNEXTLINE
@@ -165,11 +150,72 @@ TEST(Base64Decode, FailDecodeNonBase64Short)
 // NOLINTNEXTLINE
 TEST(Base64Decode, FailDecodeNonBase64Longer)
 {
-    std::string const input{"aaa`"};
+    std::string const input{"aaa`aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"};
     auto const actual{base64pp::decode(input)};
 
     ASSERT_EQ(actual, std::nullopt);
 }
+
+// NOLINTNEXTLINE
+TEST(Base64Decode, DecodesMissingTwoPads0)
+{
+    std::string const input{"12"};
+    auto const actual{base64pp::decode(input)};
+    std::vector<std::uint8_t> const expected{0xD7};
+
+    ASSERT_TRUE(actual);
+    ASSERT_EQ(*actual, expected);
+}
+
+
+// NOLINTNEXTLINE
+TEST(Base64Decode, DecodesMissingTwoPads1)
+{
+    std::string const input = "AA";
+    auto const actual{base64pp::decode(input)};
+    std::vector<std::uint8_t> const expected{0x00};
+
+    ASSERT_TRUE(actual);
+    ASSERT_EQ(*actual, expected);
+}
+
+// NOLINTNEXTLINE
+TEST(Base64Decode, DecodesMissingOnePad0)
+{
+    std::string const input = "AAA";
+    auto const actual{base64pp::decode(input)};
+    std::vector<std::uint8_t> const expected{0x00, 0x00};
+
+    ASSERT_TRUE(actual);
+    ASSERT_EQ(*actual, expected);
+}
+
+// NOLINTNEXTLINE
+TEST(Base64Decode, DecodesMissingOnePad1)
+{
+    std::string const input{"12a"};
+    auto const actual{base64pp::decode(input)};
+    std::vector<std::uint8_t> const expected{0xD7, 0x66};
+
+    ASSERT_TRUE(actual);
+    ASSERT_EQ(*actual, expected);
+}
+
+
+// Feature request - #84
+// NOLINTNEXTLINE
+TEST(Base64Decode, DecodesMissingIssueExample)
+{
+    std::string const input = "eyJuYW1lIjoiSm9obiBEb2UifQ";
+    auto const actual{base64pp::decode(input)};
+
+    std::string const expected_str = R"({"name":"John Doe"})";
+    std::vector<std::uint8_t> const expected{begin(expected_str), end(expected_str)};
+
+    ASSERT_TRUE(actual);
+    ASSERT_EQ(*actual, expected);
+}
+
 // NOLINTNEXTLINE
 TEST(Base64Decode, DecodesEmptyString)
 {
