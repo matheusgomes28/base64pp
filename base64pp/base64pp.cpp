@@ -49,10 +49,9 @@ namespace
         return decode_byte != 0x64;
     }
 
-    // Assumes that the encoded_str IS NOT EMPTY!
     inline bool is_valid_base64_str(std::string_view const encoded_str)
     {
-        if ((encoded_str.size() % 4) != 0)
+        if ((encoded_str.size() % 4) == 1)
         {
             return false;
         }
@@ -123,8 +122,7 @@ std::string base64pp::encode(std::span<std::uint8_t const> const input)
 
 std::optional<std::vector<std::uint8_t>> base64pp::decode(std::string_view const encoded_str)
 {
-    auto const size = encoded_str.size();
-    if (size == 0)
+    if (encoded_str.size() == 0)
     {
         return std::vector<std::uint8_t>{};
     }
@@ -134,24 +132,29 @@ std::optional<std::vector<std::uint8_t>> base64pp::decode(std::string_view const
         return std::nullopt;
     }
 
-    auto const full_quadruples = size / 4 - 1;
+    auto const unpadded_encoded_str = encoded_str.substr(0, encoded_str.find_first_of('='));
+    auto const full_quadruples      = unpadded_encoded_str.size() / 4;
 
     std::vector<std::uint8_t> decoded_bytes;
     decoded_bytes.reserve(((full_quadruples + 2) * 3) / 4);
 
     for (std::size_t i = 0; i < full_quadruples; ++i)
     {
-        auto const quad  = encoded_str.substr(i * 4, 4);
+        auto const quad  = unpadded_encoded_str.substr(i * 4, 4);
         auto const bytes = decode_quad(quad[0], quad[1], quad[2], quad[3]);
         std::copy(begin(bytes), end(bytes), back_inserter(decoded_bytes));
     }
 
-    if (auto const last_quad = encoded_str.substr(full_quadruples * 4, 4); last_quad[2] == '=')
+    if (auto const last_quad = unpadded_encoded_str.substr(full_quadruples * 4); last_quad.size() == 0)
+    {
+        return decoded_bytes;
+    }
+    else if ((last_quad.size() == 2) || (last_quad[2] == '='))
     {
         auto const bytes = decode_quad(last_quad[0], last_quad[1], 'A', 'A');
         decoded_bytes.push_back(bytes[0]);
     }
-    else if (last_quad[3] == '=')
+    else if ((last_quad.size() == 3) || (last_quad[3] == '='))
     {
         auto const bytes = decode_quad(last_quad[0], last_quad[1], last_quad[2], 'A');
         std::copy_n(begin(bytes), 2, back_inserter(decoded_bytes));
