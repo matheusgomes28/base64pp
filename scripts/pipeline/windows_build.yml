@@ -22,13 +22,16 @@ jobs:
     vmImage: windows-2022
   steps:
     - pwsh: .\scripts\helpers\conan-install.ps1 -BuildType ${{ parameters.buildType }}
-      displayName: 'Installing Conan Dependencies'
+      displayName: Installing Conan Dependencies
 
     - pwsh: |
         .\scripts\build_win_x64.ps1 -Preset ${{ parameters.cmakePreset }}
-      displayName: 'Compile Code & Tests'
-      workingDirectory: $(Build.SourcesDirectory)
+      displayName: Compile Code & Tests
       failOnStderr: true
+    
+    - pwsh: |
+        .\scripts\cmake-install.ps1 -Preset ${{ parameters.cmakePreset }}
+      displayName: Install Library
 
     - task: PublishBuildArtifacts@1
       displayName: Publish Build Files
