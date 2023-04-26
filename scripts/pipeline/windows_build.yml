@@ -30,7 +30,7 @@ jobs:
       failOnStderr: true
     
     - pwsh: |
-        .\scripts\cmake-install.ps1 -Preset ${{ preset.cmakePreset }}
+        .\scripts\cmake-install.ps1 -Preset ${{ parameters.cmakePreset }}
       displayName: Install Dependencies
 
     - task: PublishBuildArtifacts@1
