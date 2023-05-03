@@ -130,6 +130,7 @@ stages:
 
       - task: PublishPipelineArtifact@1
         displayName: Upload Coverage Artifacts
+        condition: always()
         inputs:
           targetPath: $(Build.SourcesDirectory)/coverage
           artifactName: Coverage
