@@ -292,6 +292,58 @@ TEST(Base64RoundTripTests, AllPossibleBytes)
     ASSERT_EQ(all_possible_bytes, *decoded_bytes);
 }
 
+// NOLINTNEXTLINE
+TEST(Base64RoundTripTests, ExhaustiveTests)
+{
+    std::vector<std::string> const base64_strings = {
+        "YW55IGNhcm5hbCBwbGVhcw==",
+        "bGVnYWwgcGFzcw==",
+        "dGVzdCBzdHJpbmc=",
+        "bGVnYWwgcHJvdmlkZXI=",
+        "ZW5vdWdoIHRoZSBzYW1lIG9mIHRoZSBwbGFjZQ==",
+        "YW5vdGhlciB0aGUgc3RyYWlnaHQ=",
+        "d2FzIG1lIGFkZHJlc3MgcHJvdmlkZXI=",
+        "YWJvdXQgdGhlIG1hc3RlciBvZiB0aGUgZGFtYWdl",
+        "ZW50aXJlIHRoYXQgYnJvdWdodCBvZiB0aGUgbW9uZXk=",
+        "bGVnYWwgc2VjdXJpdHk=",
+        "YmFzaWMgZ29vZCBvZiB0aGUgcGFkIHN0cmluZw==",
+        "ZGVsZXRlIHN0cmluZyBvZiB0aGUgc3RyYWlnaHQ=",
+        "YnJvdWdodCBvZiB0aGUgcGFkIGZvbGRlciBvZiB0aGUgZGFtYWdl",
+        "aW50ZXJmYWNlIHN0cmluZw==",
+        "Y29uc29sZS1tZS1jb21wYW55",
+        "aW5mb3JtYXRpb24tbWVkaWE=",
+        "c3RhdHVzLXNlY3VyZQ==",
+        "Y3JlYXRlLWNvbXBhbnktc3RyaW5n",
+        "b3JkZXItbGVhZGVy",
+        "Y2F0YWxvZy1wcm9maWxl",
+        "dGVzdC1jb25zdWx0aW5n",
+        "YnJvdWdodC1sZWFkZXI=",
+        "YXNzaWduLW1lY2hhbmlzbQ==",
+        "bGVnYWwtY29udGFpbmVy",
+        "ZW1haWwtY29udGFpbmVy",
+        "aW5zdGFuY2UtY29udGFpbmVy",
+        "dGVzdC1jb21wYW55LWFuZC1wcm9maWxl",
+        "YmFzZTY0LWJhc2U=",
+        "cGFzc3dvcmQ=",
+        "Zm9vYmFy",
+        "Y29vbC1iYXNl",
+        "YmFzZTY0LXNlY3VyZQ==",
+        "aW50ZXJ2YWw=",
+        "dGhlLW1hc3Rlci1vZi10aGUtZGFtYWdl",
+        "c2FtZS1wbGFjZS1vZi10aGUtZGFtYWdl",
+        "aGFzaC1zb21ldGhpbmc="
+    };
+
+    for (auto const& b64_string : base64_strings)
+    {
+        auto const decoded = base64pp::decode(b64_string);
+        ASSERT_TRUE(decoded);
+
+        auto const encoded_round_trip = base64pp::encode({begin(*decoded), end(*decoded)});
+        ASSERT_EQ(encoded_round_trip, b64_string);
+    }
+}
+
 int main(int argc, char** argv)
 {
     testing::InitGoogleTest(&argc, argv);
