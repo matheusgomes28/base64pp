@@ -1,7 +1,8 @@
 .idea/*
 .vs/*
 build/*
-conan/*
+conan/deb*
+conan/rel*
 cmake-build*
 out/*
 install/*
