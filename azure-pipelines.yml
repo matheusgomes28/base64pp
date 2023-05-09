@@ -110,7 +110,7 @@ stages:
   jobs:
   - job:
     container: ubuntu18.04-gcc11-conan2-doxygen1.9.6
-    displayName: Running CTest
+    displayName: Running CTest On Ubuntu
     steps:
       - template: scripts/pipeline/download_build.yml
         parameters:
@@ -142,6 +142,22 @@ stages:
         env:
           CODECOV_TOKEN: $(CodeCovToken)
         workingDirectory: $(Build.SourcesDirectory)
+  - job:
+    pool:
+      vmImage: windows-2022
+    displayName: Running CTest On Windows
+    steps:
+      - template: scripts/pipeline/download_build.yml
+        parameters:
+          artifactName: WindowsDebugBuild
+          destination: $(Build.SourcesDirectory)/build
+
+      - pwsh: |
+          cd "build/vs2022-deb"
+          ctest --verbose --test-dir="build/unix-deb"
+        displayName: Running All Tests
+        workingDirectory: $(Build.SourcesDirectory)
+        failOnStderr: true
 
 - stage: static_analysis
   displayName: Static Analysis
