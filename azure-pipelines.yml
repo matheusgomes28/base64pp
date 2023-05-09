@@ -147,10 +147,12 @@ stages:
       vmImage: windows-2022
     displayName: Running CTest On Windows
     steps:
-      - template: scripts/pipeline/download_build.yml
-        parameters:
+      - checkout: none
+
+      - task: DownloadBuildArtifacts@1
+        inputs:
+          downloadPath: $(Build.SourcesDirectory)/build
           artifactName: WindowsDebugBuild
-          destination: $(Build.SourcesDirectory)/build
 
       - pwsh: |
           cd "build/vs2022-deb"
