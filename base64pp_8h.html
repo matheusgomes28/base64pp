@@ -84,7 +84,8 @@ $(function() {
 
 <p>This file defines the public functions for the <a class="el" href="namespacebase64pp.html" title="base64pp API namespace">base64pp</a> library.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<div class="textblock"><code>#include &quot;base64pp_export.h&quot;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;span&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
@@ -95,13 +96,14 @@ Include dependency graph for base64pp.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="base64pp_8h__incl.png" border="0" usemap="#a_2____w_21_2s_2base64pp_2include_2base64pp_2base64pp_8h" alt=""/></div>
 <map name="a_2____w_21_2s_2base64pp_2include_2base64pp_2base64pp_8h" id="a_2____w_21_2s_2base64pp_2include_2base64pp_2base64pp_8h">
-<area shape="rect" title="This file defines the public functions for the base64pp library." alt="" coords="165,5,357,45"/>
-<area shape="rect" title=" " alt="" coords="5,93,72,119"/>
-<area shape="rect" title=" " alt="" coords="96,93,171,119"/>
-<area shape="rect" title=" " alt="" coords="195,93,248,119"/>
-<area shape="rect" title=" " alt="" coords="272,93,331,119"/>
-<area shape="rect" title=" " alt="" coords="355,93,453,119"/>
-<area shape="rect" title=" " alt="" coords="477,93,539,119"/>
+<area shape="rect" title="This file defines the public functions for the base64pp library." alt="" coords="296,5,488,45"/>
+<area shape="rect" href="base64pp__export_8h_source.html" title=" " alt="" coords="5,93,152,119"/>
+<area shape="rect" title=" " alt="" coords="176,93,243,119"/>
+<area shape="rect" title=" " alt="" coords="267,93,341,119"/>
+<area shape="rect" title=" " alt="" coords="365,93,419,119"/>
+<area shape="rect" title=" " alt="" coords="443,93,501,119"/>
+<area shape="rect" title=" " alt="" coords="526,93,623,119"/>
+<area shape="rect" title=" " alt="" coords="647,93,710,119"/>
 </map>
 </div>
 </div>
@@ -115,10 +117,10 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0924167d49b804b5be9b25cd6702447e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebase64pp.html#a0924167d49b804b5be9b25cd6702447e">base64pp::encode</a> (std::span&lt; std::uint8_t const &gt; const input)</td></tr>
+<tr class="memitem:a0924167d49b804b5be9b25cd6702447e"><td class="memItemLeft" align="right" valign="top">std::string BASE64PP_EXPORT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebase64pp.html#a0924167d49b804b5be9b25cd6702447e">base64pp::encode</a> (std::span&lt; std::uint8_t const &gt; const input)</td></tr>
 <tr class="memdesc:a0924167d49b804b5be9b25cd6702447e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will encode a blob of data into a base64 string.  <br /></td></tr>
 <tr class="separator:a0924167d49b804b5be9b25cd6702447e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af08d1e843e069f618231f5380b9495af"><td class="memItemLeft" align="right" valign="top">std::optional&lt; std::vector&lt; std::uint8_t &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebase64pp.html#af08d1e843e069f618231f5380b9495af">base64pp::decode</a> (std::string_view const encoded_str)</td></tr>
+<tr class="memitem:af08d1e843e069f618231f5380b9495af"><td class="memItemLeft" align="right" valign="top">std::optional&lt; std::vector&lt; std::uint8_t &gt; &gt; BASE64PP_EXPORT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebase64pp.html#af08d1e843e069f618231f5380b9495af">base64pp::decode</a> (std::string_view const encoded_str)</td></tr>
 <tr class="memdesc:af08d1e843e069f618231f5380b9495af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decodes a base64 encoded string, returning an optional blob. If the decoding fails, it returns std::nullopt.  <br /></td></tr>
 <tr class="separator:af08d1e843e069f618231f5380b9495af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>

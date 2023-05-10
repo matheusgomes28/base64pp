@@ -82,26 +82,26 @@ $(function() {
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#ifndef BASE64PP_H</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#define BASE64PP_H</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;span&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="namespacebase64pp.html">   15</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacebase64pp.html">base64pp</a></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    std::string <a class="code hl_function" href="namespacebase64pp.html#a0924167d49b804b5be9b25cd6702447e">encode</a>(std::span&lt;std::uint8_t const&gt; <span class="keyword">const</span> input);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    std::optional&lt;std::vector&lt;std::uint8_t&gt;&gt; <a class="code hl_function" href="namespacebase64pp.html#af08d1e843e069f618231f5380b9495af">decode</a>(</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        std::string_view <span class="keyword">const</span> encoded_str);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>} <span class="comment">// namespace base64pp</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#endif </span><span class="comment">// BASE64PP_H</span></div>
-<div class="ttc" id="anamespacebase64pp_html"><div class="ttname"><a href="namespacebase64pp.html">base64pp</a></div><div class="ttdoc">base64pp API namespace</div><div class="ttdef"><b>Definition:</b> base64pp.h:16</div></div>
-<div class="ttc" id="anamespacebase64pp_html_a0924167d49b804b5be9b25cd6702447e"><div class="ttname"><a href="namespacebase64pp.html#a0924167d49b804b5be9b25cd6702447e">base64pp::encode</a></div><div class="ttdeci">std::string encode(std::span&lt; std::uint8_t const &gt; const input)</div><div class="ttdoc">This function will encode a blob of data into a base64 string.</div><div class="ttdef"><b>Definition:</b> base64pp.cpp:106</div></div>
-<div class="ttc" id="anamespacebase64pp_html_af08d1e843e069f618231f5380b9495af"><div class="ttname"><a href="namespacebase64pp.html#af08d1e843e069f618231f5380b9495af">base64pp::decode</a></div><div class="ttdeci">std::optional&lt; std::vector&lt; std::uint8_t &gt; &gt; decode(std::string_view const encoded_str)</div><div class="ttdoc">Decodes a base64 encoded string, returning an optional blob. If the decoding fails,...</div><div class="ttdef"><b>Definition:</b> base64pp.cpp:148</div></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;base64pp_export.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;span&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="namespacebase64pp.html">   16</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacebase64pp.html">base64pp</a></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    std::string BASE64PP_EXPORT <a class="code hl_function" href="namespacebase64pp.html#a0924167d49b804b5be9b25cd6702447e">encode</a>(std::span&lt;std::uint8_t const&gt; <span class="keyword">const</span> input);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    std::optional&lt;std::vector&lt;std::uint8_t&gt;&gt; BASE64PP_EXPORT <a class="code hl_function" href="namespacebase64pp.html#af08d1e843e069f618231f5380b9495af">decode</a>(std::string_view <span class="keyword">const</span> encoded_str);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>} <span class="comment">// namespace base64pp</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#endif </span><span class="comment">// BASE64PP_H</span></div>
+<div class="ttc" id="anamespacebase64pp_html"><div class="ttname"><a href="namespacebase64pp.html">base64pp</a></div><div class="ttdoc">base64pp API namespace</div><div class="ttdef"><b>Definition:</b> base64pp.h:17</div></div>
+<div class="ttc" id="anamespacebase64pp_html_a0924167d49b804b5be9b25cd6702447e"><div class="ttname"><a href="namespacebase64pp.html#a0924167d49b804b5be9b25cd6702447e">base64pp::encode</a></div><div class="ttdeci">std::string BASE64PP_EXPORT encode(std::span&lt; std::uint8_t const &gt; const input)</div><div class="ttdoc">This function will encode a blob of data into a base64 string.</div><div class="ttdef"><b>Definition:</b> base64pp.cpp:85</div></div>
+<div class="ttc" id="anamespacebase64pp_html_af08d1e843e069f618231f5380b9495af"><div class="ttname"><a href="namespacebase64pp.html#af08d1e843e069f618231f5380b9495af">base64pp::decode</a></div><div class="ttdeci">std::optional&lt; std::vector&lt; std::uint8_t &gt; &gt; BASE64PP_EXPORT decode(std::string_view const encoded_str)</div><div class="ttdoc">Decodes a base64 encoded string, returning an optional blob. If the decoding fails,...</div><div class="ttdef"><b>Definition:</b> base64pp.cpp:123</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

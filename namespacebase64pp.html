@@ -82,10 +82,10 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0924167d49b804b5be9b25cd6702447e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebase64pp.html#a0924167d49b804b5be9b25cd6702447e">encode</a> (std::span&lt; std::uint8_t const &gt; const input)</td></tr>
+<tr class="memitem:a0924167d49b804b5be9b25cd6702447e"><td class="memItemLeft" align="right" valign="top">std::string BASE64PP_EXPORT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebase64pp.html#a0924167d49b804b5be9b25cd6702447e">encode</a> (std::span&lt; std::uint8_t const &gt; const input)</td></tr>
 <tr class="memdesc:a0924167d49b804b5be9b25cd6702447e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will encode a blob of data into a base64 string.  <br /></td></tr>
 <tr class="separator:a0924167d49b804b5be9b25cd6702447e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af08d1e843e069f618231f5380b9495af"><td class="memItemLeft" align="right" valign="top">std::optional&lt; std::vector&lt; std::uint8_t &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebase64pp.html#af08d1e843e069f618231f5380b9495af">decode</a> (std::string_view const encoded_str)</td></tr>
+<tr class="memitem:af08d1e843e069f618231f5380b9495af"><td class="memItemLeft" align="right" valign="top">std::optional&lt; std::vector&lt; std::uint8_t &gt; &gt; BASE64PP_EXPORT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebase64pp.html#af08d1e843e069f618231f5380b9495af">decode</a> (std::string_view const encoded_str)</td></tr>
 <tr class="memdesc:af08d1e843e069f618231f5380b9495af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decodes a base64 encoded string, returning an optional blob. If the decoding fails, it returns std::nullopt.  <br /></td></tr>
 <tr class="separator:af08d1e843e069f618231f5380b9495af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -116,6 +116,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>an optional containing a valid blob of data, if decoding was successful. Otherwise, returns std::nullopt </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>this function accepts unpadded strings, if they are valid otherwise. It rejects odd-sized unpadded strings. </dd></dl>
 
 </div>
 </div>

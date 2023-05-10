@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Base64pp: Base64pp - A Modern C++ Implementation Of Base64 Encoding</title>
+<title>Base64pp: Base64pp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,50 +71,98 @@ $(function() {
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Base64pp - A Modern C++ Implementation Of Base64 Encoding </div></div>
+  <div class="headertitle"><div class="title">Base64pp </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md____w_1_s_README"></a> This project was created for a post on my personal blog where I explain <a href="https://matgomes.com/base64-encode-decode-cpp/">how to implement a Base64 encoder</a> using C++ code.</p>
-<h1><a class="anchor" id="autotoc_md1"></a>
-Project Dependencies</h1>
-<p>Base64pp doesn't rely on any third-party libraries per se, but the unit tests were implemented with GTest. However, the dependencies were managed with <a href="https://conan.io">Conan</a> so you do need to install that first.</p>
-<p>Regarding the build system, this project requires a farily recent version of CMake. In addition, your favourite compiler also needs to support C++20. For more information, visit the Base64 encoding with C++ post.</p>
-<h1><a class="anchor" id="autotoc_md2"></a>
-Building The Project</h1>
-<p>Building from the command line is fairly simple. In this section, we're assuming you're on a bash-like terminal, with CMake and Conan accessible. For building on IDE environments, please see the later sections (Visual Studio and Clion).</p>
-<p>Firstly, create a <code>build</code> directory where all the Conan and build files will be stored:</p>
-<div class="fragment"><div class="line">cd ${PROJECT_ROOT_DIR}</div>
-<div class="line">mkdir build &amp;&amp; cd build</div>
-</div><!-- fragment --><p><b>Note</b> that <code>${PROJECT_ROOT_DIR}</code> is the path to the directory where this git repository was cloned to.</p>
-<p>Following that, simply install the Conan dependencies:</p>
-<div class="fragment"><div class="line">conan install --build=missing ..</div>
-</div><!-- fragment --><p><b>Note:</b> if Conan did not properly identify your build profile, specify the <code>compiler</code>, <code>compiler.libcxx</code>, <code>build_type</code> and <code>architecture</code> to the above with the <code>-s</code> flags. <a href="https://docs.conan.io/en/latest/reference/commands/consumer/install.html#settings">Find out more about the settings in this page</a>.</p>
-<p>With all the CMake <code>Find*.cmake</code> files installed under <code>build/</code> by Conan, we can simply configure and build with CMake:</p>
-<div class="fragment"><div class="line">cmake -DCMAKE_MODULE_PATH=&quot;$(pwd)&quot; ..</div>
+<div class="textblock"><p><a class="anchor" id="md____w_1_s_README"></a> <a href="https://dev.azure.com/Matheusgarcia28/Base64pp/_build/latest?definitionId=3&amp;branchName=main"><img src="https://dev.azure.com/Matheusgarcia28/Base64pp/_apis/build/status%2Fmatheusgomes28.base64pp?branchName=main" alt="Build Status" class="inline"/></a> <a href="https://codecov.io/github/matheusgomes28/base64pp"><img src="https://codecov.io/github/matheusgomes28/base64pp/branch/main/graph/badge.svg?token=5Q5G5MNFLO" alt="codecov" style="pointer-events: none;" class="inline"/></a></p>
+<h1><a class="anchor" id="autotoc_md0"></a>
+Base64pp - A Modern &amp; Safe C++ Encoder</h1>
+<p>Base64pp is a C++ library that provides an efficient and easy-to-use interface, for encoding and decoding data in Base64 format. The library is lightweight and designed to be portable, making it an ideal choice for applications that need to support multiple platforms.</p>
+<p>If you want to find out more about this implementation, check out the blog post about <a href="https://matgomes.com/base64-encode-decode-cpp/">writing a Base64 encoder in C++</a></p>
+<h2><a class="anchor" id="autotoc_md1"></a>
+Features &amp; Goals</h2>
+<ul>
+<li>[x] A safe implementation of Base64 Encoding &amp; Decoding.</li>
+<li>[x] Tested with many edge test cases, unlike most Base64 snippets out there.</li>
+<li>[x] Supports <code>std::span&lt;std::uint8_t&gt;</code>, meaning you can encode any blob of data.</li>
+<li>[x] High testing coverage.</li>
+<li>[ ] High testing standards (FuzzTesting, AddressSanitizers, etc).</li>
+<li>[x] Lightweight &amp; easy to include - A single header &amp; source file.</li>
+<li>[x] Easy to use API (see usage).</li>
+<li>[ ] Integration with package managers (<code>conan</code> &amp; <code>vcpkg</code>).</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md2"></a>
+Usage</h2>
+<p>Here's an example of using the <code><a class="el" href="namespacebase64pp.html" title="base64pp API namespace">base64pp</a></code> library for a round-trip encoding of a file given as an argument.</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="base64pp_8h.html">base64pp.h</a>&quot;</span></div>
 <div class="line"> </div>
-<div class="line">cmake --build . -j${N_PROCS}      </div>
-</div><!-- fragment --><p> That's it! You should now have the project fully built under the <code>build/</code> directory. <b>Note</b> that we're assumed you're running these commands from <code>build/</code>, and <code>${N_PROCS}</code> is the number of cores available in your machine.</p>
-<h2><a class="anchor" id="autotoc_md3"></a>
-Integrating The Build With Clion</h2>
-<p>To integrate with CLion, simply open the root directory of the project with CLion (where the main <code>CMakeLists.txt</code> is located).</p>
-<p>If you have followed the Conan installation steps above, you should have a bunch of <code>Find*.cmake</code> files in the <code>build/</code> directory. For CLion's integrated CMake to configure the project, you need to provie the <b>absolute path</b> to <code>build/</code>. To achieve this, add</p>
-<div class="fragment"><div class="line">-DCMAKE_MODULE_PATH=&quot;/some/path/to/base64pp/build&quot;</div>
-</div><!-- fragment --><p>Under <em>Settings -&gt; Build, Execution, Deployment -&gt; CMake</em>, in the "Cmake Options" textbox. After saving these changes, CLion should fully configure the project and building / debugging be available.</p>
-<h2><a class="anchor" id="autotoc_md4"></a>
-Integrating With Visual Studio</h2>
-<p>Similar to the CLion integration, open the root directory containing the <code>CMakeLists.txt</code>, then add the following CMake variables to your <a href="https://docs.microsoft.com/en-us/cpp/build/cmakesettings-reference?view=msvc-170">build configuration's <code>CMakeSettings.json</code></a>:</p>
-<div class="fragment"><div class="line">&quot;variables&quot;: [</div>
-<div class="line">    {</div>
-<div class="line">      &quot;name&quot;: &quot;CMAKE_MODULE_PATH&quot;,</div>
-<div class="line">      &quot;value&quot;: &quot;path/to/base64pp/build&quot;,</div>
-<div class="line">      &quot;type&quot;: &quot;FILEPATH&quot;</div>
-<div class="line">    }</div>
-<div class="line">  ]</div>
-</div><!-- fragment --><p>After that, reload the CMake and you're good to go.</p>
-<h1><a class="anchor" id="autotoc_md5"></a>
-Learn How Base64 Works</h1>
-<p>If you're interested in finding out how this implementation works and how it came about, please read the post I made on <a href="https://matgomes.com/base64-encode-decode-cpp/">how to Base64 encode and decode with C++</a>.</p>
-<p>If you have any questions, suggestions or feedback, either create a PR or feel free to drop a comment in the post! </p>
+<div class="line"><span class="preprocessor">#include &lt;iterator&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;fstream&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>** argv)</div>
+<div class="line">{</div>
+<div class="line">  <span class="keywordflow">if</span> (argc != 2)</div>
+<div class="line">  {</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Usage: program FILE_PATH\n&quot;</span>; </div>
+<div class="line">  }</div>
+<div class="line"> </div>
+<div class="line">  std::ifstream file_to_encode{argv[1]};</div>
+<div class="line">  std::vector&lt;std::uint8_t&gt; <span class="keyword">const</span> bytes{std::istreambuf_iterator&lt;std::uint8_t&gt;{file_to_encode}, {}};</div>
+<div class="line">  </div>
+<div class="line">  <span class="keyword">auto</span> <span class="keyword">const</span> base64_str = <a class="code hl_function" href="namespacebase64pp.html#a0924167d49b804b5be9b25cd6702447e">base64pp::encode</a>({begin(bytes), end(bytes)});</div>
+<div class="line">  std::cout &lt;&lt; base64_str &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// decoding &amp; testing for equality</span></div>
+<div class="line">  <span class="keyword">auto</span> <span class="keyword">const</span> decoded_bytes = base64::decode(base64_str);</div>
+<div class="line">  <span class="keywordflow">if</span> (!decoded_bytes)</div>
+<div class="line">  {</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;could not decode.\n&quot;</span>;</div>
+<div class="line">  }</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">return</span> *decoded_bytes == bytes;</div>
+<div class="line">}</div>
+<div class="ttc" id="abase64pp_8h_html"><div class="ttname"><a href="base64pp_8h.html">base64pp.h</a></div><div class="ttdoc">This file defines the public functions for the base64pp library.</div></div>
+<div class="ttc" id="anamespacebase64pp_html_a0924167d49b804b5be9b25cd6702447e"><div class="ttname"><a href="namespacebase64pp.html#a0924167d49b804b5be9b25cd6702447e">base64pp::encode</a></div><div class="ttdeci">std::string BASE64PP_EXPORT encode(std::span&lt; std::uint8_t const &gt; const input)</div><div class="ttdoc">This function will encode a blob of data into a base64 string.</div><div class="ttdef"><b>Definition:</b> base64pp.cpp:85</div></div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md3"></a>
+Installation</h2>
+<p>Currently, you can use this library in a few different ways. Although limited, I am working on making <code><a class="el" href="namespacebase64pp.html" title="base64pp API namespace">base64pp</a></code> easily accessible through package managers.</p>
+<h3><a class="anchor" id="autotoc_md4"></a>
+Raw Includes</h3>
+<p>Build the project (seebuild section), and make sure you link against <code><a class="el" href="namespacebase64pp.html" title="base64pp API namespace">base64pp</a></code>, while also copying the header <code>base64pp/include/base64pp</code> to your build system.</p>
+<h3><a class="anchor" id="autotoc_md5"></a>
+CMake</h3>
+<p>As of now, you can either include this project into your <code>CMakeLists.txt</code> via <code>FetchContent{Declare,MakeAvailable}</code>, via submodule, or copying the directory <code><a class="el" href="namespacebase64pp.html" title="base64pp API namespace">base64pp</a></code> into your own project.</p>
+<p>However, if you are including the project with submodule or copying the <code><a class="el" href="namespacebase64pp.html" title="base64pp API namespace">base64pp</a></code> directory, make sure to call <code>add_subdirectory(path-to/base4pp)</code> in your <code>CMakeLists.txt</code>.</p>
+<h3><a class="anchor" id="autotoc_md6"></a>
+Package Managers</h3>
+<p>The plan is to make this library available through package managers.</p>
+<p>Currently, I'm working on getting a working <code>conan</code> package for this repo. If you feel like you could help, feel free to create a fork and a PR!</p>
+<h2><a class="anchor" id="autotoc_md7"></a>
+Building The Project</h2>
+<p>This project can be build with CMake. Make sure you have a recent enough version of CMake (&gt;= 3.21).</p>
+<p>In addition, we build with the C++20 standard, so make sure your compiler supports this version.</p>
+<h3><a class="anchor" id="autotoc_md8"></a>
+project dependencies</h3>
+<p>Base64pp doesn't rely on any third-party libraries per se, but the unit tests were implemented with GTest. However, the dependencies were managed with <a href="https://conan.io">Conan</a> so you do need to install that first.</p>
+<p>You can use the following script to install <code>conan</code> dependencies:</p>
+<div class="fragment"><div class="line">./scripts/helpers/conan-install.sh [Debug|Release]</div>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md9"></a>
+Build Instructions</h3>
+<p>Run the build bash script provided in the repo. This assumes you have installed <code>conan</code> dependencies.</p>
+<p>On Linux, call:</p>
+<div class="fragment"><div class="line">cd ${PROJECT_ROOT_DIR}</div>
+<div class="line">./scripts/build-x86-64.sh unix-rel</div>
+</div><!-- fragment --><p>On Powershell (Windows), you can call: </p><div class="fragment"><div class="line">.\scripts\build_win_x64.ps1 -Preset vs2022-rel</div>
+</div><!-- fragment --><p>Note that <code>unix-rel</code> and <code>vs2022-rel</code> are presets provided in the <code>CMakePresets.json</code>. Take a look at the build scripts for more info.</p>
+<p><b>All the build files will be compiled to <code>build/&lt;PRESET-NAME&gt;/base64pp</code>.</b></p>
+<h2><a class="anchor" id="autotoc_md10"></a>
+License</h2>
+<p>Base64pp is licensed under the MIT license. See the LICENSE file for more details.</p>
+<h2><a class="anchor" id="autotoc_md11"></a>
+Contributions</h2>
+<p>Contributions to <a class="el" href="namespacebase64pp.html" title="base64pp API namespace">base64pp</a> are welcome. To contribute, please fork the repository, make your changes, and submit a pull request. Please ensure that your code follows the existing coding style and conventions, and include appropriate tests where necessary. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
