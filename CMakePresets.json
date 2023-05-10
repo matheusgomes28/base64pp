@@ -20,6 +20,9 @@
             "hidden": true,
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
+            },
+            "warnings": {
+                "unusedCli": false
             }
         },
         {
