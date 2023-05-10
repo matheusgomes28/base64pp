@@ -27,6 +27,8 @@ namespace base64pp
     //! @param encoded_str - the base64 encoded string
     //! @return an optional containing a valid blob of data, if
     //! decoding was successful. Otherwise, returns std::nullopt
+    //! @note this function accepts unpadded strings, if they are valid
+    //! otherwise. It rejects odd-sized unpadded strings.
     std::optional<std::vector<std::uint8_t>> BASE64PP_EXPORT decode(std::string_view const encoded_str);
 } // namespace base64pp
 
