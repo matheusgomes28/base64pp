@@ -23,8 +23,9 @@ jobs:
   continueOnError: false
   container: ${{ parameters.containerName }}
   steps:
-    - bash: scripts/helpers/conan-install.sh ${{ parameters.buildType }}
-      displayName: Installing Conan Dependencies
+    - ${{ if eq(parameters.buildType, 'Debug') }}:
+      - bash: scripts/helpers/conan-install.sh ${{ parameters.buildType }}
+        displayName: Installing Conan Dependencies
 
     - bash: |
         set -euo pipefail
