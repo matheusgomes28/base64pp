@@ -110,7 +110,7 @@ stages:
   jobs:
   - job:
     container: ubuntu18.04-gcc11-conan2-doxygen1.9.6
-    displayName: Running CTest On Ubuntu
+    displayName: Ubuntu Tests
     steps:
       - template: scripts/pipeline/download_build.yml
         parameters:
@@ -145,13 +145,13 @@ stages:
   - job:
     pool:
       vmImage: windows-2022
-    displayName: Running CTest On Windows
+    displayName: Windows Tests
     steps:
       - checkout: none
 
-      - task: DownloadBuildArtifacts@1
+      - task: DownloadPipelineArtifact@2
         inputs:
-          downloadPath: $(Build.SourcesDirectory)/build
+          targetPath: $(Build.SourcesDirectory)/build
           artifactName: WindowsDebugBuild
 
       - pwsh: |
