@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
 project(Base64pp LANGUAGES CXX)
-enable_testing()
 
 # Must compile with C++20, no
 # extensions
@@ -18,9 +17,14 @@ endif()
 
 option(BUILD_DOCS "Build documentation" Off)
 option(BUILD_SHARED "Build shared library" Off)
+option(BUILD_TESTS "Build tests with google tests" Off)
 
 add_subdirectory(base64pp)
-add_subdirectory(tests)
+
+if (BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(tests)
+endif()
 
 if (BUILD_DOCS)
     find_package(Doxygen)

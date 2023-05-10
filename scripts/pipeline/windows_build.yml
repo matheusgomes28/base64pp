@@ -21,8 +21,10 @@ jobs:
   pool:
     vmImage: windows-2022
   steps:
-    - pwsh: .\scripts\helpers\conan-install.ps1 -BuildType ${{ parameters.buildType }}
-      displayName: Installing Conan Dependencies
+
+    - ${{ if eq(parameters.buildType, 'Debug') }}:
+      - pwsh: .\scripts\helpers\conan-install.ps1 -BuildType ${{ parameters.buildType }}
+        displayName: Installing Conan Dependencies
 
     - pwsh: |
         .\scripts\build_win_x64.ps1 -Preset ${{ parameters.cmakePreset }}

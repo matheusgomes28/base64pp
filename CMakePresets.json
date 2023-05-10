@@ -2,13 +2,6 @@
     "version": 2,
     "configurePresets": [
         {
-            "name": "conan-rel",
-            "hidden": true,
-            "cacheVariables": {
-                "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/conan/rel/conan_toolchain.cmake"
-            }
-        },
-        {
             "name": "conan-deb",
             "hidden": true,
             "cacheVariables": {
@@ -20,13 +13,17 @@
             "hidden": true,
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
+            },
+            "warnings": {
+                "unusedCli": false
             }
         },
         {
             "name": "deb",
             "hidden": true,
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
+                "CMAKE_BUILD_TYPE": "Debug",
+                "BUILD_TESTS": true
             }
         },
         {
@@ -59,7 +56,7 @@
             "name": "unix-rel",
             "displayName": "Unix Make Release",
             "binaryDir": "${sourceDir}/build/unix-rel",
-            "inherits": ["unix", "rel", "conan-rel"],
+            "inherits": ["unix", "rel"],
             "cacheVariables": {
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/unix-rel/install"
             }
@@ -96,7 +93,7 @@
             "name": "vs2022-rel",
             "displayName": "Visual Studio 2022 Release",
             "binaryDir": "${sourceDir}/build/vs2022-rel",
-            "inherits": ["vs2022", "rel", "conan-rel"],
+            "inherits": ["vs2022", "rel"],
             "cacheVariables": {
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/vs2022-rel/install"
             }
