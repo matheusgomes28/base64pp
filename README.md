@@ -10,7 +10,14 @@ need to support multiple platforms.
 If you want to find out more about this implementation, check out the blog post
 about [writing a Base64 encoder in C++](https://matgomes.com/base64-encode-decode-cpp/)
 
-## Features & Goals
+- [Features](#features-and-goals)
+- [Example Usage](#usage)
+- [Installation](#installation)
+- [Building](#building-the-project)
+- [License](#license)
+- [Contributing](#contributions)
+
+## Features And Goals
 - [x] A safe implementation of Base64 Encoding & Decoding.
 - [x] Tested with many edge test cases, unlike most Base64 snippets out there.
 - [x] Supports `std::span<std::uint8_t>`, meaning you can encode any blob of data.
