@@ -4,13 +4,7 @@ set(BASE64PP_SOURCES
 set(BASE64PP_INCLUDE_DIR
   ${CMAKE_CURRENT_LIST_DIR}/include)
 
-if (BUILD_SHARED)
-    message(STATUS "Building shared library")
-    add_library(base64pp SHARED ${BASE64PP_SOURCES})
-else()
-    message(STATUS "Building static library")
-    add_library(base64pp base64pp.cpp)
-endif()
+add_library(base64pp base64pp.cpp)
 
 target_include_directories(base64pp PUBLIC ${BASE64PP_INCLUDE_DIR})
 

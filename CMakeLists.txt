@@ -16,7 +16,7 @@ if(NOT WIN32 AND CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 endif()
 
 option(BUILD_DOCS "Build documentation" Off)
-option(BUILD_SHARED "Build shared library" Off)
+option(BUILD_SHARED_LIBS "Build shared library" Off)
 option(BUILD_TESTS "Build tests with google tests" Off)
 
 add_subdirectory(base64pp)

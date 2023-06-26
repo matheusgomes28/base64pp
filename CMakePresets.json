@@ -40,7 +40,7 @@
             "inherits": "unix",
             "cacheVariables": {
                 "CMAKE_CXX_FLAGS": "-fPIC",
-                "BUILD_SHARED": true
+                "BUILD_SHARED_LIBS": true
             }
         },
         {
