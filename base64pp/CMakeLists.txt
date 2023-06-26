@@ -18,3 +18,7 @@ set_target_properties(base64pp
 
 include(GNUInstallDirs)
 install(TARGETS base64pp)
+
+# Generate PKG-Config
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/base64pp.pc.in" "${CMAKE_CURRENT_BINARY_DIR}/base64pp.pc" @ONLY)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/base64pp.pc" DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
