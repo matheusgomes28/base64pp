@@ -120,6 +120,11 @@ std::string base64pp::encode(std::span<std::uint8_t const> const input)
     return output;
 }
 
+std::string base64pp::encode_str(std::string_view input)
+{
+    return encode({reinterpret_cast<std::uint8_t const*>(input.data()), input.size()});
+}
+
 std::optional<std::vector<std::uint8_t>> base64pp::decode(std::string_view const encoded_str)
 {
     if (encoded_str.size() == 0)

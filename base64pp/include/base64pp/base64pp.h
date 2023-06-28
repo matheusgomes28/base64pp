@@ -22,6 +22,12 @@ namespace base64pp
     //! @return a base64 string containing the encoded data.
     std::string BASE64PP_EXPORT encode(std::span<std::uint8_t const> const input);
 
+    //! @brief Overload of the encode function for string_view. This converts
+    //! the string input to a span and calls the conventional `encode`.
+    //! @param input - a string_view to be encoded into base64.
+    //! @return a base64 string containing the encoded string.
+    std::string BASE64PP_EXPORT encode_str(std::string_view input);
+
     //! @brief Decodes a base64 encoded string, returning an optional
     //! blob. If the decoding fails, it returns std::nullopt
     //! @param encoded_str - the base64 encoded string

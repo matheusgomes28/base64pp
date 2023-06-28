@@ -318,6 +318,25 @@ TEST(Base64RoundTripTests, ExhaustiveTests)
     }
 }
 
+// NOLINTNEXTLINE
+TEST(Base64OverloadTests, EncodesString1)
+{
+    std::array<std::pair<std::string, std::string>, 11> const test_cases = {
+        {{"", ""}, {"Hello, World!", "SGVsbG8sIFdvcmxkIQ=="},
+            {"abcdefghijklmnopqrstuvwxyz0123456789\\`!\"£$%^&*()_+",
+                "YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXowMTIzNDU2Nzg5XGAhIsKjJCVeJiooKV8r"},
+            {"Base64 encoding", "QmFzZTY0IGVuY29kaW5n"}, {"I love coding", "SSBsb3ZlIGNvZGluZw=="},
+            {"C++23 is awesome", "QysrMjMgaXMgYXdlc29tZQ=="}, {"This is a sample", "VGhpcyBpcyBhIHNhbXBsZQ=="},
+            {"Base64 is useful", "QmFzZTY0IGlzIHVzZWZ1bA=="}, {"Encode and decode", "RW5jb2RlIGFuZCBkZWNvZGU="},
+            {"Data encryption", "RGF0YSBlbmNyeXB0aW9u"}, {"Th3 Quickk  Br0wn f0x", "VGgzIFF1aWNrayAgQnIwd24gZjB4"}}};
+
+    for (auto const& [input, expected] : test_cases)
+    {
+        auto const actual = base64pp::encode_str(input);
+        ASSERT_EQ(actual, expected);
+    }
+}
+
 int main(int argc, char** argv)
 {
     testing::InitGoogleTest(&argc, argv);
