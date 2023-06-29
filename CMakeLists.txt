@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.16)
-project(Base64pp LANGUAGES CXX)
+project(Base64pp LANGUAGES CXX
+    VERSION 0.1.0
+    DESCRIPTION "Base64pp - A Modern & Safe C++ Encoder"
+    HOMEPAGE_URL "https://github.com/matheusgomes28/base64pp")
 
 # Must compile with C++20, no
 # extensions
@@ -16,7 +19,7 @@ if(NOT WIN32 AND CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 endif()
 
 option(BUILD_DOCS "Build documentation" Off)
-option(BUILD_SHARED "Build shared library" Off)
+option(BUILD_SHARED_LIBS "Build shared library" Off)
 option(BUILD_TESTS "Build tests with google tests" Off)
 
 add_subdirectory(base64pp)

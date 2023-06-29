@@ -4,13 +4,7 @@ set(BASE64PP_SOURCES
 set(BASE64PP_INCLUDE_DIR
   ${CMAKE_CURRENT_LIST_DIR}/include)
 
-if (BUILD_SHARED)
-    message(STATUS "Building shared library")
-    add_library(base64pp SHARED ${BASE64PP_SOURCES})
-else()
-    message(STATUS "Building static library")
-    add_library(base64pp base64pp.cpp)
-endif()
+add_library(base64pp base64pp.cpp)
 
 target_include_directories(base64pp PUBLIC ${BASE64PP_INCLUDE_DIR})
 
@@ -24,3 +18,7 @@ set_target_properties(base64pp
 
 include(GNUInstallDirs)
 install(TARGETS base64pp)
+
+# Generate PKG-Config
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/base64pp.pc.in" "${CMAKE_CURRENT_BINARY_DIR}/base64pp.pc" @ONLY)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/base64pp.pc" DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
