@@ -12,7 +12,8 @@
             "name": "rel",
             "hidden": true,
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": true
             },
             "warnings": {
                 "unusedCli": false
@@ -23,7 +24,8 @@
             "hidden": true,
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
-                "BUILD_TESTS": true
+                "BUILD_TESTS": true,
+                "CMAKE_EXPORT_COMPILE_COMMANDS": true
             }
         },
         {
@@ -31,7 +33,7 @@
             "hidden": true,
             "generator": "Unix Makefiles",
             "cacheVariables": {
-                "CMAKE_CXX_FLAGS": "$env{CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -pedantic"
+                "CMAKE_CXX_FLAGS_INIT": "$env{CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -pedantic"
             }
         },
         {
@@ -39,7 +41,7 @@
             "hidden": true,
             "inherits": "unix",
             "cacheVariables": {
-                "CMAKE_CXX_FLAGS": "-fPIC",
+                "CMAKE_CXX_FLAGS_INIT": "$env{CMAKE_CXX_FLAGS_INIT} $env{CMAKE_CXX_FLAGS} -fPIC -Werror -Wall -Wextra -pedantic",
                 "BUILD_SHARED_LIBS": true
             }
         },
@@ -48,7 +50,7 @@
             "hidden": true,
             "generator": "Visual Studio 17 2022",
             "cacheVariables": {
-                "CMAKE_CXX_FLAGS": "$env{CMAKE_CXX_FLAGS} /W4 /WX /EHsc"
+                "CMAKE_CXX_FLAGS_INIT": "$env{CMAKE_CXX_FLAGS_INIT} $env{CMAKE_CXX_FLAGS} /W4 /WX /EHsc"
             }
         },
 
