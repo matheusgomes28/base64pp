@@ -182,6 +182,6 @@ StatementMacros:
   - _END_EXTERN_C_UNLESS_PURE
 # TabWidth:        8
 # UseCRLF:         false
-UseCRLF:         true
+UseCRLF:         false
 # UseTab:          Never
 ...
