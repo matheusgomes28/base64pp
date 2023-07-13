@@ -52,6 +52,7 @@ stages:
       cmakePreset: unix-deb
       cmakeExtraArgs: -DBUILD_DOCS="On"
       containerName: ubuntu18.04-gcc11-conan2-doxygen1.9.6
+      artifactName: UbuntuDebugBuild
 
   - template: scripts/pipeline/ubuntu_build.yml
     parameters:
@@ -59,6 +60,23 @@ stages:
       buildType: Release
       cmakePreset: unix-rel
       containerName: ubuntu18.04-gcc11-conan2-doxygen1.9.6
+      artifactName: UbuntuReleaseBuild
+
+  - template: scripts/pipeline/ubuntu_build.yml
+    parameters:
+      jobName: ubuntu_build_x86_64_release_shared
+      buildType: Release
+      cmakePreset: unix-rel-shared
+      containerName: ubuntu18.04-gcc11-conan2-doxygen1.9.6
+      artifactName: UbuntuSharedReleaseBuild
+  
+  - template: scripts/pipeline/ubuntu_build.yml
+    parameters:
+      jobName: ubuntu_build_x86_64_debug_shared
+      buildType: Debug
+      cmakePreset: unix-deb-shared
+      containerName: ubuntu18.04-gcc11-conan2-doxygen1.9.6
+      artifactName: UbuntuSharedDebugBuild
 
   - template: scripts/pipeline/windows_build.yml
     parameters:
