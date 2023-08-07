@@ -13,6 +13,8 @@ parameters:
 - name: cmakeExtraArgs # TODO Do we need to support this?
   type: string
   default:
+- name: artifactName
+  type: string
 
 jobs:
 - job: ${{ parameters.jobName }}
@@ -39,4 +41,4 @@ jobs:
       displayName: Publish Build Files
       inputs:
         PathToPublish: "$(Build.SourcesDirectory)/build"
-        ArtifactName: Windows${{ parameters.buildType }}Build
+        ArtifactName: ${{ parameters.artifactName }}

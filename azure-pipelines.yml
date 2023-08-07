@@ -83,12 +83,28 @@ stages:
       jobName: windows_build_x64_debug
       buildType: Debug
       cmakePreset: vs2022-deb
+      artifactName: WindowsDebugBuild
 
   - template: scripts/pipeline/windows_build.yml
     parameters:
       jobName: windows_build_x64_release
       buildType: Release
       cmakePreset: vs2022-rel
+      artifactName: WindowsReleaseBuild
+
+  - template: scripts/pipeline/windows_build.yml
+    parameters:
+      jobName: windows_build_x64_debug_shared
+      buildType: Debug
+      cmakePreset: vs2022-deb-shared
+      artifactName: WindowsDebugSharedBuild
+
+  - template: scripts/pipeline/windows_build.yml
+    parameters:
+      jobName: windows_build_x64_release_shared
+      buildType: Release
+      cmakePreset: vs2022-rel-shared
+      artifactName: WindowsReleaseSharedBuild
 
 - stage: docs
   displayName: Build Documentation

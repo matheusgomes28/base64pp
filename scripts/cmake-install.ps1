@@ -1,6 +1,6 @@
 param (
     [Parameter(Mandatory=$true)]
-    [ValidateSet("vs2022-deb","vs2022-rel")]$Preset
+    [ValidateSet("vs2022-deb","vs2022-rel", "vs2022-deb-shared", "vs2022-rel-shared")]$Preset
 )   
 
 $ProjectDir = Split-Path -Parent $PSScriptRoot
