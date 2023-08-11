@@ -1,7 +1,6 @@
 # This is the template for a single Ubuntu
 # build job. This template will publish the
-# build artifact with name
-# ubuntu-x86-64-${{ parameters.buildType }}.tar.gz
+# build artifact with name ${{ parameters.artifactName }}
 parameters:
 - name: jobName
   type: string
@@ -21,7 +20,7 @@ parameters:
 
 jobs:
 - job: ${{ parameters.jobName }}
-  displayName: Ubuntu ${{ parameters.buildType }} Build
+  displayName: Ubuntu ${{ parameters.buildType }} ${{ parameters.jobName }}
   continueOnError: false
   container: ${{ parameters.containerName }}
   steps:
