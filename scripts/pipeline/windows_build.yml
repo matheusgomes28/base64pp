@@ -1,7 +1,6 @@
 # This is the template for a single Windows
 # build job. This template will publish the
-# build artifact with name
-# windows-x64-${{ parameters.buildType }}.tar.gz
+# build artifact with name ${{ parameters.artifactName }}
 parameters:
 - name: jobName
   type: string
@@ -18,7 +17,7 @@ parameters:
 
 jobs:
 - job: ${{ parameters.jobName }}
-  displayName: Windows ${{ parameters.buildType }} Build
+  displayName: Windows ${{ parameters.buildType }} ${{ parameters.jobName }}
   continueOnError: false
   pool:
     vmImage: windows-2022
