@@ -24,7 +24,7 @@ jobs:
   steps:
 
     - ${{ if eq(parameters.buildType, 'Debug') }}:
-      - pwsh: .\scripts\helpers\conan-install.ps1 -BuildType ${{ parameters.buildType }}
+      - pwsh: .\scripts\helpers\install-dependencies.ps1 -BuildType ${{ parameters.buildType }}
         displayName: Installing Conan Dependencies
 
     - pwsh: |

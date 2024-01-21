@@ -16,9 +16,12 @@ parameters:
   type: string
 - name: artifactName
   type: string
-- name: compiler
+- name: cc
   type: string
   default: gcc
+- name: cxx
+  type: string
+  default: g++
 - name: compilerStd
   type: string
   default: 17
@@ -37,7 +40,8 @@ jobs:
   steps:
     - ${{ if eq(parameters.buildType, 'Debug') }}:
       - bash: |
-          COMPILER=${{ parameters.compiler }} \
+          CC=${{ parameters.cc }} \
+          CXX=${{ parameters.cxx }} \
           COMPILER_STD=${{ parameters.compilerStd }} \
           COMPILER_LIBCXX=${{ parameters.compilerLibCxx }} \
           COMPILER_VERSION=${{ parameters.compilerVersion }} \

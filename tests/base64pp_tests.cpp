@@ -1,14 +1,15 @@
+import base64pp;
+
 #include <array>
-#include <base64pp/base64pp.h>
 #include <cstdint>
 #include <gtest/gtest.h>
 #include <string>
 
+
 // NOLINTNEXTLINE
-TEST(Base64Encode, EncodesEmpty)
-{
+TEST(Base64Encode, EncodesEmpty){
     std::string const expected{};
-    std::string const actual{base64pp::encode({})};
+    std::string const actual{encode({})};
     ASSERT_EQ(expected, actual);
 }
 
@@ -17,7 +18,7 @@ TEST(Base64Encode, EncodesThreeBytesZeros)
 {
     std::array<std::uint8_t, 3> const input{0x00, 0x00, 0x00};
     auto const expected{"AAAA"};
-    auto const actual{base64pp::encode({begin(input), end(input)})};
+    auto const actual{encode({begin(input), end(input)})};
     ASSERT_EQ(expected, actual);
 }
 
@@ -26,7 +27,7 @@ TEST(Base64Encode, EncodesThreeBytesRandom)
 {
     std::array<std::uint8_t, 3> const input{0xFE, 0xE9, 0x72};
     auto const expected{"/uly"};
-    auto const actual{base64pp::encode({begin(input), end(input)})};
+    auto const actual{encode({begin(input), end(input)})};
     ASSERT_EQ(expected, actual);
 }
 
@@ -35,7 +36,7 @@ TEST(Base64Encode, EncodesTwoBytes)
 {
     std::array<std::uint8_t, 2> const input{0x00, 0x00};
     auto const expected{"AAA="};
-    auto const actual{base64pp::encode({begin(input), end(input)})};
+    auto const actual{encode({begin(input), end(input)})};
     ASSERT_EQ(expected, actual);
 }
 
@@ -44,7 +45,7 @@ TEST(Base64Encode, EncodesOneByte)
 {
     std::array<std::uint8_t, 1> const input{0x00};
     auto const expected{"AA=="};
-    auto const actual{base64pp::encode({begin(input), end(input)})};
+    auto const actual{encode({begin(input), end(input)})};
     ASSERT_EQ(expected, actual);
 }
 
@@ -53,7 +54,7 @@ TEST(Base64Encode, EncodesFourBytes)
 {
     std::array<std::uint8_t, 4> const input{0x74, 0x68, 0x65, 0x20};
     auto const expected{"dGhlIA=="};
-    auto actual{base64pp::encode({begin(input), end(input)})};
+    auto actual{encode({begin(input), end(input)})};
     ASSERT_EQ(expected, actual);
 }
 
@@ -62,7 +63,7 @@ TEST(Base64Encode, EncodesFiveBytes)
 {
     std::array<std::uint8_t, 5> const input{0x20, 0x62, 0x72, 0x6f, 0x77};
     auto const expected{"IGJyb3c="};
-    auto const actual{base64pp::encode({begin(input), end(input)})};
+    auto const actual{encode({begin(input), end(input)})};
     ASSERT_EQ(actual, expected);
 }
 
@@ -71,7 +72,7 @@ TEST(Base64Encode, EncodesSixBytes)
 {
     std::array<std::uint8_t, 6> const input{0x20, 0x6a, 0x75, 0x6d, 0x70, 0x73};
     auto const expected{"IGp1bXBz"};
-    auto const actual{base64pp::encode({begin(input), end(input)})};
+    auto const actual{encode({begin(input), end(input)})};
     ASSERT_EQ(actual, expected);
 }
 
@@ -83,7 +84,7 @@ TEST(Base64Encode, EncodesBrownFox)
         0x20, 0x74, 0x68, 0x65, 0x20, 0x6c, 0x61, 0x7a, 0x79, 0x20, 0x64, 0x6f, 0x67};
 
     auto const expected{"dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="};
-    auto const actual{base64pp::encode({begin(input), end(input)})};
+    auto const actual{encode({begin(input), end(input)})};
     ASSERT_EQ(actual, expected);
 }
 
@@ -95,7 +96,7 @@ TEST(Base64Encode, EncodesBrownFastFoxNullInMiddle)
         0x72, 0x20, 0x74, 0x68, 0x65, 0x00, 0x20, 0x6c, 0x61, 0x7a, 0x79, 0x20, 0x64, 0x6f, 0x67};
 
     auto const expected{"dGhlIHF1aWNrISBicm93biBmb3gganVtcHMgb3ZlciB0aGUAIGxhenkgZG9n"};
-    auto const actual{base64pp::encode({begin(input), end(input)})};
+    auto const actual{encode({begin(input), end(input)})};
     ASSERT_EQ(actual, expected);
 }
 
@@ -103,7 +104,7 @@ TEST(Base64Encode, EncodesBrownFastFoxNullInMiddle)
 TEST(Base64Decode, FailDecodeOneString)
 {
     std::string const input{"1"};
-    auto const actual{base64pp::decode(input)};
+    auto const actual{decode(input)};
 
     ASSERT_EQ(actual, std::nullopt);
 }
@@ -112,7 +113,7 @@ TEST(Base64Decode, FailDecodeOneString)
 TEST(Base64Decode, FailDecodeOneStringPadded)
 {
     std::string const input{"1==="};
-    auto const actual{base64pp::decode(input)};
+    auto const actual{decode(input)};
 
     ASSERT_EQ(actual, std::nullopt);
 }
@@ -121,7 +122,7 @@ TEST(Base64Decode, FailDecodeOneStringPadded)
 TEST(Base64Decode, FailDecodeOneCharRemaining)
 {
     std::string const input{"something"};
-    auto const actual{base64pp::decode(input)};
+    auto const actual{decode(input)};
 
     ASSERT_EQ(actual, std::nullopt);
 }
@@ -130,7 +131,7 @@ TEST(Base64Decode, FailDecodeOneCharRemaining)
 TEST(Base64Decode, FailDecodeNonSize4Bigger)
 {
     std::string const input{"SomethingEntirelyDifferent"};
-    auto const actual{base64pp::decode(input)};
+    auto const actual{decode(input)};
     std::vector<std::uint8_t> const expected{0x4A, 0x89, 0x9E, 0xB6, 0x18, 0xA7, 0x80, 0x49, 0xED, 0x8A, 0xB7, 0xA5,
         0xC8, 0x38, 0x9F, 0x7D, 0xEA, 0xDE, 0x9E};
 
@@ -142,7 +143,7 @@ TEST(Base64Decode, FailDecodeNonSize4Bigger)
 TEST(Base64Decode, FailDecodeNonBase64Short)
 {
     std::string const input{"a aa"};
-    auto const actual{base64pp::decode(input)};
+    auto const actual{decode(input)};
 
     ASSERT_EQ(actual, std::nullopt);
 }
@@ -151,7 +152,7 @@ TEST(Base64Decode, FailDecodeNonBase64Short)
 TEST(Base64Decode, FailDecodeNonBase64Longer)
 {
     std::string const input{"aaa`aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"};
-    auto const actual{base64pp::decode(input)};
+    auto const actual{decode(input)};
 
     ASSERT_EQ(actual, std::nullopt);
 }
@@ -160,7 +161,7 @@ TEST(Base64Decode, FailDecodeNonBase64Longer)
 TEST(Base64Decode, DecodesMissingTwoPads0)
 {
     std::string const input{"12"};
-    auto const actual{base64pp::decode(input)};
+    auto const actual{decode(input)};
     std::vector<std::uint8_t> const expected{0xD7};
 
     ASSERT_TRUE(actual);
@@ -172,7 +173,7 @@ TEST(Base64Decode, DecodesMissingTwoPads0)
 TEST(Base64Decode, DecodesMissingTwoPads1)
 {
     std::string const input = "AA";
-    auto const actual{base64pp::decode(input)};
+    auto const actual{decode(input)};
     std::vector<std::uint8_t> const expected{0x00};
 
     ASSERT_TRUE(actual);
@@ -183,7 +184,7 @@ TEST(Base64Decode, DecodesMissingTwoPads1)
 TEST(Base64Decode, DecodesMissingOnePad0)
 {
     std::string const input = "AAA";
-    auto const actual{base64pp::decode(input)};
+    auto const actual{decode(input)};
     std::vector<std::uint8_t> const expected{0x00, 0x00};
 
     ASSERT_TRUE(actual);
@@ -194,7 +195,7 @@ TEST(Base64Decode, DecodesMissingOnePad0)
 TEST(Base64Decode, DecodesMissingOnePad1)
 {
     std::string const input{"12a"};
-    auto const actual{base64pp::decode(input)};
+    auto const actual{decode(input)};
     std::vector<std::uint8_t> const expected{0xD7, 0x66};
 
     ASSERT_TRUE(actual);
@@ -207,7 +208,7 @@ TEST(Base64Decode, DecodesMissingOnePad1)
 TEST(Base64Decode, DecodesMissingIssueExample)
 {
     std::string const input = "eyJuYW1lIjoiSm9obiBEb2UifQ";
-    auto const actual{base64pp::decode(input)};
+    auto const actual{decode(input)};
 
     std::string const expected_str = R"({"name":"John Doe"})";
     std::vector<std::uint8_t> const expected{begin(expected_str), end(expected_str)};
@@ -221,7 +222,7 @@ TEST(Base64Decode, DecodesEmptyString)
 {
     std::string const input{};
     std::vector<std::uint8_t> expected{};
-    auto const actual{base64pp::decode("")};
+    auto const actual{decode("")};
 
     ASSERT_EQ(expected, actual);
 }
@@ -231,7 +232,7 @@ TEST(Base64Decode, DecodesZeroArray)
 {
     std::string const input{"AAAA"};
     std::vector<std::uint8_t> const expected{0x00, 0x00, 0x00};
-    auto const actual{base64pp::decode(input)};
+    auto const actual{decode(input)};
 
     ASSERT_EQ(actual, expected);
 }
@@ -241,7 +242,7 @@ TEST(Base64Decode, DecodesZeroArrayTwice)
 {
     std::string const input{"AAAAAAAA"};
     std::vector<std::uint8_t> const expected{0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-    auto const actual{base64pp::decode(input)};
+    auto const actual{decode(input)};
 
     ASSERT_EQ(actual, expected);
 }
@@ -251,7 +252,7 @@ TEST(Base64Decode, DecodesZeroArrayOneByte)
 {
     std::string const input{"AA=="};
     std::vector<std::uint8_t> const expected{0x00};
-    auto const actual{base64pp::decode(input)};
+    auto const actual{decode(input)};
 
     ASSERT_EQ(actual, expected);
 }
@@ -261,7 +262,7 @@ TEST(Base64Decode, DecodesZeroArrayTwoBytes)
 {
     std::string const input{"AAA="};
     std::vector<std::uint8_t> const expected{0x00, 0x00};
-    auto const actual{base64pp::decode(input)};
+    auto const actual{decode(input)};
 
     ASSERT_EQ(actual, expected);
 }
@@ -273,7 +274,7 @@ TEST(Base64Decode, DecodesQuickFox)
     std::vector<std::uint8_t> const expected{0x54, 0x68, 0x65, 0x20, 0x71, 0x75, 0x69, 0x63, 0x6b, 0x20, 0x62, 0x72,
         0x6f, 0x77, 0x6e, 0x20, 0x66, 0x6f, 0x78, 0x20, 0x6a, 0x75, 0x6d, 0x70, 0x73, 0x20, 0x6f, 0x76, 0x65, 0x72,
         0x20, 0x74, 0x68, 0x65, 0x20, 0x6c, 0x61, 0x7a, 0x79, 0x20, 0x64, 0x6f, 0x67};
-    auto const actual{base64pp::decode(input)};
+    auto const actual{decode(input)};
     ASSERT_EQ(actual, expected);
 }
 
@@ -286,8 +287,8 @@ TEST(Base64RoundTripTests, AllPossibleBytes)
         all_possible_bytes.push_back(static_cast<std::uint8_t>(i));
     }
 
-    auto const encode_string = base64pp::encode({begin(all_possible_bytes), end(all_possible_bytes)});
-    auto const decoded_bytes = base64pp::decode(encode_string);
+    auto const encode_string = encode({begin(all_possible_bytes), end(all_possible_bytes)});
+    auto const decoded_bytes = decode(encode_string);
     ASSERT_TRUE(decoded_bytes);
     ASSERT_EQ(all_possible_bytes, *decoded_bytes);
 }
@@ -310,10 +311,10 @@ TEST(Base64RoundTripTests, ExhaustiveTests)
 
     for (auto const& b64_string : base64_strings)
     {
-        auto const decoded = base64pp::decode(b64_string);
+        auto const decoded = decode(b64_string);
         ASSERT_TRUE(decoded);
 
-        auto const encoded_round_trip = base64pp::encode({begin(*decoded), end(*decoded)});
+        auto const encoded_round_trip = encode({begin(*decoded), end(*decoded)});
         ASSERT_EQ(encoded_round_trip, b64_string);
     }
 }
@@ -332,7 +333,7 @@ TEST(Base64OverloadTests, EncodesString1)
 
     for (auto const& [input, expected] : test_cases)
     {
-        auto const actual = base64pp::encode_str(input);
+        auto const actual = encode_str(input);
         ASSERT_EQ(actual, expected);
     }
 }
