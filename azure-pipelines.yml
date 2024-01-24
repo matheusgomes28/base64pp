@@ -19,7 +19,7 @@ pool:
 resources:
   containers:
     - container: ubuntu18.04-gcc11-conan2-doxygen1.9.6
-      image: mattgomes28/cpp-ubuntu-bionic:0.11
+      image: mattgomes28/cpp-ubuntu-bionic:0.13
       options: --user 0:0
 
 stages:
@@ -56,11 +56,35 @@ stages:
 
   - template: scripts/pipeline/ubuntu_build.yml
     parameters:
+      jobName: ubuntu_build_x86_64_clang_debug
+      buildType: Debug
+      cmakePreset: unix-deb-ninja
+      containerName: ubuntu18.04-gcc11-conan2-doxygen1.9.6
+      artifactName: UbuntuClangDebugBuild
+      compiler: clang
+      compilerStd: 20
+      compilerLibCxx: libstdc++11
+      compilerVersion: 17
+
+  - template: scripts/pipeline/ubuntu_build.yml
+    parameters:
       jobName: ubuntu_build_x86_64_release
       buildType: Release
       cmakePreset: unix-rel
       containerName: ubuntu18.04-gcc11-conan2-doxygen1.9.6
       artifactName: UbuntuReleaseBuild
+
+  - template: scripts/pipeline/ubuntu_build.yml
+    parameters:
+      jobName: ubuntu_build_x86_64_clang_release
+      buildType: Release
+      cmakePreset: unix-rel-ninja
+      containerName: ubuntu18.04-gcc11-conan2-doxygen1.9.6
+      artifactName: UbuntuClangReleaseBuild
+      compiler: clang
+      compilerStd: 20
+      compilerLibCxx: libstdc++11
+      compilerVersion: 17
 
   - template: scripts/pipeline/ubuntu_build.yml
     parameters:

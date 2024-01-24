@@ -16,16 +16,33 @@ parameters:
   type: string
 - name: artifactName
   type: string
-
+- name: compiler
+  type: string
+  default: gcc
+- name: compilerStd
+  type: string
+  default: 17
+- name: compilerLibCxx
+  type: string
+  default: libstdc++11
+- name: compilerVersion
+  type: string
+  default: 11
 
 jobs:
 - job: ${{ parameters.jobName }}
-  displayName: Ubuntu ${{ parameters.buildType }} ${{ parameters.jobName }}
+  displayName: Ubuntu ${{ parameters.cmakePreset }}
   continueOnError: false
   container: ${{ parameters.containerName }}
   steps:
     - ${{ if eq(parameters.buildType, 'Debug') }}:
-      - bash: scripts/helpers/conan-install.sh ${{ parameters.buildType }}
+      - bash: |
+          COMPILER=${{ parameters.compiler }} \
+          COMPILER_STD=${{ parameters.compilerStd }} \
+          COMPILER_LIBCXX=${{ parameters.compilerLibCxx }} \
+          COMPILER_VERSION=${{ parameters.compilerVersion }} \
+          BUILD_TYPE=${{ parameters.buildType }} \
+          scripts/helpers/conan-install.sh
         displayName: Installing Conan Dependencies
 
     - bash: |

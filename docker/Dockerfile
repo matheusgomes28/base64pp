@@ -1,3 +1,5 @@
+# Version: 0.13
+
 #
 # We base our image from the alpine light image
 FROM ubuntu:bionic-20230301
@@ -17,7 +19,7 @@ LABEL maintainer="matheusgarcia28@gmail.com"
 RUN apt-get update \
     && apt-get install -y --no-install-recommends --no-install-suggests software-properties-common\
     && add-apt-repository ppa:ubuntu-toolchain-r/test \
-    && add-apt-repository ppa:savoury1/llvm-defaults-13 \
+    && add-apt-repository ppa:savoury1/llvm-defaults-17 \
     && apt-get install -y --no-install-recommends --no-install-suggests \
     curl \
     git \
@@ -33,19 +35,24 @@ RUN apt-get update \
     flex \
     bison \
     shellcheck \
-    clang-format-13 \
-    clang-tidy-13 \
+    clang-format-17 \
+    clang-tidy-17 \
+    clang-tools-17 \
     && mkdir "/conan" \
     && pip3 install --upgrade --no-cache --ignore-installed pip \
-    && pip3 install --no-cache -q --ignore-installed conan>=2 \
+    && pip3 install --no-cache -q --ignore-installed conan==2.0.17 \
     && chmod -R 777 "/conan" \
-    && pip3 install --no-cache --ignore-installed cmake==3.25.2 \
+    && pip3 install --no-cache -q --ignore-installed ninja==1.11.1 \
+    && pip3 install --no-cache --ignore-installed cmake==3.28 \
     && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 10 \
     && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 10 \
     && update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-11 10 \
-    && update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-13 10 \
-    && update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-13 10 \
-    && update-alternatives --install /usr/bin/run-clang-tidy run-clang-tidy /usr/bin/run-clang-tidy-13 10 \
+    && update-alternatives --install /usr/bin/clang clang /usr/bin/clang-17 10 \
+    && update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-17 10 \
+    && update-alternatives --install /usr/bin/clang-scan-deps clang-scan-deps /usr/bin/clang-scan-deps-17 10 \
+    && update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-17 10 \
+    && update-alternatives --install /usr/bin/run-clang-tidy run-clang-tidy /usr/bin/run-clang-tidy-17 10 \
+    && update-alternatives --install /usr/bin/ninja ninja /usr/local/bin/ninja 10 \
     && cd ~ \
     && wget https://github.com/linux-test-project/lcov/releases/download/v1.15/lcov-1.15.tar.gz \
     && tar xzf lcov-1.15.tar.gz \
