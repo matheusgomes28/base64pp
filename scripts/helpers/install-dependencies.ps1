@@ -8,7 +8,8 @@ param (
 # needs to work for the build
 
 # Install conan with chocolatey
-choco install conan --version=2.0.1 --installargs '/PathType:Machine' -y --no-progress
+choco install conan --version=2.0.17 --installargs '/PathType:Machine' -y --no-progress
+choco install ninja --version=1.11.1 --installargs '/PathType:Machine' -y --no-progress
 if(!$?) { Exit $LASTEXITCODE }
 
 # Set this because refreshenv doesn't work
@@ -30,6 +31,9 @@ $ConanProfile = Get-Content -Path "$(conan profile path default)"
 if(!$?) { Exit $LASTEXITCODE }
 $ConanProfile = $ConanProfile -Replace "build_type=Release", "build_type=$BuildType"
 $ConanProfile = $ConanProfile -Replace "compiler.runtime=dynamic", "compiler.runtime=static"
+$ConanProfile += "[conf]"
+$ConanProfile += "tools.cmake.cmaketoolchain:generator=Ninja"
+
 Write-Output "---- New conan profile -----"
 Set-Content -Path $ConanProfileFile -Value $ConanProfile
 Write-Output $ConanProfile

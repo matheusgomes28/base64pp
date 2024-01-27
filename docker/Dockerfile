@@ -38,16 +38,19 @@ RUN apt-get update \
     clang-format-17 \
     clang-tidy-17 \
     clang-tools-17 \
+    libclang-rt-17-dev \
     && mkdir "/conan" \
     && pip3 install --upgrade --no-cache --ignore-installed pip \
     && pip3 install --no-cache -q --ignore-installed conan==2.0.17 \
     && chmod -R 777 "/conan" \
     && pip3 install --no-cache -q --ignore-installed ninja==1.11.1 \
     && pip3 install --no-cache --ignore-installed cmake==3.28 \
+    && pip3 install --no-cache --ignore-installed ninja \
     && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 10 \
     && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 10 \
     && update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-11 10 \
     && update-alternatives --install /usr/bin/clang clang /usr/bin/clang-17 10 \
+    && update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-17 10 \
     && update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-17 10 \
     && update-alternatives --install /usr/bin/clang-scan-deps clang-scan-deps /usr/bin/clang-scan-deps-17 10 \
     && update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-17 10 \

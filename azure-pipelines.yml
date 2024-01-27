@@ -49,7 +49,7 @@ stages:
     parameters:
       jobName: ubuntu_build_x86_64_debug
       buildType: Debug
-      cmakePreset: unix-deb
+      cmakePreset: unix-deb-ninja
       cmakeExtraArgs: -DBUILD_DOCS="On"
       containerName: ubuntu18.04-gcc11-conan2-doxygen1.9.6
       artifactName: UbuntuDebugBuild
@@ -61,7 +61,8 @@ stages:
       cmakePreset: unix-deb-ninja
       containerName: ubuntu18.04-gcc11-conan2-doxygen1.9.6
       artifactName: UbuntuClangDebugBuild
-      compiler: clang
+      cxx: clang++
+      cc: clang
       compilerStd: 20
       compilerLibCxx: libstdc++11
       compilerVersion: 17
@@ -70,7 +71,7 @@ stages:
     parameters:
       jobName: ubuntu_build_x86_64_release
       buildType: Release
-      cmakePreset: unix-rel
+      cmakePreset: unix-rel-ninja
       containerName: ubuntu18.04-gcc11-conan2-doxygen1.9.6
       artifactName: UbuntuReleaseBuild
 
@@ -81,7 +82,8 @@ stages:
       cmakePreset: unix-rel-ninja
       containerName: ubuntu18.04-gcc11-conan2-doxygen1.9.6
       artifactName: UbuntuClangReleaseBuild
-      compiler: clang
+      cxx: clang++
+      cc: clang
       compilerStd: 20
       compilerLibCxx: libstdc++11
       compilerVersion: 17
