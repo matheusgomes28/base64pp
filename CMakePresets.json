@@ -29,17 +29,29 @@
             }
         },
         {
-            "name": "unix",
+            "name": "unix-make",
             "hidden": true,
             "generator": "Unix Makefiles",
             "cacheVariables": {
+                "CMAKE_CXX_COMPILER": "g++",
+                "CMAKE_C_COMPILER": "gcc",
+                "CMAKE_CXX_FLAGS_INIT": "$env{CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -pedantic"
+            }
+        },
+        {
+            "name": "unix-ninja",
+            "hidden": true,
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "clang-17",
+                "CMAKE_CXX_COMPILER": "clang++-17",
                 "CMAKE_CXX_FLAGS_INIT": "$env{CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -pedantic"
             }
         },
         {
             "name": "unix-shared",
             "hidden": true,
-            "inherits": "unix",
+            "inherits": "unix-make",
             "cacheVariables": {
                 "CMAKE_CXX_FLAGS_INIT": "$env{CMAKE_CXX_FLAGS_INIT} $env{CMAKE_CXX_FLAGS} -fPIC -Werror -Wall -Wextra -pedantic",
                 "BUILD_SHARED_LIBS": true
@@ -67,9 +79,18 @@
             "name": "unix-rel",
             "displayName": "Unix Make Release",
             "binaryDir": "${sourceDir}/build/unix-rel",
-            "inherits": ["unix", "rel"],
+            "inherits": ["unix-make", "rel"],
             "cacheVariables": {
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/unix-rel/install"
+            }
+        },
+        {
+            "name": "unix-rel-ninja",
+            "displayName": "Unix Ninja Clang Release",
+            "binaryDir": "${sourceDir}/build/unix-rel-ninja",
+            "inherits": ["unix-ninja", "rel"],
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/unix-rel-ninja/install"
             }
         },
         {
@@ -85,10 +106,20 @@
             "name": "unix-deb",
             "displayName": "Unix Make Debug",
             "binaryDir": "${sourceDir}/build/unix-deb",
-            "inherits": ["unix", "deb", "conan-deb"],
+            "inherits": ["unix-make", "deb", "conan-deb"],
             "cacheVariables": {
                 "CMAKE_CXX_FLAGS": "-O0 --coverage -g -fsanitize=address",
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/unix-deb/install"
+            }
+        },
+        {
+            "name": "unix-deb-ninja",
+            "displayName": "Unix Ninja Clang Debug",
+            "binaryDir": "${sourceDir}/build/unix-deb-ninja",
+            "inherits": ["unix-ninja", "deb", "conan-deb"],
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS": "-O0 --coverage -g -fsanitize=address",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/unix-deb-ninja/install"
             }
         },
         {
@@ -169,6 +200,12 @@
             "configuration": "Debug"
         },
         {
+            "name": "unix-deb-ninja",
+            "displayName": "Unix Ninja Debug Build",
+            "configurePreset": "unix-deb-ninja",
+            "configuration": "Debug"
+        },
+        {
             "name": "unix-deb-shared",
             "displayName": "Unix Make Debug Build",
             "configurePreset": "unix-deb-shared",
@@ -178,6 +215,12 @@
             "name": "unix-rel",
             "displayName": "Unix Make Release Build",
             "configurePreset": "unix-rel",
+            "configuration": "Release"
+        },
+        {
+            "name": "unix-rel-ninja",
+            "displayName": "Unix Ninja Release Build",
+            "configurePreset": "unix-rel-ninja",
             "configuration": "Release"
         },
         {
