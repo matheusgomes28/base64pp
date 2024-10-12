@@ -84,7 +84,7 @@ the directory `base64pp` into your own project.
 
 However, if you are including the project with submodule or copying
 the `base64pp` directory, make sure to call
-`add_subdirectory(path-to/base4pp)` in your `CMakeLists.txt`.
+`add_subdirectory(path-to/base64pp)` in your `CMakeLists.txt`.
 
 ### Package Managers
 
