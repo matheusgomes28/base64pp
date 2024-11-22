@@ -44,8 +44,10 @@
             "generator": "Ninja",
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "clang-17",
-                "CMAKE_CXX_COMPILER": "clang++-17",
-                "CMAKE_CXX_FLAGS_INIT": "$env{CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -pedantic"
+		        "CMAKE_CXX_COMPILER": "clang++-17",
+                "CMAKE_CXX_FLAGS_INIT": "$env{CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -pedantic",
+                "CMAKE_CXX_SCAN_FOR_MODULES": true,
+		        "CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS": "/usr/bin/clang-scan-deps-17"
             }
         },
         {
@@ -60,7 +62,7 @@
         {
             "name": "vs2022",
             "hidden": true,
-            "generator": "Visual Studio 17 2022",
+            "generator": "Ninja",
             "cacheVariables": {
                 "CMAKE_CXX_FLAGS_INIT": "$env{CMAKE_CXX_FLAGS_INIT} $env{CMAKE_CXX_FLAGS} /W4 /WX /EHsc"
             }
@@ -68,8 +70,9 @@
         {
             "name": "vs2022-shared",
             "hidden": true,
-            "generator": "Visual Studio 17 2022",
+            "generator": "Ninja",
             "cacheVariables": {
+                "CMAKE_CXX_COMPILER": "cl.exe",
                 "CMAKE_CXX_FLAGS_INIT": "$env{CMAKE_CXX_FLAGS_INIT} $env{CMAKE_CXX_FLAGS} /W4 /WX /EHsc",
                 "BUILD_SHARED_LIBS": true
             }

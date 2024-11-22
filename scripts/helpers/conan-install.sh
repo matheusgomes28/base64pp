@@ -8,14 +8,15 @@ set -euo pipefail
 '
 PROJECT_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 BUILD_TYPE=${BUILD_TYPE-Debug}
-COMPILER=${COMPILER-"gcc"}
+CXX=${CXX-"g++"}
+CC=${CC-"gcc"}
 COMPILER_STD=${COMPILER_STD-"17"}
 COMPILER_LIBCXX=${COMPILER_LIBCXX-"libstdc++11"}
 COMPILER_VERSION=${COMPILER_VERSION-"11"}
 
 conan profile detect --force
 sed -i "s/build_type=Release/build_type=${BUILD_TYPE}/g" "$(conan profile path default)"
-sed -i "s/compiler=.*/compiler=${COMPILER}/g" "$(conan profile path default)"
+sed -i "s/compiler=.*/compiler=${CC}/g" "$(conan profile path default)"
 sed -i "s/compiler.cppstd=.*/compiler.cppstd=${COMPILER_STD}/g" "$(conan profile path default)"
 sed -i "s/compiler.libcxx=.*/compiler.libcxx=${COMPILER_LIBCXX}/g" "$(conan profile path default)"
 sed -i "s/compiler.version=.*/compiler.version=${COMPILER_VERSION}/g" "$(conan profile path default)"
@@ -27,7 +28,7 @@ if [ "${BUILD_TYPE}" = "Release" ]; then
 fi
 
 # Install all dependencies
-CXX="${COMPILER}" CC="${COMPILER}" conan install \
+CXX="${CXX}" CC="${CC}" conan install \
   --output-folder="${CONAN_DIR}" \
   --build=missing \
   "${PROJECT_DIR}"
